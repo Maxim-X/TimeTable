@@ -1,0 +1,17 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# ЗАПРЕЩЁННЫЕ ФАЙЛЫ
+RewriteRule .htaccess - [F]
+
+# ПРАВИЛА mod_rewrite
+RewriteRule ^index.html$ index.php [L]
+
+RewriteRule ^login(/?)+$ index.php?option=login [L]
+RewriteRule ^login(/?)+$ index.php?option=login [L]
+
+RewriteRule ^login/([-a-zA-Z0-9_]+)(/?)+$ index.php?option=login&id=$1 [L] 

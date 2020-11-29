@@ -7,7 +7,7 @@ define("INDEX", ""); // УСТАНОВКА КОНСТАНТЫ ГЛАВНОГО �
 
 require_once($_SERVER["DOCUMENT_ROOT"]."/config/config.db.php"); // информация о базе данных
 require_once($_SERVER["DOCUMENT_ROOT"]."/assets/main/RedBean.php"); // подключение RedBeanPHP
-require_once($_SERVER["DOCUMENT_ROOT"]."/assets/main/Route.php"); // подключение RedBeanPHP
+require_once($_SERVER["DOCUMENT_ROOT"]."/assets/main/Route.php"); // подключение маршрутизации
 
 
 // подключение к базе данных
@@ -26,7 +26,7 @@ R::ext('xdispense', function( $type ){
 /**
  * ГЛАВНЫЙ КОНТРОЛЛЕР
  */
-Route::path("", function(){
+Route::path("/", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.home.php");
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/home.php");
 });
@@ -38,17 +38,7 @@ Route::path("login/{id}", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.login.php");
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/login.php");
 }, ["id"=>"[a-zA-Z]+"]);
-// echo $_GET["option"];
-// switch ($_GET["option"]) {
-// 	case "login":
-// 		include($_SERVER["DOCUMENT_ROOT"]."/components/comp.login.php");
-// 		include($_SERVER["DOCUMENT_ROOT"]."/pages/login.php");
-// 		break;
-// 	default:
-// 		include($_SERVER["DOCUMENT_ROOT"]."/components/comp.home.php");
-// 		include($_SERVER["DOCUMENT_ROOT"]."/pages/home.php");
-// 		break;
-// }
+
 
 
 // include ($_SERVER[DOCUMENT_ROOT]."/template.php");

@@ -12,6 +12,5 @@ RewriteRule .htaccess - [F]
 RewriteRule ^index.html$ index.php [L]
 
 RewriteRule ^login(/?)+$ index.php?option=login [L]
-RewriteRule ^login(/?)+$ index.php?option=login [L]
 
 RewriteRule ^login/([-a-zA-Z0-9_]+)(/?)+$ index.php?option=login&id=$1 [L] 

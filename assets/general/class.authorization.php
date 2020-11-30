@@ -5,8 +5,6 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/assets/main/RedBean.php");
  */
 class Authorization 
 {
-
-
 	public static function auth(){ //$login, $password
 		echo R::testConnection();
 	}	

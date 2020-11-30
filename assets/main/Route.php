@@ -10,11 +10,7 @@ class Route
 		$url_now = explode('?', $url_now);
 		$url_now = $url_now[0];
 		$url_now = trim($url_now, '/');
-
 		$url = trim($url, '/');
-
-		// echo $url_now."<br>";
-		// echo $url."<br>";
 
 		//
 		// Поиск элементов для замены
@@ -33,34 +29,15 @@ class Route
 				}
 			}
 		}
-		
-
 		//
 		// Поиск элементов для замены
 		//
-		$re = "/^".$url."$/m";
-		// echo "r ".$re;
-		// $re = '/login\/[-a-zA-Z0-9_]+\/12/m';
+		$re = "/^{$url}$/m";
+
 		preg_match_all($re, $url_now, $matches, PREG_SET_ORDER, 0);
 
 		if (count($matches) != 0) {
 			$func();
 		}
-		
 	}
-// $url_now = $_SERVER['REQUEST_URI'];
-// 		$url_now = explode('?', $url_now);
-// 		$url_now = $url_now[0];
-// 		$url_now = trim($url_now, '/');
-
-// 		$url = trim($url, '/');
-
-// 		echo $url_now."<br>";
-// 		echo $url."<br>";
-// 		// echo "<br>";
-// 		// echo preg_match("/^login\/${id}/", $url);
-
-// 		if ($url == $url_now) {
-// 			$func();
-// 		}
 }

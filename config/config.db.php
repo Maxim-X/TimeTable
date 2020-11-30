@@ -3,8 +3,8 @@
 // MYSQL
 class db
 {
-	public $HostDB = "localhost";
-	public $UserDB = "root";
-	public $PassDB = "root";
-	public $BaseDB = "db_time_table";
+	public static $HostDB = "localhost";
+	public static $UserDB = "root";
+	public static $PassDB = "root";
+	public static $BaseDB = "db_time_table";
 }

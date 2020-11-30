@@ -1,4 +1,5 @@
 <?php 
+# Старт сессии
 session_start();
 
 # Старт буфера
@@ -7,13 +8,11 @@ define("INDEX", ""); // УСТАНОВКА КОНСТАНТЫ ГЛАВНОГО �
 
 require_once($_SERVER["DOCUMENT_ROOT"]."/config/config.db.php"); // информация о базе данных
 require_once($_SERVER["DOCUMENT_ROOT"]."/assets/main/RedBean.php"); // подключение RedBeanPHP
-require_once($_SERVER["DOCUMENT_ROOT"]."/assets/main/Route.php"); // подключение маршрутизации
+require_once($_SERVER["DOCUMENT_ROOT"]."/assets/main/Route.php"); // подключение маршрутизатора
 
 
 // подключение к базе данных
-
-$db = new db();
-R::setup( "mysql:host={$db->HostDB};dbname={$db->BaseDB}", "{$db->UserDB}", "{$db->PassDB}" );
+R::setup( "mysql:host=".db::$HostDB."; dbname=".db::$BaseDB, db::$UserDB, db::$PassDB );
 if(!R::testConnection()) die('Ошибка подключения к Базе Данных!');
 
 R::ext('xdispense', function( $type ){

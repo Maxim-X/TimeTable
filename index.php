@@ -18,7 +18,7 @@ R::ext('xdispense', function( $type ){
   return R::getRedBean()->dispense( $type );
 });
 
-
+require($_SERVER["DOCUMENT_ROOT"]."/assets/start/class.user.php"); // определяем пользователя
 
 
 /**

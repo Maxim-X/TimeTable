@@ -4,7 +4,7 @@
  */
 class Account
 {
-	public static $AUTH = "false";
+	public static $AUTH = false;
 	public static $ID;
 	public static $EMAIL;
 	public static $LOGIN;
@@ -16,7 +16,7 @@ class Account
 	public static function init()
 	{
 		if (self::auth_check()) {
-			self::$AUTH = "true";
+			self::$AUTH = true;
 			self::$ID = $_SESSION['user_id'];
 			// $user_data = R::
 			self::$EMAIL = 		$user_data["email"];
@@ -27,7 +27,13 @@ class Account
 			self::$ACCESSLEVEL = 	$user_data["accesslevel"];
 		}
 	}
-	public static function auth(){
+	public static function auth($login, $password){
+		echo "string";
+		// echo R::testConnection();
+		// $_SESSION['user_id'] = 1;
+	}
+
+	public static function auth_id(){
 		echo "string";
 		// echo R::testConnection();
 		// $_SESSION['user_id'] = 1;

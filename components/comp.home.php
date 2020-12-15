@@ -9,3 +9,9 @@ if (Account::$AUTH) {
 }else{
 	echo "False";
 }
+
+
+echo "<pre>";
+$user_info = ["email" => "dkds.adk@mail.ru", "password" => "dkD3kdmsds"];
+var_dump(Account::signup($user_info));
+echo "</pre>";

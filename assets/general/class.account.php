@@ -50,7 +50,20 @@ class Account
 			return ["status" => false, "message" => $password_valid['message']];
 		}
 
-		return ["status" => true, "message" => "Успешная регистрация!"];
+		# генерация соли для пароля
+		$permitted_chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+		$salt = substr(str_shuffle($permitted_chars), 0, 10);
+
+		$password = password_hash($user_info['password'].$salt, PASSWORD_DEFAULT);
+
+		# регистрируем пользователя
+		$user = R::dispense('accounts');
+		$user->email 	= $user_info['email'];
+		$user->password = $password;
+		$user->salt = $salt;
+		// R::store($user);
+
+		return ["status" => true, "message" => "Успешная регистрация! ".$password];
 	}
 
 	public static function auth_id(){

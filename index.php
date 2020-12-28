@@ -21,12 +21,16 @@ R::ext('xdispense', function( $type ){
   return R::getRedBean()->dispense( $type );
 });
 
-require($_SERVER["DOCUMENT_ROOT"]."/assets/start/class.user.php"); // определяем пользователя
+require($_SERVER["DOCUMENT_ROOT"]."/assets/start/account.init.php"); // определяем пользователя
 
 
-/**
- * ГЛАВНЫЙ КОНТРОЛЛЕР
- */
+
+
+/*
+ | ГЛАВНЫЙ КОНТРОЛЛЕР
+*/
+
+ include($_SERVER["DOCUMENT_ROOT"]."/inc/header.php");
 
 Route::path("/", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.home.php");
@@ -36,14 +40,15 @@ Route::path("/login", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.login.php");
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/login.php");
 });
-Route::path("/login/{id}", function(){
-	echo "string";
-	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.login.php");
-	include($_SERVER["DOCUMENT_ROOT"]."/pages/login.php");
-}, ["id"=>"[a-zA-Z]+"]);
+// Route::path("/login/{id}", function(){
+// 	echo "string";
+// 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.login.php");
+// 	include($_SERVER["DOCUMENT_ROOT"]."/pages/login.php");
+// }, ["id"=>"[a-zA-Z]+"]);
 
-/**
- * ГЛАВНЫЙ КОНТРОЛЛЕР
- */
+/*
+ | ГЛАВНЫЙ КОНТРОЛЛЕР
+*/
 
 
+include($_SERVER["DOCUMENT_ROOT"]."/inc/footer.php");

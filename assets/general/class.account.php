@@ -15,7 +15,6 @@ class Account
 
 	 
 	# SESSION
-	private static $sess_user_id = "user_id";
 	private static $sess_user_key = "key_session";
 
 	#
@@ -24,7 +23,9 @@ class Account
 	public static function init()
 	{
 		if (self::auth_check()) {
-			$user_data_db = R::findOne('accounts', $_SESSION[$sess_user_id]);
+			$user_session = R::findOne('sessions', 'key_session = ?', array($_SESSION[$sess_user_key]));
+			$user_data_db = R::findOne('accounts', $user_session['user_id']);
+
 			if ($user_data_db) {
 				self::$AUTH 		= true;
 				self::$ID 			= $user_data_db->id;
@@ -38,12 +39,11 @@ class Account
 		}
 	}
 
-	public static function auth($email, $password){
+	public static function auth($login, $password){
 		if (!self::auth_check()) {
-			$user_data_db = R::findOne('accounts', 'email = ?', array($email));
+			$user_data_db = R::findOne('accounts', 'login = ?', array($login));
 			if ($user_data_db) {
 				if (password_verify($password.$user_data_db->salt, $user_data_db->password) ) {
-					$_SESSION[$sess_user_id] = $user_data_db->id;
 
 					# Создаем сессию
 					$add_session = self::add_session($user_data_db->id);
@@ -59,7 +59,7 @@ class Account
 				}
 				
 			}else{
-				return array("status" => false, "message" => "Пользователь с таким E-mail не найден!");
+				return array("status" => false, "message" => "Пользователь с таким логином не найден!");
 			}
 		}else{
 			return array("status" => false, "message" => "Вы уже авторизованы!");
@@ -67,8 +67,8 @@ class Account
 	}
 
 	public static function exit(){
-		unset($_SESSION[$sess_user_id]);
-		if (!isset($_SESSION[$sess_user_id])) {
+		unset($_SESSION[$sess_user_key]);
+		if (!isset($_SESSION[$sess_user_key])) {
 			return array("status" => true, "message" => "Вы вышли из аккаунта!");
 		}else{
 			return array("status" => false, "message" => "Ошибка выхода из аккаунта!");

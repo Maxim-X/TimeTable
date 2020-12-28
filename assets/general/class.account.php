@@ -16,6 +16,10 @@ class Account
 	 
 	# SESSION
 	private static $sess_user_id = "user_id";
+	private static $sess_user_key = "key_session";
+
+	#
+	private static $permitted_chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
 	public static function init()
 	{
@@ -33,21 +37,33 @@ class Account
 			}
 		}
 	}
+
 	public static function auth($email, $password){
-		$user_data_db = R::findOne('accounts', 'email = ?', array($email));
-		if ($user_data_db) {
-			if (password_verify($password.$user_data_db->salt, $user_data_db->password) ) {
-				$_SESSION[$sess_user_id] = $user_data_db->id;
-				return array("status" => true, "user_id" => $user_data_db->id, "message" => "Успешная авторизация!");
+		if (!self::auth_check()) {
+			$user_data_db = R::findOne('accounts', 'email = ?', array($email));
+			if ($user_data_db) {
+				if (password_verify($password.$user_data_db->salt, $user_data_db->password) ) {
+					$_SESSION[$sess_user_id] = $user_data_db->id;
+
+					# Создаем сессию
+					$add_session = self::add_session($user_data_db->id);
+					if ($add_session["status"]) {
+						return array("status" => true, "user_id" => $user_data_db->id, "message" => "Успешная авторизация!");
+					}else{
+						return array("status" => false, "message" => $add_session["message"]);
+					}
+
+					
+				}else{
+					return array("status" => false, "message" => "Неверно введен пароль!");
+				}
+				
 			}else{
-				return array("status" => false, "message" => "Неверно введен пароль!");
+				return array("status" => false, "message" => "Пользователь с таким E-mail не найден!");
 			}
-			
 		}else{
-			return array("status" => false, "message" => "Пользователь с таким E-mail не найден!");
+			return array("status" => false, "message" => "Вы уже авторизованы!");
 		}
-		// echo R::testConnection();
-		// $_SESSION['user_id'] = 1;
 	}
 
 	public static function exit(){
@@ -78,8 +94,8 @@ class Account
 		}
 
 		# генерация соли для пароля
-		$permitted_chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-		$salt = substr(str_shuffle($permitted_chars), 0, 10);
+		
+		$salt = substr(str_shuffle(self::$permitted_chars), 0, 10);
 
 		$password = password_hash($user_info['password'].$salt, PASSWORD_DEFAULT);
 
@@ -88,9 +104,39 @@ class Account
 		$user->email 	= $user_info['email'];
 		$user->password = $password;
 		$user->salt = $salt;
-		R::store($user);
+		// R::store($user);
+		
 
-		return ["status" => true, "message" => "Успешная регистрация! ".$password];
+
+
+		return ["status" => true, "message" => "Успешная регистрация!"];
+	}
+
+	public static function add_session($user_id){
+		if ($user_id <= 0) {
+			return array("status" => false, "message" => "Идентификатор пользователя введен неверно");
+		}
+
+		# Удаляем старые сессии пользователя
+		R::hunt('sessions', 'user_id = ?', array($user_id));
+
+		# Создаем новую сессию для пользователя
+		$session = R::dispense('sessions');
+		do{
+			$key_session = substr(str_shuffle(self::$permitted_chars), 0, 20);
+		} while (R::findOne('sessions', 'key_session = ?', array($key_session)));
+
+		$session->user_id 		= $user_id;
+		$session->key_session 	= $key_session;
+		$session->date_add 		= strtotime(date("Y-m-d H:i:s"));
+
+		if(!R::store($session)){
+			return array("status" => false, "message" => "Произошла ошибка при создании сессии!");
+		}
+
+		$_SESSION[$sess_user_key] = $key_session;
+		return array("status" => true, "message" => "Сессия успешно созданна!" );
+
 	}
 
 	public static function auth_id(){
@@ -100,8 +146,14 @@ class Account
 	}
 
 	public static function auth_check(){
-		if (isset($_SESSION[$sess_user_id])) {
-			return true;
+		if (isset($_SESSION[$sess_user_key])) {
+			$check_session = R::findOne('sessions', 'key_session = ?', array($_SESSION[$sess_user_key]));
+			if ($check_session) {
+				return true;
+			}else{
+				return false;
+			}
+			
 		}
 		return false;
 	}

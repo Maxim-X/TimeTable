@@ -1,7 +1,10 @@
 <?php 
-
-session_start(); // Старт сессии
-ob_start(); // Старт буфера
+// Старт сессии
+session_start(); 
+// Старт буфера
+ob_start(); 
+# Устанавливаем время по Гринвичу
+date_default_timezone_set('UTC'); 
 
 define("INDEX", ""); // УСТАНОВКА КОНСТАНТЫ ГЛАВНОГО КОНТРОЛЛЕРА
 

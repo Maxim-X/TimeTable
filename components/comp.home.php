@@ -22,3 +22,4 @@ echo "</pre>";
 if (Account::$AUTH) {
 	echo Account::$EMAIL;
 }
+

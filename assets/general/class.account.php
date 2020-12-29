@@ -22,6 +22,9 @@ class Account
 
 	public static function init()
 	{
+		# Удаляем все устаревшие сессии
+		self::delete_all_session_db();
+
 		if (self::auth_check()) {
 			$user_session = R::findOne('sessions', 'key_session = ?', array($_SESSION[$sess_user_key]));
 			$user_data_db = R::findOne('accounts', $user_session['user_id']);
@@ -156,6 +159,11 @@ class Account
 			
 		}
 		return false;
+	}
+
+	private static function delete_all_session_db(){
+		$time_old_sessions = strtotime(date("Y-m-d H:i:s")) - 1800; // устаревшие сессии
+		R::hunt('sessions', 'date_add <= ?', array($time_old_sessions));
 	}
 
 	private static function email_valid($email){

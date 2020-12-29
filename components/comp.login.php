@@ -1,6 +1,4 @@
 <?PHP 
-echo $_GET["exit"];
-var_dump($_GET);
 //Выход из аккаунта
 if (isset($_GET["exit"])) {
 	echo "1";
@@ -17,6 +15,7 @@ if (Account::$AUTH) {
 if (isset($_POST["authUser"])) {
 	$login = htmlspecialchars($_POST["inputLogin"]);
 	$password = htmlspecialchars($_POST["inputPassword"]);
+	
 	$auth = Account::auth($login, $password);
 	if ($auth["status"]) {
 		# code...

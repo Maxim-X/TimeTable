@@ -13,11 +13,11 @@
 						?>
 						<div class="mb-3">
 						    <label for="inputLoginAuth" class="form-label">Логин</label>
-							<input type="text" name="inputLogin" class="form-control" id="inputLoginAuth" placeholder="Введите ваш логин" required>
+							<input type="text" name="inputLogin" class="form-control" id="inputLoginAuth" placeholder="Введите ваш логин" value="<?=$login;?>" required>
 						</div>
 						<div class="mb-3">
 						    <label for="inputPasswordAuth" class="form-label">Пароль</label>
-							<input type="password" name="inputPassword" class="form-control" id="inputPasswordAuth" placeholder="Введите ваш пароль" required>
+							<input type="password" name="inputPassword" class="form-control" id="inputPasswordAuth" placeholder="Введите ваш пароль" value="<?=$password;?>" required>
 						</div>
 						<button type="submit" name="authUser" class="btn btn-primary" style="width: 100%;">Войти</button>
 					</form>

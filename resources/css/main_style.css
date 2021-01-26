@@ -32,14 +32,24 @@ body{
 	border-color: #3d89f4;
 }
 
+.inform_blue p:nth-last-child(1) {
+	margin-bottom: 0px;
+}
+
 .btn-def:hover{
 	background: #3a7edd;
 	background-color: #3a7edd;
 	border-color: #3a7edd;
 }
 
+.inform_blue {
+    background: #3d89f440;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: #212529;
+}
 
-section#login {
+section#login, section#reminder {
     margin-top: 75px;
 }
 

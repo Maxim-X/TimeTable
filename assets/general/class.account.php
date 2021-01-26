@@ -1,4 +1,11 @@
 <?PHP
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'assets/modules/phpmailer/Exception.php';
+require 'assets/modules/phpmailer/PHPMailer.php';
+require 'assets/modules/phpmailer/SMTP.php';
+
 /**
  * 
  */
@@ -103,7 +110,7 @@ class Account
 		$password = password_hash($user_info['password'].$salt, PASSWORD_DEFAULT);
 
 		# регистрируем пользователя
-		$user = R::dispense('accounts');
+		$user = R::xdispense('accounts');
 		$user->email 	= $user_info['email'];
 		$user->password = $password;
 		$user->salt = $salt;
@@ -124,7 +131,7 @@ class Account
 		R::hunt('sessions', 'user_id = ?', array($user_id));
 
 		# Создаем новую сессию для пользователя
-		$session = R::dispense('sessions');
+		$session = R::xdispense('sessions');
 		do{
 			$key_session = substr(str_shuffle(self::$permitted_chars), 0, 20);
 		} while (R::findOne('sessions', 'key_session = ?', array($key_session)));
@@ -204,5 +211,47 @@ class Account
 			$value = trim($value);
 		}
 		return $info;
+	}
+
+	public static function request_reminder_password($email){
+		// Удаляем старые запросы
+		self::delete_reminder_password();
+		if (!isset($email)) {
+			return array("status" => false, "message" => "E-mail введен некорректно!");
+		}
+
+		$user = R::findOne('accounts', 'email = ?', array($email));
+
+		if (!$user) {
+			return array("status" => false, "message" => "Пользователь с данным E-mail не найден!!");
+		}
+
+
+		$old_reminder = R::findOne('reminder_password', 'user_id = ?', array($user->id));
+
+		if ($old_reminder) {
+			return array("status" => false, "message" => "Запрос на восстановление пароля можно отправлять раз в 15 минут!");
+		}
+
+		$reminder = R::xdispense('reminder_password');
+		do{
+			$key_reminder = substr(str_shuffle(self::$permitted_chars), 0, 10);
+		} while (R::findOne('reminder_password', 'key_reminder = ?', array($key_reminder)));
+
+		$reminder->user_id 			= $user->id;
+		$reminder->key_reminder 	= $key_reminder;
+		$reminder->date_add 		= strtotime(date("Y-m-d H:i:s"));
+
+		if(!R::store($reminder)){
+			return array("status" => false, "message" => "Произошла ошибка при восстановлении пароля!");
+		}
+
+		return array("status" => true, "message" => "На вашу почту отправленна инструкция для восстановления пароля!");
+
+	}
+
+	private static function delete_reminder_password(){
+		$time_old_reminder = strtotime(date("Y-m-d H:i:s")) - 900; // устаревшие запросы
+		R::hunt('reminder_password', 'date_add <= ?', array($time_old_sessions));
 	}
 }

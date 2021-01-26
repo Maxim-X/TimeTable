@@ -1,7 +1,7 @@
 <?php 
-// Старт сессии
+# Старт сессии
 session_start(); 
-// Старт буфера
+# Старт буфера
 ob_start(); 
 # Устанавливаем время по Гринвичу
 date_default_timezone_set('UTC'); 
@@ -39,6 +39,10 @@ Route::path("/", function(){
 Route::path("/login", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.login.php");
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/login.php");
+});
+Route::path("reminder", function(){
+	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.reminder.php");
+	include($_SERVER["DOCUMENT_ROOT"]."/pages/reminder.php");
 });
 // Route::path("/login/{id}", function(){
 // 	echo "string";

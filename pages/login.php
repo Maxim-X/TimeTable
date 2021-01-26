@@ -30,7 +30,7 @@
 						<button type="submit" name="authUser" class="btn btn-primary btn-def" style="width: 100%;">Войти</button>
 					</form>
 					<div class="login_url">
-						<a href="#">Забыли пароль?</a>
+						<a href="/reminder">Забыли пароль?</a>
 					</div>
 				</div>
 			</div>

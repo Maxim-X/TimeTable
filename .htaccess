@@ -14,4 +14,5 @@ RewriteRule ^index.html$ index.php [L]
 #%{QUERY_STRING}
 RewriteRule ^login(/?)+$ index.php?option=login [L,QSA]
 RewriteRule ^login/([a-zA-Z]+)(/?)+$ index.php?option=login&id=$1 [L,QSA]  
-RewriteRule ^reminder(/?)+$ index.php?option=login [L,QSA]  
+RewriteRule ^reminder(/?)+$ index.php?option=reminder [L,QSA]  
+RewriteRule ^reminder/([a-zA-Z0-9]+)(/?)+$ index.php?option=reminder&key=$1 [L,QSA]  

@@ -33,7 +33,7 @@ class Account
 		self::delete_all_session_db();
 
 		if (self::auth_check()) {
-			$user_session = R::findOne('sessions', 'key_session = ?', array($_SESSION[$sess_user_key]));
+			$user_session = R::findOne('sessions', 'key_session = ?', array($_SESSION[self::$sess_user_key]));
 			$user_data_db = R::findOne('accounts', $user_session['user_id']);
 
 			if ($user_data_db) {
@@ -50,6 +50,7 @@ class Account
 	}
 
 	public static function auth($login, $password){
+		// dkD3kdmsds
 		if (!self::auth_check()) {
 			$user_data_db = R::findOne('accounts', 'login = ?', array($login));
 			if ($user_data_db) {
@@ -77,8 +78,10 @@ class Account
 	}
 
 	public static function exit(){
-		unset($_SESSION[$sess_user_key]);
-		if (!isset($_SESSION[$sess_user_key])) {
+		R::hunt('reminder_password', 'key_session = ?', array($_SESSION[self::$sess_user_key]));
+		unset($_SESSION[self::$sess_user_key]);
+
+		if (!isset($_SESSION[self::$sess_user_key])) {
 			return array("status" => true, "message" => "Вы вышли из аккаунта!");
 		}else{
 			return array("status" => false, "message" => "Ошибка выхода из аккаунта!");
@@ -111,10 +114,12 @@ class Account
 
 		# регистрируем пользователя
 		$user = R::xdispense('accounts');
+		$user->login 	= $user_info['login'];
 		$user->email 	= $user_info['email'];
 		$user->password = $password;
 		$user->salt = $salt;
-		// R::store($user);
+		$user->account_type = $user_info['account_type'];
+		R::store($user);
 		
 
 
@@ -144,7 +149,7 @@ class Account
 			return array("status" => false, "message" => "Произошла ошибка при создании сессии!");
 		}
 
-		$_SESSION[$sess_user_key] = $key_session;
+		$_SESSION[self::$sess_user_key] = $key_session;
 		return array("status" => true, "message" => "Сессия успешно созданна!" );
 
 	}
@@ -156,8 +161,8 @@ class Account
 	}
 
 	public static function auth_check(){
-		if (isset($_SESSION[$sess_user_key])) {
-			$check_session = R::findOne('sessions', 'key_session = ?', array($_SESSION[$sess_user_key]));
+		if (isset($_SESSION[self::$sess_user_key])) {
+			$check_session = R::findOne('sessions', 'key_session = ?', array($_SESSION[self::$sess_user_key]));
 			if ($check_session) {
 				return true;
 			}else{
@@ -246,12 +251,83 @@ class Account
 			return array("status" => false, "message" => "Произошла ошибка при восстановлении пароля!");
 		}
 
-		return array("status" => true, "message" => "На вашу почту отправленна инструкция для восстановления пароля!");
+		//Отправляем инструкцию
+
+		$mail = new PHPMailer;
+
+		$mail->From = "support@timetable.ru";
+		$mail->FromName = "Full Name";
+
+		$mail->addAddress($user->email, $user->login);
+
+		$mail->isHTML(true);
+
+		$rem_user_name = $user->login;
+		$rem_url = stripos($_SERVER['SERVER_PROTOCOL'],'https') === true ? 'https://' : 'http://'.$_SERVER['SERVER_NAME'].'/reminder/'.$key_reminder; 
+
+		$mail->Subject = "Инструкция по восстановлению пароля || TimeTable";
+		$mail->Body = 	"<p>Здравствуйте, {$rem_user_name}</p>";
+		$mail->Body .= 	"<p>На ваш аккаунт был создан запрос&nbsp;изменения&nbsp;пароля.</p>";
+		$mail->Body .= 	"<p>IP адрес: {$_SERVER['REMOTE_ADDR']}</p>";
+		$mail->Body .= 	"<a href=\"{$rem_url}\" class=\"es-button\" target=\"_blank\" style=\"mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:roboto, 'helvetica neue', helvetica, arial, sans-serif;font-size:18px;color:#FFFFFF;border-style:solid;border-color:#2980D9;border-width:10px 40px;display:inline-block;background:#2980D9;border-radius:5px;font-weight:normal;font-style:normal;line-height:22px;width:auto;text-align:center\">Сбросить пароль</a>";
+		$mail->AltBody = "";
+
+		try {
+			$mail->send();
+			return array("status" => true, "message" => "На вашу почту отправленна инструкция для восстановления пароля!");
+		} catch (Exception $e) {
+			return array("status" => false, "message" => "Mailer Error: " . $mail->ErrorInfo);
+		}
+
+		
 
 	}
 
 	private static function delete_reminder_password(){
 		$time_old_reminder = strtotime(date("Y-m-d H:i:s")) - 900; // устаревшие запросы
-		R::hunt('reminder_password', 'date_add <= ?', array($time_old_sessions));
+		R::hunt('reminder_password', 'date_add <= ?', array($time_old_reminder));
+	}
+
+	public static function edit_password($new_password, $user_id){
+
+		$password_valid = self::password_valid($new_password);
+		if (!$password_valid['status']) {
+			return array("status" => false, "message" => $password_valid['message']);
+		}
+
+		if (!isset($user_id) || !(int)$user_id > 0) {
+			return array("status" => false, "message" => "Идентификатор пользователя указан неверно!".gettype($user_id));
+		}
+
+		// Проверка валидности пароля
+
+		$password_valid = self::password_valid($new_password);
+		if (!$password_valid['status']) {
+			return ["status" => false, "message" => $password_valid['message']];
+		}
+
+
+		$edit_account = R::findOne('accounts', 'id = ?', array($user_id));
+
+		if (!$edit_account) {
+			return array("status" => false, "message" => "Пользователь не найден!".$user_id);
+		}
+
+		// Генерация соли для пароля
+		$salt = substr(str_shuffle(self::$permitted_chars), 0, 10);
+
+		// Шифруем пароль
+		$password = password_hash($new_password.$salt, PASSWORD_DEFAULT);
+
+		// Изменяем пароль пользователя
+		$edit_account->password = $password;
+		$edit_account->salt = $salt;
+
+		R::store($edit_account);
+		
+		return ["status" => true, "message" => "Пароль успешно изменен!"];
+
+
+
 	}
 }

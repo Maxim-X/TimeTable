@@ -17,20 +17,17 @@
 						}
 						?>
 						<div class="mb-3">
-						    <label for="inputReminderReminder" class="form-label">E-mail</label>
-							<input type="text" name="inputEmail" class="form-control" id="inputReminderReminder" placeholder="Введите ваш E-mail" value="<?=$reminder_email;?>" required>
+						    <label for="inputReminderPass" class="form-label">Новый пароль</label>
+							<input type="text" name="inputPassword" class="form-control" id="inputReminderPass" placeholder="Введите новый пароль" required>
 						</div>
+
 						<div class="mb-3">
 
 							<div class="g-recaptcha" data-sitekey="6LfauDoaAAAAAIunTLnBB5i4OvlC_GVVaBRzlW6X"></div>
 							
 						</div>
-						<button type="submit" name="reminderUser" class="btn btn-primary btn-def" style="width: 100%;">Отправить</button>
+						<button type="submit" name="reminderEditUser" class="btn btn-primary btn-def" style="width: 100%;">Отправить</button>
 					</form>
-					<div class="inform_blue mb-3 mt-4">
-						<p>Функция восстановления пароля доступна только для сотрудников учебной организации. </p>
-						<p>Если вы ученик/учитель, то вы можете обратиться к администрации своего учебного заведения для восстановления пароля.</p>
-					</div>
 				</div>
 			</div>
 		</div>

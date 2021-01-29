@@ -16,7 +16,6 @@ if (isset($_POST["authUser"])) {
 	$login = htmlspecialchars($_POST["inputLogin"]);
 	$password = htmlspecialchars($_POST["inputPassword"]);
 
-	// ваш секретный ключ
 	$recaptcha = $_POST['g-recaptcha-response'];
 
 	if(!empty($recaptcha))

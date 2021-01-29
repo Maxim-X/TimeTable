@@ -30,7 +30,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/assets/start/account.init.php"); // опре
  | ГЛАВНЫЙ КОНТРОЛЛЕР
 */
 
- include($_SERVER["DOCUMENT_ROOT"]."/inc/header.php");
+include($_SERVER["DOCUMENT_ROOT"]."/inc/header.php");
 
 Route::path("/", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.home.php");
@@ -40,10 +40,14 @@ Route::path("/login", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.login.php");
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/login.php");
 });
-Route::path("reminder", function(){
+Route::path("/reminder", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.reminder.php");
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/reminder.php");
 });
+Route::path("/reminder/{key}", function(){
+	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.reminder.edit.php");
+	include($_SERVER["DOCUMENT_ROOT"]."/pages/reminder.edit.php");
+}, ["key"=>"[a-zA-Z0-9]+"]);
 // Route::path("/login/{id}", function(){
 // 	echo "string";
 // 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.login.php");

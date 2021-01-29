@@ -27,14 +27,18 @@ class Account
 	#
 	private static $permitted_chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
-	public static function init()
-	{
+	public static function init(){
+
 		# Удаляем все устаревшие сессии
 		self::delete_all_session_db();
 
 		if (self::auth_check()) {
 			$user_session = R::findOne('sessions', 'key_session = ?', array($_SESSION[self::$sess_user_key]));
 			$user_data_db = R::findOne('accounts', $user_session['user_id']);
+
+			// Обновляем сессию
+			$user_session->date_add = strtotime(date("Y-m-d H:i:s"));;
+			R::store($user_session);
 
 			if ($user_data_db) {
 				self::$AUTH 		= true;
@@ -50,7 +54,7 @@ class Account
 	}
 
 	public static function auth($login, $password){
-		// dkD3kdmsds
+
 		if (!self::auth_check()) {
 			$user_data_db = R::findOne('accounts', 'login = ?', array($login));
 			if ($user_data_db) {

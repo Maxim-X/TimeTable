@@ -33,8 +33,13 @@ require($_SERVER["DOCUMENT_ROOT"]."/assets/start/account.init.php"); // опре
 include($_SERVER["DOCUMENT_ROOT"]."/inc/header.php");
 
 Route::path("/", function(){
-	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.home.php");
-	include($_SERVER["DOCUMENT_ROOT"]."/pages/home.php");
+	if (Account::$AUTH) {
+		include($_SERVER["DOCUMENT_ROOT"]."/components/comp.account.php");
+		include($_SERVER["DOCUMENT_ROOT"]."/pages/account.php");
+	}else{
+		include($_SERVER["DOCUMENT_ROOT"]."/components/comp.home.php");
+		include($_SERVER["DOCUMENT_ROOT"]."/pages/home.php");
+	}
 });
 Route::path("/login", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.login.php");

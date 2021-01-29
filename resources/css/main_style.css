@@ -58,6 +58,75 @@ section#login, section#reminder {
     margin-bottom: 1rem;
 }
 
+.left_menu {
+    /* background-color: #0C132C; */
+    /* height: 100vh; */
+    /* position: fixed; */
+    /* width: 100%; */
+}
+
+section#left_menu {
+    background-color: #0C132C;
+    height: 100vh;
+    position: fixed;
+    width: inherit;
+}
+
+.left_menu .logo {
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+}
+
+.left_menu .logo img {
+    width: 135px;
+}
+
+.elem_menu {
+    margin-top: 36px;
+    padding: 0px 20px;
+}
+
+.name_sec_menu {
+    color: #606367;
+    font-family: "Tahoma", sans-serif;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.elem_menu li {
+    display: block;
+    padding: 5px 0px;
+    margin-bottom: 5px;
+    transition: 0.2s;
+}
+
+.sec_menu span {
+    margin-left: 10px;
+    font-family: "Tahoma", sans-serif;
+    font-size: 15px;
+    color: #D6D6D6;
+}
+
+.elem_menu li a {
+    text-decoration: none;
+    padding: 15px 0px;
+}
+
+.elem_menu li:hover {
+    padding: 5px 0px 5px 5px;
+}
+
+.line_sec_menu {
+    height: 1px;
+    background-color: #29324e;
+    margin: 10px 0px;
+}
+
+.exit_sec_menu span {
+    color: #FF4848;
+}
+
 /* Large desktops and laptops */
 @media (min-width: 1200px) {
 	section#login {

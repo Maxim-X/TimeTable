@@ -22,8 +22,7 @@ if (isset($_POST["authUser"])) {
 	{
 		$auth = Account::auth($login, $password);
 		if ($auth["status"]) {
-			$current_url = ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
-			header("Location: {$current_url}/login");
+			header("Location: /");
 		}else{
 			$error_auth = $auth["message"];
 		}

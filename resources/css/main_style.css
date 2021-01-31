@@ -196,6 +196,26 @@ h1.main_header .highlight {
     margin-left: 150px;
 }
 
+.all_icon_search {
+    width: 13px;
+    overflow: hidden;
+    height: 44px;
+    transition: 0.5s;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+}
+
+.all_icon_search img {
+    transition: 0.5s;
+}
+
+.all_icon_search.active img {
+    transform: translateY(-42px);
+    transition: 0.5s;
+}
+
 /* Large desktops and laptops */
 @media (min-width: 1200px) {
 	section#login {

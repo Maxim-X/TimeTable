@@ -9,7 +9,12 @@
     </div>
     <div class="content_sec_menu">
       <div class="main_search">
-        <div class="img"><img src="resources/images/icon/loupe.svg" alt="loupe"></div>
+          <div class="img">
+            <div class="all_icon_search">
+              <img src="resources/images/icon/loupe.svg" alt="loupe">
+              <img src="resources/images/icon/cancel.svg" alt="cancel" name="clean_big_search">
+            </div>
+          </div>
         <div class="input_search"><input type="text" name="main_search" placeholder="Глобальный поиск..."></div>
       </div>
     </div>

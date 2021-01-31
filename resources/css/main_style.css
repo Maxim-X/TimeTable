@@ -188,8 +188,8 @@ h1.main_header .highlight {
     font-weight: 600;
 }
 
-section#content {
-    padding: 40px 30px 0px 30px;
+.main_content {
+    margin: 40px 30px 0px 30px;
 }
 
 .manu_top .content_sec_menu:nth-child(2) {

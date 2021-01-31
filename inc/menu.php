@@ -17,7 +17,7 @@
        <div class="line_sec_menu"></div>
        <li><a href="#"><div class="sec_menu"><img src="/resources/images/icon/copy.svg"><span>Панель администратора</span></div></a></li>
        <li><a href="#"><div class="sec_menu"><img src="/resources/images/icon/copy.svg"><span>Панель администратора</span></div></a></li>
-       <li><a href="#"><div class="sec_menu exit_sec_menu"><img src="/resources/images/icon/close.svg"><span>Выйти из аккаунта</span></div></a></li>
+       <li><a href="/login/?exit="><div class="sec_menu exit_sec_menu"><img src="/resources/images/icon/close.svg"><span>Выйти из аккаунта</span></div></a></li>
 
 
      </div>

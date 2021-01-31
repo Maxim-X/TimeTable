@@ -1,5 +1,20 @@
 <section id="menu_top">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="manu_top">
+    <div class="content_sec_menu">
+      <div class="data_time_web">
+        <span class="img"><img src="resources/images/icon/clock.svg" alt="clock"></span>
+        <span class="time" id="time"><span id="hours"><?=date("H");?></span>:<span id="min"><?=date("i");?></span></span>
+        <span class="date" id="date">10 Ноября</span>
+      </div>
+    </div>
+    <div class="content_sec_menu">
+      <div class="main_search">
+        <div class="img"><img src="resources/images/icon/loupe.svg" alt="loupe"></div>
+        <div class="input_search"><input type="text" name="main_search" placeholder="Глобальный поиск..."></div>
+      </div>
+    </div>
+  </div>
+<!--   <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -23,5 +38,5 @@
       </form>
     </div>
   </div>
-</nav>
+</nav> -->
 </section>

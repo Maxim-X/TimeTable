@@ -1,13 +1,11 @@
+<div class="big_line_top"></div>
 <section id="reminder">
 	<div class="container">
 		<div class="row">
-			<div class="col-xxl-4 col-xl-4 col-lg-3 d-md-none d-none d-lg-block d-xl-block d-xxl-block">
-				<img src="/resources/images/logo.svg" alt="Logo">
-			</div>
-			<div class="col-xxl-4 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+			<div class="col-xxl-4 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 mx-auto">
 				<div class="main_user_reminder">
 					<h3>Восстановление пароля</h3>
-					
+					<p class="title_head">Какой-то текст!</p>
 					<form method="POST" class="mt-5">
 						<?php
 						if (isset($error_reminder)) {

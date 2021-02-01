@@ -24,11 +24,29 @@ body{
     font-size: 2.1rem;
 }
 
-.main_user_login p {
+.main_user_login p.title_head {
     font-family: SF Pro Display, sans-serif;
     font-weight: 400;
     font-size: 1.1rem;
     margin-bottom: 3.5rem;
+}
+
+.main_user_login {
+    background: #ffffff;
+    padding: 25px 30px;
+    box-shadow: 0px 1px 10px -2px #a4a4a4;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.big_line_top{
+    background: #436DFF;
+    height: 170px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    z-index: 1;
 }
 
 .btn-def{
@@ -56,6 +74,29 @@ body{
 
 section#login, section#reminder {
     margin-top: 75px;
+    z-index: 10;
+    position: relative;
+}
+
+.main_user_reminder {
+    background: #ffffff;
+    padding: 25px 30px;
+    box-shadow: 0px 1px 10px -2px #a4a4a4;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.main_user_reminder h3 {
+    font-family: SF Pro Display, sans-serif;
+    font-weight: 500;
+    font-size: 1.6rem;
+}
+
+.main_user_reminder p.title_head {
+    font-family: SF Pro Display, sans-serif;
+    font-weight: 400;
+    font-size: 1.1rem;
+    margin-bottom: 3.5rem;
 }
 
 .login_url {

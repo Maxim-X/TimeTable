@@ -82,6 +82,9 @@
 											<input type="text" id="teacher_search" name="teacher_search" class="form-control" placeholder="ФИО преподавателя">
 										</div>
 										<div class="content_search">
+											<div class="nene_search">
+												<img src="resources/images/none_search.svg">
+											</div>
 											<!-- <div class="name_group_search">Преподаватели</div>
 											<div class="line_cont_search">
 												<a href="#">

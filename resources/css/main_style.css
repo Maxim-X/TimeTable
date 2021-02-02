@@ -326,6 +326,8 @@ h1.main_header .highlight {
     overflow-y: auto;
     padding-right: 5px;
     max-height: 185px;
+    position: relative;
+    height: 185px;
 }
 
 .block_func .content_search .name_group_search {
@@ -360,6 +362,13 @@ h1.main_header .highlight {
     font-weight: 400;
     color: #A4A4A4;
     text-transform: uppercase;
+}
+
+.content_search .nene_search {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
 }
 
 /* Large desktops and laptops */

@@ -2,6 +2,11 @@
 /**
  * Определение маршрута
  */
+
+// Библиотеки PHP Mobile Detect 
+// Определяет мобильное устройство пользователя
+require_once '/Mobile_Detect.php'; 
+
 class Route
 {
 	
@@ -39,5 +44,11 @@ class Route
 		if (count($matches) != 0) {
 			$func();
 		}
+	}
+
+	public static function is_mobile(){
+		$detect = new Mobile_Detect;	
+		$is_mobile = ($detect->isMobile() && !$detect->isTablet());
+		return $is_mobile;
 	}
 }

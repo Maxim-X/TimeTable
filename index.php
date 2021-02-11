@@ -33,10 +33,23 @@ require($_SERVER["DOCUMENT_ROOT"]."/assets/start/account.init.php"); // опре
 include($_SERVER["DOCUMENT_ROOT"]."/inc/header.php");
 
 Route::path("/", function(){
+	//Авторизованный пользователь
 	if (Account::$AUTH) {
-		include($_SERVER["DOCUMENT_ROOT"]."/components/comp.account.php");
-		include($_SERVER["DOCUMENT_ROOT"]."/pages/account.php");
-	}else{
+		//Пользователь использует мобильное устройство
+		if (Route::is_mobile()) {
+			include($_SERVER["DOCUMENT_ROOT"]."/components/comp.account.php");
+			include($_SERVER["DOCUMENT_ROOT"]."/pages/account.php");
+		}else{ //Пользователь не использует мобильное устройство
+			include($_SERVER["DOCUMENT_ROOT"]."/components/comp.account.php");
+			include($_SERVER["DOCUMENT_ROOT"]."/pages/account.php");
+		}
+		
+	}
+});
+
+Route::path("/", function(){
+	//Не авторизованный пользователь
+	if (!Account::$AUTH) {
 		include($_SERVER["DOCUMENT_ROOT"]."/components/comp.home.php");
 		include($_SERVER["DOCUMENT_ROOT"]."/pages/home.php");
 	}

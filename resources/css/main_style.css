@@ -371,6 +371,35 @@ h1.main_header .highlight {
     transform: translate(-50%, -50%);
 }
 
+a.btn.btn-primary.btn-def {
+    width: 100%;
+}
+
+.lineOR {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0px;
+}
+
+.lineOR .line {
+    width: 100%;
+    position: relative;
+}
+
+.lineOR .txt {
+    padding: 0px 28px;
+    white-space: nowrap;
+    color: #919191;
+    font-family: SF Pro Display, sans-serif;
+}
+button.btn-link {
+    border: none;
+    background: none;
+    text-align: left;
+    text-decoration: none;
+}
+.lineOR .line:before {content: "";background: #b4b4b4;height: 1px;width: 100%;position: absolute;top: 49%;}
+
 /* Large desktops and laptops */
 @media (min-width: 1200px) {
 	section#login {

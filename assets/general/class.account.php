@@ -14,10 +14,12 @@ class Account
 	public static $AUTH = false;
 	public static $ID;
 	public static $EMAIL;
+	public static $SESSION_KEY;
 	public static $LOGIN;
 	public static $NAME;
 	public static $SURNAME;
 	public static $MIDDLENAME;
+	public static $INSTITUTION_ID;
 	protected static $ACCESSLEVEL;
 
 	 
@@ -41,13 +43,15 @@ class Account
 			R::store($user_session);
 
 			if ($user_data_db) {
-				self::$AUTH 		= true;
-				self::$ID 			= $user_data_db->id;
-				self::$EMAIL 		= $user_data_db->email;
-				// self::$LOGIN 		= $user_data["login"];
-				// self::$NAME 		= $user_data["name"];
-				// self::$SURNAME 		= $user_data["surname"];
-				// self::$MIDDLENAME 	= $user_data["middlename"];
+				self::$AUTH 			= true;
+				self::$ID 				= $user_data_db->id;
+				self::$EMAIL 			= $user_data_db->email;
+				self::$SESSION_KEY 		= $_SESSION[self::$sess_user_key];
+				self::$LOGIN 			= $user_data_db->login;
+				self::$NAME 			= $user_data_db->name;
+				self::$SURNAME 			= $user_data_db->surname;
+				self::$MIDDLENAME 		= $user_data_db->middle_name;
+				self::$INSTITUTION_ID 	= $user_data_db->institution_id;
 				// self::$ACCESSLEVEL 	= $user_data["accesslevel"];
 			}
 		}

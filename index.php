@@ -58,6 +58,10 @@ Route::path("/login", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.login.php");
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/login.php");
 });
+Route::path("/reg/{step}", function(){
+	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.reg.php");
+	include($_SERVER["DOCUMENT_ROOT"]."/pages/reg.php");
+}, ["step"=>"[0-9]+"]);
 Route::path("/reminder", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.reminder.php");
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/reminder.php");

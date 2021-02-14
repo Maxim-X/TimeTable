@@ -56,7 +56,7 @@ class Account
 	public static function auth($login, $password){
 
 		if (!self::auth_check()) {
-			$user_data_db = R::findOne('accounts', 'login = ?', array($login));
+			$user_data_db = R::findOne('accounts', 'login = ? OR email = ?', array($login, $login));
 			if ($user_data_db) {
 				if (password_verify($password.$user_data_db->salt, $user_data_db->password) ) {
 
@@ -74,7 +74,7 @@ class Account
 				}
 				
 			}else{
-				return array("status" => false, "message" => "Пользователь с таким логином не найден!");
+				return array("status" => false, "message" => "Пользователь с таким логином или email не найден!");
 			}
 		}else{
 			return array("status" => false, "message" => "Вы уже авторизованы!");

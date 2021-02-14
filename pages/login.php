@@ -16,8 +16,8 @@
 						}
 						?>
 						<div class="mb-3">
-						    <label for="inputLoginAuth" class="form-label">Логин</label>
-							<input type="text" name="inputLogin" class="form-control" id="inputLoginAuth" placeholder="Введите ваш логин" value="<?=$login;?>" required>
+						    <label for="inputLoginAuth" class="form-label">Логин / Email</label>
+							<input type="text" name="inputLogin" class="form-control" id="inputLoginAuth" placeholder="Введите ваш логин или email" value="<?=$login;?>" required>
 						</div>
 						<div class="mb-4">
 						    <label for="inputPasswordAuth" class="form-label">Пароль</label>

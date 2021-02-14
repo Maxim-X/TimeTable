@@ -5,7 +5,7 @@
 
 // Библиотеки PHP Mobile Detect 
 // Определяет мобильное устройство пользователя
-require_once '/Mobile_Detect.php'; 
+require_once 'assets/modules/mobile_detect/Mobile_Detect.php'; 
 
 class Route
 {

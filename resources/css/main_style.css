@@ -5,7 +5,7 @@ html {
 }
 
 body{
-	background-color: #F5F6FA;
+	background-color: #212123;
 	font-family: sans-serif, Arial;
 }
 
@@ -112,7 +112,7 @@ section#login, section#reminder {
 }
 
 section#left_menu {
-    background-color: #0C132C;
+    background-color: #191919;
     height: 100vh;
     position: fixed;
     width: inherit;
@@ -162,9 +162,13 @@ section#left_menu {
     padding: 7px 0px 7px 5px;
 }
 
+.line_cont_search {
+    line-height: 24px;
+}
+
 .line_sec_menu {
     height: 1px;
-    background-color: #29324e;
+    background-color: #202020;
     margin: 10px 0px;
 }
 
@@ -178,19 +182,19 @@ section#menu_top {
 
 .data_time_web span {
     line-height: 60px;
-    color: #7B7B7B;
-    font-size: 14px;
+    color: #BBBBBB;
+    font-size: 13px;
     font-family: "Tahoma", sans-serif;
 }
 
 .main_search {
-    border: 1px solid #BEBEBE;
-    border-radius: 50px;
+    border-radius: 4px;
     display: grid;
     grid-template-columns: 18px max-content 18px auto;
     height: 44px;
     margin: 8px 0px;
     min-width: 300px;
+    background: #232323;
 }
 
 .main_search .img {
@@ -210,6 +214,10 @@ section#menu_top {
     width: 100%;
     font-family: "Tahoma", sans-serif;
     font-size: 15px;
+    color: white;
+}
+.main_search .input_search input::-webkit-input-placeholder {
+    color: #BBBBBB;
 }
 
 .main_search .img img {
@@ -222,10 +230,10 @@ section#menu_top {
     display: flex;
 }
 
-h1.main_header {font-family: "SF Pro Display", sans-serif;font-size: 30px;font-weight: 500;}
+h1.main_header {font-family: "SF Pro Display", sans-serif;font-size: 30px;font-weight: 500;color: white;}
 
 h1.main_header .highlight {
-    color: #436DFF;
+    color: #5C92FD;
     font-weight: 600;
 }
 
@@ -234,7 +242,7 @@ h1.main_header .highlight {
 }
 
 .manu_top .content_sec_menu:nth-child(2) {
-    margin-left: 150px;
+    margin-left: 35px;
 }
 
 .all_icon_search {
@@ -255,15 +263,16 @@ h1.main_header .highlight {
 .all_icon_search.active img {
     transform: translateY(-42px);
     transition: 0.5s;
+        cursor: pointer;
 }
 
 .block_func {
-    background: white;
-    border: 1px solid #DDDDDD;
+    background: #282B30;
     width: initial;
     padding: 10px;
     width: 400px;
     margin-right: 30px;
+    border-radius: 4px;
 }
 
 .block_func:nth-last-child(1) {
@@ -288,7 +297,7 @@ h1.main_header .highlight {
     font-family: "SF Pro Display", sans-serif;
     font-weight: 500;
     font-size: 21px;
-    color: #000000;
+    color: #ffffff;
 }
 
 .block_func .name a {
@@ -303,17 +312,26 @@ h1.main_header .highlight {
     margin-left: 5px;
 }
 
-.block_func .name .arrow {position: absolute;top: 50%;right: 13px;transform: translateY(-50%);}
-
+.block_func .name .arrow {
+    position: absolute;
+    top: 50%;
+    right: 13px;
+    transform: translateY(-50%);
+    transition: 0.4s;
+}
+.block_func .name a:hover .arrow {
+    transform: translate(5px, -50%);
+}
 .block_func .name {
     position: relative;
     margin-bottom: 20px;
 }
 
 .inp_search label {
-    color: #000000;
+    color: #C6C6C6;
     font-family: "SF Pro Display", sans-serif;
     font-size: 16px;
+    margin-bottom: 5px;
 }
 
 .block_func .search input:focus {
@@ -331,11 +349,11 @@ h1.main_header .highlight {
 }
 
 .block_func .content_search .name_group_search {
-    color: #9A9A9A;
+    color: #C6C6C6;
     font-family: "SF Pro Display", sans-serif;
-    font-size: 12px;
+    font-size: 11px;
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 600;
     margin-bottom: 5px;
     margin-top: 5px;
     letter-spacing: 0.4px;
@@ -352,7 +370,7 @@ h1.main_header .highlight {
     font-size: 16px;
     margin-bottom: 2px;
     font-weight: 400;
-    color: black;
+    color: white;
 }
 
 .block_func .content_search .line_cont_search .optionally {
@@ -360,8 +378,19 @@ h1.main_header .highlight {
     font-size: 14px;
     margin-bottom: 2px;
     font-weight: 400;
-    color: #A4A4A4;
+    color: #C6C6C6;
     text-transform: uppercase;
+}
+
+.form-control-input {
+    background: #303339;
+    border-color: #17181A;
+    color: white !important;
+}
+
+.form-control-input:focus {
+    background: #303339;
+    border-color: #17181A;
 }
 
 .content_search .nene_search {

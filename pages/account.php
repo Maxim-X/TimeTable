@@ -24,7 +24,7 @@
 									<div class="inp_search" id="student">
 										<label for="student_search">Быстрый поиск</label>
 										<div class="search">
-											<input type="text" id="student_search" name="student_search" class="form-control" placeholder="ФИО студента или группа">
+											<input type="text" id="student_search" name="student_search" class="form-control form-control-input" placeholder="ФИО студента или группа">
 										</div>
 										<div class="content_search">
 											<div class="name_group_search">Обучающиеся</div>
@@ -79,7 +79,7 @@
 									<div class="inp_search" id="teacher">
 										<label for="teacher_search">Быстрый поиск</label>
 										<div class="search">
-											<input type="text" id="teacher_search" name="teacher_search" class="form-control" placeholder="ФИО преподавателя">
+											<input type="text" id="teacher_search" name="teacher_search" class="form-control form-control-input" placeholder="ФИО преподавателя">
 										</div>
 										<div class="content_search">
 											<div class="nene_search">

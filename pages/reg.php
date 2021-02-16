@@ -1,4 +1,3 @@
-<div class="big_line_top"></div>
 <?PHP 
 if ($_GET['step'] == "1") {
 ?>
@@ -17,19 +16,19 @@ if ($_GET['step'] == "1") {
 						?>
 						<div class="mb-3">
 						    <label for="inputLoginreg" class="form-label">Логин</label>
-							<input type="text" name="inputLogin" class="form-control" id="inputLoginreg" placeholder="Введите ваш логин" value="<?=$login;?>" required>
+							<input type="text" name="inputLogin" class="form-control form-control-input" id="inputLoginreg" placeholder="Введите ваш логин" value="<?=$login;?>" required>
 						</div>
 						<div class="mb-3">
 						    <label for="inputEmailreg" class="form-label">Email</label>
-							<input type="email" name="inputEmail" class="form-control" id="inputEmailreg" placeholder="Введите ваш Email" value="<?=$email;?>" required>
+							<input type="email" name="inputEmail" class="form-control form-control-input" id="inputEmailreg" placeholder="Введите ваш Email" value="<?=$email;?>" required>
 						</div>
 						<div class="mb-3">
 						    <label for="inputPasswordreg" class="form-label">Пароль</label>
-							<input type="password" name="inputPassword" class="form-control" id="inputPasswordreg" placeholder="Введите ваш пароль" required>
+							<input type="password" name="inputPassword" class="form-control form-control-input" id="inputPasswordreg" placeholder="Введите ваш пароль" required>
 						</div>
 						<div class="mb-3">
 
-							<div class="g-recaptcha" data-sitekey="6LfauDoaAAAAAIunTLnBB5i4OvlC_GVVaBRzlW6X"></div>
+							<div class="g-recaptcha" data-theme="dark" data-sitekey="6LfauDoaAAAAAIunTLnBB5i4OvlC_GVVaBRzlW6X"></div>
 							
 						</div>
 						<button type="submit" name="regUser" class="btn btn-primary btn-def" style="width: 100%;">Войти</button>

@@ -18,30 +18,16 @@
         <div class="input_search"><input type="text" name="main_search" placeholder="Глобальный поиск..."></div>
       </div>
     </div>
-  </div>
-<!--   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" href="#">Hidden brand</a>
-      <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
-      </ul>
-      <form class="d-flex">
-        <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+    <div class="content_sec_menu">
+      <div class="user_name">
+        <div class="user">
+          <div class="name">Грин Николай Геннадьевич</div>
+          <div class="role">Преподаватель</div>
+        </div>
+        <div class="avatar">
+          <div class="letter">Н</div>
+        </div>
+      </div>
     </div>
   </div>
-</nav> -->
 </section>

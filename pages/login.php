@@ -1,4 +1,3 @@
-<div class="big_line_top"></div>
 <section id="login">
 	<div class="container">
 		<div class="row">
@@ -17,15 +16,15 @@
 						?>
 						<div class="mb-3">
 						    <label for="inputLoginAuth" class="form-label">Логин / Email</label>
-							<input type="text" name="inputLogin" class="form-control" id="inputLoginAuth" placeholder="Введите ваш логин или email" value="<?=$login;?>" required>
+							<input type="text" name="inputLogin" class="form-control form-control-input" id="inputLoginAuth" placeholder="Введите ваш логин или email" value="<?=$login;?>" required>
 						</div>
 						<div class="mb-4">
 						    <label for="inputPasswordAuth" class="form-label">Пароль</label>
-							<input type="password" name="inputPassword" class="form-control" id="inputPasswordAuth" placeholder="Введите ваш пароль" required>
+							<input type="password" name="inputPassword" class="form-control form-control-input" id="inputPasswordAuth" placeholder="Введите ваш пароль" required>
 						</div>
 						<div class="mb-3">
 
-							<div class="g-recaptcha" data-sitekey="6LfauDoaAAAAAIunTLnBB5i4OvlC_GVVaBRzlW6X"></div>
+							<div class="g-recaptcha" data-theme="dark" data-sitekey="6LfauDoaAAAAAIunTLnBB5i4OvlC_GVVaBRzlW6X"></div>
 							
 						</div>
 						<button type="submit" name="authUser" class="btn btn-primary btn-def" style="width: 100%;">Войти</button>

@@ -1,10 +1,9 @@
-<div class="big_line_top"></div>
 <section id="reminder">
 	<div class="container">
 		<div class="row">
 			<div class="col-xxl-4 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 mx-auto">
-				<div class="main_user_reminder">
-					<h3>Восстановление пароля</h3>
+				<div class="main_user_login">
+					<h3 style="font-size: 32px;">Восстановление пароля</h3>
 					<p class="title_head">Какой-то текст!</p>
 					<form method="POST" class="mt-5">
 						<?php
@@ -16,11 +15,11 @@
 						?>
 						<div class="mb-3">
 						    <label for="inputReminderReminder" class="form-label">E-mail</label>
-							<input type="text" name="inputEmail" class="form-control" id="inputReminderReminder" placeholder="Введите ваш E-mail" value="<?=$reminder_email;?>" required>
+							<input type="text" name="inputEmail" class="form-control form-control-input" id="inputReminderReminder" placeholder="Введите ваш E-mail" value="<?=$reminder_email;?>" required>
 						</div>
 						<div class="mb-3">
 
-							<div class="g-recaptcha" data-sitekey="6LfauDoaAAAAAIunTLnBB5i4OvlC_GVVaBRzlW6X"></div>
+							<div class="g-recaptcha" data-theme="dark" data-sitekey="6LfauDoaAAAAAIunTLnBB5i4OvlC_GVVaBRzlW6X"></div>
 							
 						</div>
 						<button type="submit" name="reminderUser" class="btn btn-primary btn-def" style="width: 100%;">Отправить</button>

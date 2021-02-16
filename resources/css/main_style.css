@@ -22,6 +22,7 @@ body{
     font-family: SF Pro Display, sans-serif;
     font-weight: 500;
     font-size: 2.1rem;
+    color: white;
 }
 
 .main_user_login p.title_head {
@@ -29,12 +30,16 @@ body{
     font-weight: 400;
     font-size: 1.1rem;
     margin-bottom: 3.5rem;
+    color: #C6C6C6;
+}
+
+.main_user_login label.form-label {
+    color: #C6C6C6;
+    font-family: SF Pro Display, sans-serif;
 }
 
 .main_user_login {
-    background: #ffffff;
     padding: 25px 30px;
-    box-shadow: 0px 1px 10px -2px #a4a4a4;
     border-radius: 15px;
     overflow: hidden;
 }
@@ -70,6 +75,10 @@ body{
     padding: 10px 15px;
     border-radius: 5px;
     color: #212529;
+}
+
+.inform_blue p {
+    color: white;
 }
 
 section#login, section#reminder {
@@ -119,9 +128,10 @@ section#left_menu {
 }
 
 .left_menu .logo {
-    text-align: center;
+    text-align: left;
     height: 60px;
     line-height: 60px;
+    padding-left: 35px;
 }
 
 .left_menu .logo img {
@@ -130,7 +140,7 @@ section#left_menu {
 
 .elem_menu {
     margin-top: 36px;
-    padding: 0px 20px;
+    padding: 0px 35px;
 }
 
 .name_sec_menu {
@@ -269,7 +279,7 @@ h1.main_header .highlight {
 .block_func {
     background: #282B30;
     width: initial;
-    padding: 10px;
+    padding: 18px 10px 10px 18px;
     width: 400px;
     margin-right: 30px;
     border-radius: 4px;
@@ -428,6 +438,48 @@ button.btn-link {
     text-decoration: none;
 }
 .lineOR .line:before {content: "";background: #b4b4b4;height: 1px;width: 100%;position: absolute;top: 49%;}
+
+.manu_top .content_sec_menu:nth-child(3) {
+    flex-grow: 1;
+    text-align: right;
+    height: 60px;
+}
+
+.user_name {
+    color: white;
+    display: grid;
+    grid-template-columns: max-content max-content;
+    float: right;
+    padding: 9px 0px;
+}
+
+.user_name .user .name {
+    font-size: 14px;
+}
+
+.user_name .user .role {
+    font-size: 14px;
+    color: #C6C6C6;
+}
+
+.user_name .avatar {
+    background: #2D2D2D;
+    width: 34px;
+    height: 34px;
+    margin-left: 15px;
+    border-radius: 50%;
+    color: #515151;
+    font-weight: 600;
+    margin: 4px 0px 4px 10px;
+    cursor: default;
+}
+
+.avatar {}
+
+.user_name .avatar .letter {
+    text-align: center;
+    line-height: 34px;
+}
 
 /* Large desktops and laptops */
 @media (min-width: 1200px) {

@@ -31,7 +31,7 @@ if ($_GET['step'] == "1") {
 							<div class="g-recaptcha" data-theme="dark" data-sitekey="6LfauDoaAAAAAIunTLnBB5i4OvlC_GVVaBRzlW6X"></div>
 							
 						</div>
-						<button type="submit" name="regUser" class="btn btn-primary btn-def" style="width: 100%;">Войти</button>
+						<button type="submit" name="reg_step_1"  class="btn btn-primary btn-def" style="width: 100%;">Войти</button>
 					</form>
 				</div>
 			</div>

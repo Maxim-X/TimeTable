@@ -36,7 +36,7 @@ class Account
 
 		if (self::auth_check()) {
 			$user_session = R::findOne('sessions', 'key_session = ?', array($_SESSION[self::$sess_user_key]));
-			$user_data_db = R::findOne('accounts', $user_session['user_id']);
+			$user_data_db = R::findOne('accounts', 'id = ?', array($user_session['user_id']));
 
 			// Обновляем сессию
 			$user_session->date_add = strtotime(date("Y-m-d H:i:s"));;
@@ -102,10 +102,26 @@ class Account
 	public static function signup($user_info){
 		$user_info = self::trim_info($user_info);
 
+		# проверка валидности логина
+		$login_valid = self::login_valid($user_info['login']);
+		if (!$login_valid['status']) {
+			return ["status" => false, "message" => $login_valid['message']];
+		}
+
+		$login_find = R::findOne('accounts', 'login = ?', array($user_info['login']));
+		if ($login_find) {
+			return ["status" => false, "message" => "Данный логин уже используется!"];
+		}
+
 		# проверка валидности email
 		$email_valid = self::email_valid($user_info['email']);
 		if (!$email_valid['status']) {
 			return ["status" => false, "message" => $email_valid['message']];
+		}
+
+		$email_find = R::findOne('accounts', 'email = ?', array($user_info['email']));
+		if ($email_find) {
+			return ["status" => false, "message" => "Данный Email уже используется!"];
 		}
 
 		# проверка валидности пароля
@@ -184,6 +200,17 @@ class Account
 	private static function delete_all_session_db(){
 		$time_old_sessions = strtotime(date("Y-m-d H:i:s")) - 1800; // устаревшие сессии
 		R::hunt('sessions', 'date_add <= ?', array($time_old_sessions));
+	}
+
+	private static function login_valid($login){
+		if (!isset($login) || empty($login)) {
+			return array("status" => false, "message" => "Логин не указан!");
+		}
+		if (preg_match("/^[a-zA-Z0-9_-]{2,20}$/i", $login)) {
+			return array("status" => true, "message" => "Логин указан верно!");
+		} else {
+			return array("status" => false, "message" => "Логин указан неверно!");
+		}
 	}
 
 	private static function email_valid($email){

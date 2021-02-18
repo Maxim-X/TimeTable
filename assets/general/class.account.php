@@ -173,6 +173,35 @@ class Account
 		return array("status" => true, "message" => "Информация изменена!");
 	}
 
+	public static function add_institution($key_invite){
+		if (empty($name) || !isset($key_invite)) {
+			return array("status" => false, "message" => "Ключ приглашения введен неверно!");
+		}
+
+		# Проверка состоит ли пользователь в команде
+		if (self::$INSTITUTION_ID != 0) {
+			return array("status" => false, "message" => "Вы уже состоите в команде!");
+		}
+
+		# Проверка приглашения в команду
+		$find_invite = R::findOne('team_invites', 'key_invite = ?', array($key_invite));
+		if (!$find_invite) {
+			return array("status" => false, "message" => "Приглашение не действительно!");
+		}
+
+		$add_institution = R::load('accounts', self::$ID);
+		$add_institution->institution_id = $find_invite->institution_id;
+		$add_institution = R::store($add_institution);
+
+		if (!$add_institution) {
+			return array("status" => false, "message" => "Ошибка записи в базу данных!");
+		}
+
+		return array("status" => true, "message" => "Информация изменена!");
+
+
+	}
+
 	public static function add_session($user_id){
 		if ($user_id <= 0) {
 			return array("status" => false, "message" => "Идентификатор пользователя введен неверно");

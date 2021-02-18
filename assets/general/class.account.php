@@ -197,6 +197,10 @@ class Account
 			return array("status" => false, "message" => "Ошибка записи в базу данных!");
 		}
 
+		$edit_status_invite = R::load('team_invites', $find_invite->id);
+		$edit_status_invite->status = 1;
+		$edit_status_invite = R::store($edit_status_invite);
+
 		return array("status" => true, "message" => "Информация изменена!");
 
 

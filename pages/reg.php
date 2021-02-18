@@ -99,7 +99,7 @@ if ($_GET['step'] == "3") {
 						<div class="mb-3">
 							<p class="title_head_l">Я сотрудник учебного заведения и у меня есть приглашение в команду.</p>
 						    <label for="inputNamereg" class="form-label">Введите код приглашения</label>
-							<input type="text" name="inputLogin" class="form-control" id="inputNamereg" required>
+							<input type="text" name="inputLogin" class="form-control form-control-input" id="inputNamereg" required>
 						</div>
 						<div class="mb-3">
 							<button type="submit" name="regUser" class="btn btn-primary btn-def" style="width: 100%;">Присоединиться</button>

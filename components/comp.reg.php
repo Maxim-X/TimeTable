@@ -54,7 +54,22 @@ if ($_GET['step'] == "2") {
 	}
 	if (check_step_2()) {
 
-		// code...
+		if (isset($_POST['reg_step_2'])) {
+			$user_name			= $_POST['inputName'];
+			$user_surname		= $_POST['inputSurname'];
+			$user_middlename 	= $_POST['inputMiddlename'];
+
+			$user_info = array("name" 		 => $user_name,
+							   "surname" 	 => $user_surname,
+							   "middle_name" => $user_middlename);
+
+			$add_fio = Account::add_fio($user_info);
+			if (!$add_fio['status']) {
+				$error_reg = $add_fio['message'];
+			}else{
+				header('Location: /reg/3');
+			}
+		}
 		
 	}else{
 		header('Location: /reg/3');

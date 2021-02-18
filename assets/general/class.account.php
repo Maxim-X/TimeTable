@@ -151,6 +151,28 @@ class Account
 		return ["status" => true, "message" => "Успешная регистрация!"];
 	}
 
+	public static function add_fio($user_info){
+		$name 		 = trim($user_info['name']);
+		$surname 	 = trim($user_info['surname']);
+		$middle_name = trim($user_info['middle_name']);
+
+		if (empty($name) || empty($surname) || empty($middle_name)) {
+			return array("status" => false, "message" => "Информация введена неверно!");
+		}
+
+		$add_fio = R::load('accounts', self::$ID);
+		$add_fio->name = $name;
+		$add_fio->surname = $surname;
+		$add_fio->middle_name = $middle_name;
+		$add_fio = R::store($add_fio);
+
+		if (!$add_fio) {
+			return array("status" => false, "message" => "Ошибка записи в базу данных!");
+		}
+
+		return array("status" => true, "message" => "Информация изменена!");
+	}
+
 	public static function add_session($user_id){
 		if ($user_id <= 0) {
 			return array("status" => false, "message" => "Идентификатор пользователя введен неверно");

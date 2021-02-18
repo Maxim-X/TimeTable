@@ -8,7 +8,7 @@ if ($_GET['step'] == "1") {
 				<div class="main_user_login">
 					<h3>Регистрация</h3>
 					<p class="title_head">Зарегистрируйтесь чтобы добавить ваше учебное заведение или вступить в команду!</p>
-					<form method="POST">
+					<form method="POST" name="signup">
 						<?php
 						if (isset($error_reg)) {
 							echo "<div class='alert alert-danger' role='alert'>{$error_reg}</div>";
@@ -31,7 +31,7 @@ if ($_GET['step'] == "1") {
 							<div class="g-recaptcha" data-theme="dark" data-sitekey="6LfauDoaAAAAAIunTLnBB5i4OvlC_GVVaBRzlW6X"></div>
 							
 						</div>
-						<button type="submit" name="reg_step_1"  class="btn btn-primary btn-def" style="width: 100%;">Войти</button>
+						<button type="submit" name="reg_step_1"  class="btn btn-primary btn-def" style="width: 100%;">Отправить</button>
 					</form>
 				</div>
 			</div>
@@ -48,7 +48,7 @@ if ($_GET['step'] == "2") {
 <section id="login">
 	<div class="container">
 		<div class="row">
-			<div class="col-xxl-5 col-xl-5 col-lg-6 col-md-12 col-sm-12 col-12 mx-auto">
+			<div class="col-xxl-4 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 mx-auto">
 				<div class="main_user_login">
 					<h3>Создать учетную запись</h3>
 					<p class="title_head">Зарегистрируйтесь чтобы добавить ваше учебное заведение или вступить в команду!</p>
@@ -59,18 +59,18 @@ if ($_GET['step'] == "2") {
 						}
 						?>
 						<div class="mb-3">
-						    <label for="inputNamereg" class="form-label">Имя</label>
-							<input type="text" name="inputName" class="form-control" id="inputNamereg" placeholder="Введите ваше имя" value="<?=$Name;?>" required>
+						    <label for="inputName" class="form-label">Имя</label>
+							<input type="text" name="inputName" class="form-control form-control-input" id="inputName" placeholder="Введите ваше имя" value="<?=$Name;?>" required>
 						</div>
 						<div class="mb-3">
-						    <label for="inputSurnamereg" class="form-label">Фамилия</label>
-							<input type="text" name="inputSurname" class="form-control" id="inputSurnamereg" placeholder="Введите вашу фамилию" value="<?=$surname;?>" required>
+						    <label for="inputSurname" class="form-label">Фамилия</label>
+							<input type="text" name="inputSurname" class="form-control form-control-input" id="inputSurname" placeholder="Введите вашу фамилию" value="<?=$surname;?>" required>
 						</div>
 						<div class="mb-3">
-						    <label for="inputMiddlenamereg" class="form-label">Отчество</label>
-							<input type="text" name="inputMiddlename" class="form-control" id="inputMiddlenamereg" placeholder="Введите ваше отчество" value="<?=$Middlename;?>" required>
+						    <label for="inputMiddlename" class="form-label">Отчество</label>
+							<input type="text" name="inputMiddlename" class="form-control form-control-input" id="inputMiddlename" placeholder="Введите ваше отчество" value="<?=$Middlename;?>" required>
 						</div>
-						<button type="submit" name="regUser" class="btn btn-primary btn-def" style="width: 100%;">Войти</button>
+						<button type="submit" name="reg_step_2" class="btn btn-primary btn-def" style="width: 100%;">Отправить</button>
 					</form>
 				</div>
 			</div>

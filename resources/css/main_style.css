@@ -87,6 +87,10 @@ section#login, section#reminder {
     position: relative;
 }
 
+p.title_head_l {
+    color: white;
+}
+
 .main_user_reminder {
     background: #ffffff;
     padding: 25px 30px;

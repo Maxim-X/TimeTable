@@ -98,20 +98,97 @@ if ($_GET['step'] == "3") {
 						?>
 						<div class="mb-3">
 							<p class="title_head_l">Я сотрудник учебного заведения и у меня есть приглашение в команду.</p>
-						    <label for="inputNamereg" class="form-label">Введите код приглашения</label>
-							<input type="text" name="inputLogin" class="form-control form-control-input" id="inputNamereg" required>
+						    <label for="inputCode" class="form-label">Введите код приглашения</label>
+							<input type="text" name="inputCode" class="form-control form-control-input" id="inputCode" required>
 						</div>
 						<div class="mb-3">
-							<button type="submit" name="regUser" class="btn btn-primary btn-def" style="width: 100%;">Присоединиться</button>
+							<input type="submit" name="reg_step_3" class="btn btn-primary btn-def" style="width: 100%;" value="Присоединиться">
 						</div>
 						<div class="lineOR"><div class="line"></div><div class="txt">ИЛИ</div><div class="line"></div></div>
 						<div class="mb-3">
 						   <p class="title_head_l">Я сотрудник учебного заведения и хочу добавить его в ваш сервис.</p>
 						   <a href="/reg/4" class="btn btn-primary btn-def">Добавить</a>
 						</div>
-						<div class="lineOR"><div class="line"></div><div class="txt">А ВОЗМОЖНО</div><div class="line"></div></div>
+					</form>
+					<div class="lineOR"><div class="line"></div><div class="txt">А ВОЗМОЖНО</div><div class="line"></div></div>
+					<div class="mb-3">
+						<form method="POST">
+							<input type="submit" name="deleteUser" class="btn-link" style="width: 100%;" value="Я тут по ошибке, удалите мой аккаунт!">
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<?PHP 
+}
+?>
+
+<?PHP 
+if ($_GET['step'] == "4") {
+?>
+<section id="login">
+	<div class="container">
+		<div class="row">
+			<div class="col-xxl-4 col-xl-5 col-lg-6 col-md-8 col-sm-12 col-12 mx-auto">
+				<div class="main_user_login">
+					<h3 class="mb-4">Учебное заведение</h3>
+					<form method="POST">
+						<?php
+						if (isset($error_reg)) {
+							echo "<div class='alert alert-danger' role='alert'>{$error_reg}</div>";
+						}
+						?>
 						<div class="mb-3">
-							<button type="submit" name="regUser" class="btn-link" style="width: 100%;">Я тут по ошибке, удалите мой аккаунт!</button>
+						    <label for="inputCode" class="form-label">Шаблон учебного заведения</label>
+						    <div class="all-radio-line">
+						    	<?php
+								foreach ($all_type_inst as $key => $inst):
+								?>
+									<input type="radio" name="type_inst" class="btn-check" value="<?=$inst->id;?>" id="btn-radio-<?=$inst->id;?>" autocomplete="off" <?php ($key == 0) ? "checked":""; ?>>
+									<label class="btn btn-primary btn-radio-ch" for="btn-radio-<?=$inst->id;?>"><?=$inst->name;?></label>
+								<?php
+							  		endforeach;
+							  	?>
+						    </div>
+						</div>
+						<div class="mb-3">
+						    <label for="inputCode" class="form-label">Полное название учебного заведения</label>
+							<input type="text" name="inputCode" class="form-control form-control-input" id="inputCode" required>
+						</div>
+						<div class="mb-3">
+						    <label for="inputCode" class="form-label">Краткое название учебного заведения</label>
+							<input type="text" name="inputCode" class="form-control form-control-input" id="inputCode" required>
+						</div>
+						<div class="mb-3">
+						    <label for="inputCode" class="form-label">Часовой пояс</label>
+							<select class="form-select form-select-md form-control-input" aria-label=".form-select-sm example">
+								<?php
+									foreach ($all_time_zone as $key => $time_zone):
+								?>
+									<option value="<?=$time_zone->id;?>" <?php ($key == 0) ? "selected":""; ?> ><?=$time_zone->city;?> (UTC <?=$time_zone->utc;?>)</option>
+								<?php
+							  		endforeach;
+							  	?>
+							</select>
+						</div>
+						<div class="mb-4">
+							<div class="inf-acc">
+								<div class="image"><img src="/resources/images/icon/insurance.svg" alt="insurance"></div>
+								<div class="title">Создать аккаунт учебного заведения могут только сотрудники данной организации.</div>
+							</div>
+						</div>
+						<div class="mb-4">
+							<div class="form-check">
+							  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+							  <label class="form-check-label form-check-label-dark" for="defaultCheck1">
+							    Я являюсь официальным представителем учебного заведения
+							  </label>
+							</div>
+						</div>
+						<div class="mb-3">
+							<button type="submit" name="reg_step_4" class="btn btn-primary btn-def" style="width: 100%;">Создать</button>
 						</div>
 					</form>
 				</div>

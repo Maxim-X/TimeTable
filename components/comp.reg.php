@@ -84,18 +84,34 @@ if ($_GET['step'] == "3") {
 	}
 
 	if (Account::$INSTITUTION_ID != 0) {
-		header('Location: /reg/2');
+		header('Location: /');
+	}
+
+
+	if (isset($_POST['reg_step_3'])) {
+			var_dump($_POST);
+		$key_invite = $_POST['inputCode'];
+		$invite = Account::add_institution($key_invite);
+		if (!$invite['status']) {
+			$error_reg = $invite['message'];
+		}else{
+			header('Location: /');
+		}
 	}
 
 	// код добавления в команду и удаления аккаунта
 }
 
-if ($_GET['step'] == "3") {
+if ($_GET['step'] == "4") {
 
 	// Проверяем выполнение второго шага
 	if (check_step_2()) {
 		header('Location: /reg/2');
 	}
+
+	$all_time_zone = R::find("time_zones");
+	$all_type_inst = R::find("types_institutions");
+
 
 	// код добавления учебного заведения
 }

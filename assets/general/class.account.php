@@ -174,7 +174,7 @@ class Account
 	}
 
 	public static function add_institution($key_invite){
-		if (empty($name) || !isset($key_invite)) {
+		if (empty($key_invite) || !isset($key_invite)) {
 			return array("status" => false, "message" => "Ключ приглашения введен неверно!");
 		}
 
@@ -186,7 +186,7 @@ class Account
 		# Проверка приглашения в команду
 		$find_invite = R::findOne('team_invites', 'key_invite = ?', array($key_invite));
 		if (!$find_invite) {
-			return array("status" => false, "message" => "Приглашение не действительно!");
+			return array("status" => false, "message" => "Приглашение недействительно!");
 		}
 
 		$add_institution = R::load('accounts', self::$ID);

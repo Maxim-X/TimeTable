@@ -25,6 +25,68 @@ body{
     color: white;
 }
 
+select.form-control-input {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    color: #303439;
+}
+
+.all-radio-line label {
+    width: 48%;
+}
+
+.all-radio-line {
+    display: flex;
+    justify-content: space-between;
+}
+
+.inf-acc {
+    background-color: #1d1e1f;
+    padding: 13px;
+    display: flex;
+    border-radius: 4px;
+}
+
+.form-check-label-dark {
+    color: #FFFFFF;
+    font-family: SF Pro Display, sans-serif;
+}
+
+.inf-acc .title {
+    color: #C8C8C8;
+    font-family: SF Pro Display, sans-serif;
+    width: -webkit-fill-available;
+}
+
+.inf-acc .image {
+    margin-right: 13px;
+    width: 37px;
+    position: relative;
+}
+
+.inf-acc .image img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+label.btn-radio-ch {
+    background-color: #303339;
+    border-color: #3d89f4;
+}
+
+.btn-check:checked + .btn-radio-ch, .btn-check:active + .btn-radio-ch, .btn-radio-ch:active, .btn-radio-ch.active, .show > .btn-radio-ch.dropdown-toggle {
+    background-color: #3d89f4;
+    border-color: #3d89f4;
+}
+
+.btn-radio-ch:hover {
+    background-color: #2982ff;
+    border-color: #2982ff
+}
+
 .main_user_login p.title_head {
     font-family: SF Pro Display, sans-serif;
     font-weight: 400;

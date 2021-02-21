@@ -113,5 +113,28 @@ if ($_GET['step'] == "4") {
 	$all_type_inst = R::find("types_institutions");
 
 
-	// код добавления учебного заведения
+
+	// Добавление учебного заведения
+	if (isset($_POST['reg_step_4'])) {
+		$type_inst 			= $_POST['type_inst'];
+		$fullNameInst 		= $_POST['inputFullNameInst'];
+		$shortNameInst 		= $_POST['inputShortNameInst'];
+		$timeZoneInst 		= $_POST['inputTimeZoneInst'];
+		$offRepresentative 	= $_POST['officialRepresentative'];
+
+		// Информация для добавления учебного заведения
+		$inst_data = array( 'type_inst' 		=> $type_inst,
+							'fullNameInst' 		=> $fullNameInst,
+							'shortNameInst' 	=> $shortNameInst,
+							'timeZoneInst' 		=> $timeZoneInst,
+							'offRepresentative' => $offRepresentative );
+
+		// Добавление уч. заведения
+		$add_institution = Institution::add_institution($inst_data);
+		if (!$add_institution['status']) {
+			$error_reg = $add_institution['message'];
+		}else{
+			header('Location: /');
+		}
+	}
 }

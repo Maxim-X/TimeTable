@@ -141,7 +141,7 @@ if ($_GET['step'] == "4") {
 						}
 						?>
 						<div class="mb-3">
-						    <label for="inputCode" class="form-label">Шаблон учебного заведения</label>
+						    <label for="type_inst" class="form-label">Шаблон учебного заведения</label>
 						    <div class="all-radio-line">
 						    	<?php
 								foreach ($all_type_inst as $key => $inst):
@@ -154,16 +154,16 @@ if ($_GET['step'] == "4") {
 						    </div>
 						</div>
 						<div class="mb-3">
-						    <label for="inputCode" class="form-label">Полное название учебного заведения</label>
-							<input type="text" name="inputCode" class="form-control form-control-input" id="inputCode" required>
+						    <label for="inputFullNameInst" class="form-label">Полное название учебного заведения</label>
+							<input type="text" name="inputFullNameInst" class="form-control form-control-input" id="inputFullNameInst" required>
 						</div>
 						<div class="mb-3">
-						    <label for="inputCode" class="form-label">Краткое название учебного заведения</label>
-							<input type="text" name="inputCode" class="form-control form-control-input" id="inputCode" required>
+						    <label for="inputShortNameInst" class="form-label">Краткое название учебного заведения</label>
+							<input type="text" name="inputShortNameInst" class="form-control form-control-input" id="inputShortNameInst" required>
 						</div>
 						<div class="mb-3">
-						    <label for="inputCode" class="form-label">Часовой пояс</label>
-							<select class="form-select form-select-md form-control-input" aria-label=".form-select-sm example">
+						    <label for="inputTimeZoneInst" class="form-label">Часовой пояс</label>
+							<select class="form-select form-select-md form-control-input" name="inputTimeZoneInst" aria-label=".form-select-sm example">
 								<?php
 									foreach ($all_time_zone as $key => $time_zone):
 								?>
@@ -181,8 +181,8 @@ if ($_GET['step'] == "4") {
 						</div>
 						<div class="mb-4">
 							<div class="form-check">
-							  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-							  <label class="form-check-label form-check-label-dark" for="defaultCheck1">
+							  <input class="form-check-input" type="checkbox" name="officialRepresentative" id="officialRepresentative" required>
+							  <label class="form-check-label form-check-label-dark" for="officialRepresentative">
 							    Я являюсь официальным представителем учебного заведения
 							  </label>
 							</div>

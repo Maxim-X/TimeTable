@@ -89,7 +89,6 @@ if ($_GET['step'] == "3") {
 
 
 	if (isset($_POST['reg_step_3'])) {
-			var_dump($_POST);
 		$key_invite = $_POST['inputCode'];
 		$invite = Account::add_institution($key_invite);
 		if (!$invite['status']) {
@@ -98,6 +97,15 @@ if ($_GET['step'] == "3") {
 			header('Location: /');
 		}
 	}
+
+	if (isset($_POST['deleteUser'])){
+        $delete = Account::delete_account();
+        if (!$delete['status']) {
+            $error_reg = $delete['message'];
+        }else{
+            header('Location: /');
+        }
+    }
 
 	// код добавления в команду и удаления аккаунта
 }

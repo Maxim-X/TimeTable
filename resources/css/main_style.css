@@ -540,12 +540,16 @@ button.btn-link {
     cursor: default;
 }
 
-.avatar {}
+input.btn-link {
+    background: none;
+    border: none;
+}
 
 .user_name .avatar .letter {
     text-align: center;
     line-height: 34px;
 }
+
 
 /* Large desktops and laptops */
 @media (min-width: 1200px) {

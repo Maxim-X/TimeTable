@@ -108,6 +108,15 @@ class Account
 			return ["status" => false, "message" => $login_valid['message']];
 		}
 
+		if (strlen($user_info['login']) < 5){
+		    return ["status" => false, "message" => "Логин должен состоять не менее чем из 5 символов!"];
+        }
+
+        $pattern = '/^[a-zA-Z][a-zA-Z0-9]{4,20}$/U';
+        if (!preg_match($pattern, $user_info['login'])){
+            return ["status" => false, "message" => "Логин должен начинаться с буквы и состоять только из латинских букв и/или цифр!"];
+        }
+
 		$login_find = R::findOne('accounts', 'login = ?', array($user_info['login']));
 		if ($login_find) {
 			return ["status" => false, "message" => "Данный логин уже используется!"];
@@ -144,12 +153,25 @@ class Account
 		$user->salt = $salt;
 		$user->account_type = $user_info['account_type'];
 		R::store($user);
-		
-
-
 
 		return ["status" => true, "message" => "Успешная регистрация!"];
 	}
+
+	public static function delete_account(){
+	    if (!self::$AUTH){
+            return array("status" => false, "message" => "Для удаления аккаунта вам необходимо авторизоваться!");
+        }
+        $delete = R::load('accounts', self::$ID);
+        $delete = R::trash($delete);
+
+        if (!$delete){
+            return array("status" => false, "message" => "При удалении аккаунта произошла ошибка, попробуйте позже!");
+        }
+        self::exit();
+
+        return array("status" => true, "message" => "Аккаунт удален!");
+
+    }
 
 	public static function add_fio($user_info){
 		$name 		 = trim($user_info['name']);
@@ -283,7 +305,7 @@ class Account
 		if (!isset($password) || empty($password)) {
 			return array("status" => false, "message" => "Пароль не указан!");
 		}
-		if (strlen($password) <= 8) {
+		if (strlen($password) < 8) {
         	return array("status" => false, "message" => "Пароль должен содержать не менее 8 символов!");
 	    }
 	    if(!preg_match("#[0-9]+#",$password)) {
@@ -297,7 +319,6 @@ class Account
 	    } 
 
 	    return array("status" => true, "message" => "Пароль указан верно!");
-
 
 	}
 

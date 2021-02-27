@@ -18,7 +18,7 @@
 										<a href="#">
 											<span name="title">Обучающиеся</span>
 											<span name="count">712 чел.</span>
-											<div class="arrow"><img src="resources/images/icon/right-arrow-angle.svg"></div>
+											<div class="arrow"><img src="resources/images/icon/right-arrow-angle.svg" alt="right arrow angle"></div>
 										</a>
 									</div>
 									<div class="inp_search" id="student">

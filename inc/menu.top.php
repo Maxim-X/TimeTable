@@ -25,7 +25,7 @@
           <div class="role"><?=Account::$AFFILIATION;?></div>
         </div>
         <div class="avatar">
-          <div class="letter">Н</div>
+          <div class="letter"><?=mb_substr(Account::$NAME, 0, 1);?></div>
         </div>
       </div>
     </div>

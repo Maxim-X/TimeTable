@@ -8,7 +8,7 @@
 			<?php include("inc/menu.top.php"); ?>
 			<section id="content">
 				<div class="main_content">
-					<h1 class="main_header">Панель администратора <span class="highlight">УКСИВТ</span></h1>
+					<h1 class="main_header">Панель администратора <span class="highlight"><?=Institution::$SHORT_NAME;?></span></h1>
 
 					<div class="section_all_func">
 						<div class="left_func">
@@ -25,10 +25,10 @@
 										<label for="student_search">Быстрый поиск</label>
 										<div class="search">
 											<form>
-												<input type="text" id="student_search" name="student_search" class="form-control form-control-input" action='' autocomplete='off' placeholder="ФИО студента или группа">
+												<input type="text" oninput="EDIT_DOM.student_search(Search_info.search_students($(this).val()), 'result_student_search');" id="student_search" name="student_search" class="form-control form-control-input" action='' autocomplete='off' placeholder="ФИО студента или группа">
 											</form>
 										</div>
-										<div class="content_search">
+										<div class="content_search" id="result_student_search">
 											<div class="name_group_search">Обучающиеся</div>
 											<div class="line_cont_search">
 												<a href="#">

@@ -1,3 +1,4 @@
+
 jQuery(document).ready(function($) {
 
         // Ввод в глобальный поиск
@@ -34,4 +35,6 @@ jQuery(document).ready(function($) {
             var hours = new Date().getUTCHours();
             $("#hours").html(( hours < 10 ? "0" : "" ) + hours);
         }, 1000);	
+
+
 });

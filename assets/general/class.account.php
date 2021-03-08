@@ -20,6 +20,7 @@ class Account
 	public static $SURNAME;
 	public static $MIDDLENAME;
 	public static $INSTITUTION_ID;
+	public static $AFFILIATION;
 	protected static $ACCESSLEVEL;
 
 	 
@@ -38,6 +39,9 @@ class Account
 			$user_session = R::findOne('sessions', 'key_session = ?', array($_SESSION[self::$sess_user_key]));
 			$user_data_db = R::findOne('accounts', 'id = ?', array($user_session['user_id']));
 
+			// Информация о должности пользователя
+			$affiliation_name = R::findOne('types_account', 'id = ?', array($user_data_db->account_type))->name;
+
 			// Обновляем сессию
 			$user_session->date_add = strtotime(date("Y-m-d H:i:s"));;
 			R::store($user_session);
@@ -52,6 +56,7 @@ class Account
 				self::$SURNAME 			= $user_data_db->surname;
 				self::$MIDDLENAME 		= $user_data_db->middle_name;
 				self::$INSTITUTION_ID 	= $user_data_db->institution_id;
+				self::$AFFILIATION		= $affiliation_name;
 				// self::$ACCESSLEVEL 	= $user_data["accesslevel"];
 			}
 		}

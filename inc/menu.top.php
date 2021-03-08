@@ -21,8 +21,8 @@
     <div class="content_sec_menu">
       <div class="user_name">
         <div class="user">
-          <div class="name">Грин Николай Геннадьевич</div>
-          <div class="role">Преподаватель</div>
+          <div class="name"><?=Account::$SURNAME;?> <?=Account::$NAME;?> <?=Account::$MIDDLENAME;?></div>
+          <div class="role"><?=Account::$AFFILIATION;?></div>
         </div>
         <div class="avatar">
           <div class="letter">Н</div>

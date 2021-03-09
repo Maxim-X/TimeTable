@@ -550,6 +550,60 @@ input.btn-link {
     line-height: 34px;
 }
 
+.choise_head {
+    display: inline-block;
+    margin: 0px 5px;
+    position: relative;
+    height: 22px;
+}
+
+div.choise_head img.choise_head_but {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.button_table_func {
+    display: inline-block;
+    padding: 7px 35px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+.bar_table {
+    width: 100%;
+    text-align: right;
+}
+
+.button_table_func span {
+    font-family: "SF Pro Display", sans-serif;
+    color: white;
+    letter-spacing: 0.5px;
+    font-size: 14px;
+}
+
+.button_table_func img {
+    margin-right: 10px;
+    margin-top: -2px;
+}
+
+.button_table_func.button_table_func_blue {
+    background: #5c92fd;
+}
+
+.button_table_func.button_table_func_blue:hover {
+    background: #5e82c8;
+}
+
+.button_table_func.button_table_func_opacity:hover {
+    background: #00000012;
+}
+
+.all_content_mg {
+    margin-top: 40px;
+}
 
 /* Large desktops and laptops */
 @media (min-width: 1200px) {

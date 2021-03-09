@@ -57,27 +57,31 @@ Route::path("/", function(){
 		include($_SERVER["DOCUMENT_ROOT"]."/pages/home.php");
 	}
 });
+
 Route::path("/login", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.login.php");
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/login.php");
 });
+
 Route::path("/reg/{step}", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.reg.php");
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/reg.php");
 }, ["step"=>"[0-9]+"]);
+
 Route::path("/reminder", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.reminder.php");
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/reminder.php");
 });
+
 Route::path("/reminder/{key}", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.reminder.edit.php");
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/reminder.edit.php");
 }, ["key"=>"[a-zA-Z0-9]+"]);
-// Route::path("/login/{id}", function(){
-// 	echo "string";
-// 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.login.php");
-// 	include($_SERVER["DOCUMENT_ROOT"]."/pages/login.php");
-// }, ["id"=>"[a-zA-Z]+"]);
+
+Route::path("/group/{id}", function(){
+	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.group.php");
+	include($_SERVER["DOCUMENT_ROOT"]."/pages/group.php");
+}, ["id"=>"[0-9]+"]);
 
 /*
  | ГЛАВНЫЙ КОНТРОЛЛЕР

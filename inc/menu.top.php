@@ -2,7 +2,7 @@
   <div class="manu_top">
     <div class="content_sec_menu">
       <div class="data_time_web">
-        <span class="img"><img src="resources/images/icon/clock.svg" alt="clock"></span>
+        <span class="img"><img src="/resources/images/icon/clock.svg" alt="clock"></span>
         <span class="time" id="time"><span id="hours"><?=date("H");?></span>:<span id="min"><?=date("i");?></span></span>
         <span class="date" id="date">10 Ноября</span>
       </div>
@@ -11,8 +11,8 @@
       <div class="main_search">
           <div class="img">
             <div class="all_icon_search">
-              <img src="resources/images/icon/loupe.svg" alt="loupe">
-              <img src="resources/images/icon/cancel.svg" alt="cancel" name="clean_big_search">
+              <img src="/resources/images/icon/loupe.svg" alt="loupe">
+              <img src="/resources/images/icon/cancel.svg" alt="cancel" name="clean_big_search">
             </div>
           </div>
         <div class="input_search"><input type="text" name="main_search" placeholder="Глобальный поиск..."></div>

@@ -139,14 +139,14 @@
 										</div>
 									</div>
 									<div class="drag_and_drop_file">
-										<form action="/assets/ajax/ajax.upload-file.php" class="dropzone">
+										<!-- <form action="/assets/ajax/ajax.upload-file.php" class="dropzone"> -->
 											<div class="image"><img src="/resources/images/icon/file-folder.svg" alt="file"></div>
-											<div class="title"><p>Перетащите файл сюда или <br> 
-												<div class="dz-default dz-message">
+											<div class="title"><p>Перетащите файл сюда или <br> <span id="upload_but">выберите файл</span> 
+												<!-- <div class="dz-default dz-message">
 													<button class="dz-button func_upload_file" type="button">выберите файл</button>
-												</div></p>
+												</div></p> -->
 											</div>
-										</form>
+										<!-- </form> -->
 									</div>
 								</div>
 								<div class="all_user_file">
@@ -155,6 +155,8 @@
 										<p><a href="#">все файлы <img src="/resources/images/icon/right-arrow-angle-mini.svg" alt="arrow"></a></p>
 									</div>
 									<div class="list_user_files">
+
+										<div class="file-upload-list"></div>
 										<div class="file">
 											<div class="file_info">
 												<div class="image"><img src="/resources/images/icon/excel.svg" alt="excel"></div>
@@ -200,6 +202,50 @@
 	</div>
 </div>
 
-<link rel="stylesheet" type="text/css" href="/resources/css/dropzone.css">
+<div class="table table-striped" class="files" id="previews">
 
-<script src="/resources/js/dropzone.min.js"></script>
+	<div id="template" class="file_upload">
+		<div class="file_info">
+			<div class="image"><img src="/resources/images/icon/surface1.svg" alt="surface"></div>
+			<div class="name_file"><p data-dz-name></p></div>
+			<div class="size_file"><p>74%</p></div>
+		</div>
+		<div class="progressbar_upload" data-dz-uploadprogress></div>
+	</div>
+
+<!--   <div id="template" class="file-row">
+    <div>
+        <span class="preview"><img data-dz-thumbnail /></span>
+    </div>
+    <div>
+        <p style="color: white" class="name" data-dz-name ></p>
+        <p style="color: white" class="name" data-dz-name ></p>
+        <strong class="error text-danger" data-dz-errormessage></strong>
+    </div>
+    <div>
+        <p class="size" data-dz-size></p>
+        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+        </div>
+    </div> -->
+<!--     <div>
+      <button class="btn btn-primary start">
+          <i class="glyphicon glyphicon-upload"></i>
+          <span>Start</span>
+      </button>
+      <button data-dz-remove class="btn btn-warning cancel">
+          <i class="glyphicon glyphicon-ban-circle"></i>
+          <span>Cancel</span>
+      </button>
+      <button data-dz-remove class="btn btn-danger delete">
+        <i class="glyphicon glyphicon-trash"></i>
+        <span>Delete</span>
+      </button>
+    </div> -->
+  </div>
+
+</div>
+
+<!-- <link rel="stylesheet" type="text/css" href="/resources/css/dropzone.css"> -->
+
+<script src="/resources/js/dropzone.js"></script>

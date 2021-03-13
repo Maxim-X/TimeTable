@@ -1,4 +1,6 @@
-<?php defined('INDEX') OR die('Прямой доступ к странице запрещён!');
+<?php 
+
+defined('INDEX') OR die('Прямой доступ к странице запрещён!');
 
 // MYSQL
 class db

@@ -840,6 +840,8 @@ ul.title_remaining_resources li {font-family: "Tahoma", sans-serif;font-size: 14
     display: grid;
     grid-template-columns: 32px auto max-content;
     grid-gap: 17px;
+    z-index: 100;
+    position: relative;
 }
 
 .file_info .button_add {
@@ -957,6 +959,30 @@ ul.title_remaining_resources li {font-family: "Tahoma", sans-serif;font-size: 14
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+}
+
+.file_upload {
+    background: #212123;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.file_upload .progressbar_upload {
+    background: #5E56E8;
+    position: absolute;
+    width: 0%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    transition: 0.5s;
+}
+
+.file_upload.error {
+    background: rgb(255 52 52);
 }
 
 /* Large desktops and laptops */

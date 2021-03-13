@@ -21,10 +21,8 @@ R::ext('xdispense', function( $type ){
   return R::getRedBean()->dispense( $type );
 });
 
-require($_SERVER["DOCUMENT_ROOT"]."/assets/start/classes.init.php");
-
-// require($_SERVER["DOCUMENT_ROOT"]."/assets/start/account.init.php"); // класс пользователя
-// require($_SERVER["DOCUMENT_ROOT"]."/assets/start/institution.init.php"); // класс учебного заведения
+require_once($_SERVER["DOCUMENT_ROOT"]."/assets/start/classes.init.php");
+require_once($_SERVER["DOCUMENT_ROOT"]."/config/config.core.php"); Core::init(); // настройки сайта
 
 
 

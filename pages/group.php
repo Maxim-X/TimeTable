@@ -208,44 +208,11 @@
 		<div class="file_info">
 			<div class="image"><img src="/resources/images/icon/surface1.svg" alt="surface"></div>
 			<div class="name_file"><p data-dz-name></p></div>
-			<div class="size_file"><p>74%</p></div>
+			<!-- <div class="size_file"><p>74%</p></div> -->
 		</div>
 		<div class="progressbar_upload" data-dz-uploadprogress></div>
 	</div>
-
-<!--   <div id="template" class="file-row">
-    <div>
-        <span class="preview"><img data-dz-thumbnail /></span>
-    </div>
-    <div>
-        <p style="color: white" class="name" data-dz-name ></p>
-        <p style="color: white" class="name" data-dz-name ></p>
-        <strong class="error text-danger" data-dz-errormessage></strong>
-    </div>
-    <div>
-        <p class="size" data-dz-size></p>
-        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-          <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
-        </div>
-    </div> -->
-<!--     <div>
-      <button class="btn btn-primary start">
-          <i class="glyphicon glyphicon-upload"></i>
-          <span>Start</span>
-      </button>
-      <button data-dz-remove class="btn btn-warning cancel">
-          <i class="glyphicon glyphicon-ban-circle"></i>
-          <span>Cancel</span>
-      </button>
-      <button data-dz-remove class="btn btn-danger delete">
-        <i class="glyphicon glyphicon-trash"></i>
-        <span>Delete</span>
-      </button>
-    </div> -->
   </div>
 
 </div>
-
-<!-- <link rel="stylesheet" type="text/css" href="/resources/css/dropzone.css"> -->
-
 <script src="/resources/js/dropzone.js"></script>

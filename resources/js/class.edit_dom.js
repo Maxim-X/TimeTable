@@ -69,7 +69,7 @@ class EDIT_DOM {
 
 					let div_optionally = document.createElement('div');
 					div_optionally.className = 'optionally';
-					div_optionally.innerHTML = item.count_stusents;
+					div_optionally.innerHTML = item.count_students;
 					a_line_cont_search.append(div_optionally);
 
 					div_line_cont_search.append(a_line_cont_search);

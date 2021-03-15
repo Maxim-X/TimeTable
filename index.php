@@ -81,6 +81,12 @@ Route::path("/group/{id}", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/group.php");
 }, ["id"=>"[0-9]+"]);
 
+Route::path("/groups-all", function(){
+	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.groups-all.php");
+	include($_SERVER["DOCUMENT_ROOT"]."/pages/groups-all.php");
+});
+
+
 /*
  | ГЛАВНЫЙ КОНТРОЛЛЕР
 */

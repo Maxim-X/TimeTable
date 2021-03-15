@@ -667,6 +667,7 @@ div.choise_head img.choise_head_but {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    max-width: 14px;
 }
 
 .button_func_tb.button_func_tb_red {
@@ -841,6 +842,9 @@ ul.title_remaining_resources li {font-family: "Tahoma", sans-serif;font-size: 14
     grid-template-columns: 32px auto max-content;
     grid-gap: 17px;
     z-index: 100;
+}
+
+.file-upload-list .file_info{
     position: relative;
 }
 
@@ -983,6 +987,11 @@ ul.title_remaining_resources li {font-family: "Tahoma", sans-serif;font-size: 14
 
 .file_upload.error {
     background: rgb(255 52 52);
+}
+
+.section_table table tbody tr td a {
+    color: white;
+    text-decoration: none;
 }
 
 /* Large desktops and laptops */

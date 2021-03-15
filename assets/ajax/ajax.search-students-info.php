@@ -33,4 +33,9 @@ $find_str = $_POST['find_str'];
 
 $search_groups = R::find('groups_students', "WHERE `name` LIKE ?",array('%'.$find_str.'%'));
 
+foreach ($search_groups as &$group) {
+	$count_students = R::count( 'accounts', 'group_id = ?', array($group->id));
+	$group["count_students"] = $count_students;
+}
+
 echo json_encode(["status"=> true, "search_groups"=> $search_groups]);

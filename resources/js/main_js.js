@@ -49,7 +49,7 @@ jQuery(document).ready(function($) {
         var myDropzone = new Dropzone('div.drag_and_drop_file', { // Make the whole body a dropzone
           url: "/assets/ajax/ajax.upload-file.php", // Set the url
           thumbnailWidth: 80,
-          maxFiles: 1,
+          // maxFiles: 1,
           acceptedFiles: 'application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
           thumbnailHeight: 80,
           parallelUploads: 20,

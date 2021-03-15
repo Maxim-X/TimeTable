@@ -130,11 +130,11 @@
 										</div>
 										<div class="remaining_resources">
 											<ul class="title_remaining_resources">
-												<li>17.6M</li>
-												<li>30M</li>
+												<li><span id="use_space_mb"><?=number_format($use_space_mb, 2);?></span>M</li>
+												<li><span id="disk_space_mb"><?=$disk_space_mb;?></span>M</li>
 											</ul>
 											<div class="progress_bar_remaining_resources">
-												<div class="line" style="width: 60%"></div>
+												<div class="line" id="pr_use_space" style="width: <?=$pr_use_space;?>%"></div>
 											</div>
 										</div>
 									</div>
@@ -157,31 +157,33 @@
 									<div class="list_user_files">
 
 										<div class="file-upload-list"></div>
-										<div class="file">
-											<div class="file_info">
-												<div class="image"><img src="/resources/images/icon/excel.svg" alt="excel"></div>
-												<div class="name_file"><p>Студенты 2021г.xls</p></div>
-												<div class="size_file"><p>4.1М</p></div>
-												<div class="button_add"><div class="button_add_f"><img src="/resources/images/icon/add_mini.svg" alt="add"><p>Добавить студентов из этого файла</p></div></div>
+										<div id="all_user_files">
+					<!-- 						<div class="file">
+												<div class="file_info">
+													<div class="image"><img src="/resources/images/icon/excel.svg" alt="excel"></div>
+													<div class="name_file"><p>Студенты 2021г.xls</p></div>
+													<div class="size_file"><p>4.1М</p></div>
+													<div class="button_add"><div class="button_add_f"><img src="/resources/images/icon/add_mini.svg" alt="add"><p>Добавить студентов из этого файла</p></div></div>
+												</div>
 											</div>
-										</div>
 
-										<div class="file">
-											<div class="file_info">
-												<div class="image"><img src="/resources/images/icon/excel.svg" alt="excel"></div>
-												<div class="name_file"><p>Document EXCEL all students all students 2019-2020.xls</p></div>
-												<div class="size_file"><p>7.9М</p></div>
-												<div class="button_add"><div class="button_add_f"><img src="/resources/images/icon/add_mini.svg" alt="add"><p>Добавить студентов из этого файла</p></div></div>
+											<div class="file">
+												<div class="file_info">
+													<div class="image"><img src="/resources/images/icon/excel.svg" alt="excel"></div>
+													<div class="name_file"><p>Document EXCEL all students all students 2019-2020.xls</p></div>
+													<div class="size_file"><p>7.9М</p></div>
+													<div class="button_add"><div class="button_add_f"><img src="/resources/images/icon/add_mini.svg" alt="add"><p>Добавить студентов из этого файла</p></div></div>
+												</div>
 											</div>
-										</div>
 
-										<div class="file">
-											<div class="file_info">
-												<div class="image"><img src="/resources/images/icon/excel.svg" alt="excel"></div>
-												<div class="name_file"><p>Студенты 2020г.xls</p></div>
-												<div class="size_file"><p>5.6М</p></div>
-												<div class="button_add"><div class="button_add_f"><img src="/resources/images/icon/add_mini.svg" alt="add"><p>Добавить студентов из этого файла</p></div></div>
-											</div>
+											<div class="file">
+												<div class="file_info">
+													<div class="image"><img src="/resources/images/icon/excel.svg" alt="excel"></div>
+													<div class="name_file"><p>Студенты 2020г.xls</p></div>
+													<div class="size_file"><p>5.6М</p></div>
+													<div class="button_add"><div class="button_add_f"><img src="/resources/images/icon/add_mini.svg" alt="add"><p>Добавить студентов из этого файла</p></div></div>
+												</div>
+											</div> -->
 										</div>
 									</div>
 								</div>
@@ -216,3 +218,9 @@
 
 </div>
 <script src="/resources/js/dropzone.js"></script>
+
+<script>
+	window.onload = function(){
+		EDIT_DOM.reload_all_files();
+	}
+</script>

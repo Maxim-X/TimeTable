@@ -994,6 +994,32 @@ ul.title_remaining_resources li {font-family: "Tahoma", sans-serif;font-size: 14
     text-decoration: none;
 }
 
+.add-new-input-student {
+    padding: 10px 10px;
+    border: 1px solid #0e6efd5e;
+    margin: 5px 15px 20px 15px;
+    display: flex;
+    justify-content: flex-end;
+    border-radius: 5px;
+}
+
+.button-add {
+    background: #0e6efd;
+    width: 30px;
+    height: 30px;
+    line-height: 31px;
+    text-align: center;
+    color: white;
+    font-weight: 300;
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+.button-add:hover {
+    cursor: pointer;
+    background: #025ce2;
+}
+
 /* Large desktops and laptops */
 @media (min-width: 1200px) {
 	section#login {

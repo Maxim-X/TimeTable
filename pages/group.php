@@ -13,7 +13,7 @@
 						<div class="col-xxl-7 col-xl-7 col-lg-7 col-md-12">
 							<div class="bar_table">
 								<div class="button_table_func button_table_func_opacity"><img src="/resources/images/icon/document.svg" alt="document"><span>Экспорт паролей</span></div>
-								<div class="button_table_func button_table_func_blue"><img src="/resources/images/icon/add.svg" alt="document"><span>Добавить</span></div>
+								<div class="button_table_func button_table_func_blue" data-toggle="modal" data-target="#add-students"><img src="/resources/images/icon/add.svg" alt="document"><span>Добавить</span></div>
 							</div>
 							<div class="section_table">
 								<table>
@@ -224,3 +224,54 @@
 		EDIT_DOM.reload_all_files();
 	}
 </script>
+
+<!-- Модальное окно -->
+<div class="modal fade" id="add-students" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form method="POST">
+	      	<div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Добавить студентов в группу <span>17П-1</span></h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="all_add_students_list">
+	      	<div class="row">
+		      	<div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12">
+			      	<div class="modal-body">
+			        <label for="inputNameStudent" class="form-label">Имя студента</label>
+					<input type="text" name="name_student" id="inputNameStudent" class="form-control">
+			     	</div>
+		      	</div>
+		      	<div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12">
+			      <div class="modal-body">
+			        <label for="inputSurnameStudent" class="form-label">Фамилия студента</label>
+					<input type="text" name="surname_student" id="inputSurnameStudent" class="form-control">
+			      </div>
+		      	</div>
+		      	<div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12">
+			      <div class="modal-body">
+			        <label for="inputMiddleNameStudent" class="form-label">Отчество студента</label>
+					<input type="text" name="middle-name_student" id="inputMiddleNameStudent" class="form-control">
+			      </div>
+		      </div>
+		   </div>
+	      </div>
+	      <div class="add-new-input-student">
+	      	<div class="button-delete">+</div>
+	      	<div class="button-add">+</div>
+	      </div>
+	      <!-- <div class="modal-body">
+	        <label for="inputGroupStudent" class="form-label">Группа</label>
+			<input type="text" name="group_student" id="inputGroupStudent" class="form-control" value="17П-1" disabled>
+	      </div> -->
+	      <div class="modal-footer">
+	        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button> -->
+	        <!-- <button type="button" name="add_group"  class="btn btn-primary"></button> -->
+	        <input type="submit" name="add_students" class="btn btn-primary" value="Добавить студентов в группу">
+	      </div>
+      </form>
+    </div>
+  </div>
+</div>

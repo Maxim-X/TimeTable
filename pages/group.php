@@ -12,7 +12,7 @@
 					<div class="row all_content_mg">
 						<div class="col-xxl-7 col-xl-7 col-lg-7 col-md-12">
 							<div class="bar_table">
-								<div class="button_table_func button_table_func_opacity"><img src="/resources/images/icon/document.svg" alt="document"><span>Экспорт паролей</span></div>
+								<div class="button_table_func button_table_func_opacity" onclick="generatingAuthInfo(<?=$info_group->id;?>)"><img src="/resources/images/icon/document.svg" alt="document"><span>Экспорт паролей</span></div>
 								<div class="button_table_func button_table_func_blue" data-toggle="modal" data-target="#add-students"><img src="/resources/images/icon/add.svg" alt="document"><span>Добавить</span></div>
 							</div>
 							<div class="section_table">
@@ -45,78 +45,6 @@
 										<?php 
 											endforeach;
 										?>
-										<!-- <tr>
-											<td>Щербаков</td>
-											<td>Станислав </td>
-											<td>Игоревич</td>
-											<td>Account7212</td>
-											<td>
-												<div class="table_row_func">
-													<div class="button_func_tb button_func_tb_red"><img src="/resources/images/icon/bin.svg" alt="bin"></div>
-													<div class="button_func_tb button_func_tb_blue"><img src="/resources/images/icon/pencil.svg" alt="pencil"></div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>Щербаков</td>
-											<td>Станислав </td>
-											<td>Игоревич</td>
-											<td>Account7212</td>
-											<td>
-												<div class="table_row_func">
-													<div class="button_func_tb button_func_tb_red"><img src="/resources/images/icon/bin.svg" alt="bin"></div>
-													<div class="button_func_tb button_func_tb_blue"><img src="/resources/images/icon/pencil.svg" alt="pencil"></div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>Щербаков</td>
-											<td>Станислав </td>
-											<td>Игоревич</td>
-											<td>Account7212</td>
-											<td>
-												<div class="table_row_func">
-													<div class="button_func_tb button_func_tb_red"><img src="/resources/images/icon/bin.svg" alt="bin"></div>
-													<div class="button_func_tb button_func_tb_blue"><img src="/resources/images/icon/pencil.svg" alt="pencil"></div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>Щербаков</td>
-											<td>Станислав </td>
-											<td>Игоревич</td>
-											<td>Account7212</td>
-											<td>
-												<div class="table_row_func">
-													<div class="button_func_tb button_func_tb_red"><img src="/resources/images/icon/bin.svg" alt="bin"></div>
-													<div class="button_func_tb button_func_tb_blue"><img src="/resources/images/icon/pencil.svg" alt="pencil"></div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>Щербаков</td>
-											<td>Станислав </td>
-											<td>Игоревич</td>
-											<td>Account7212</td>
-											<td>
-												<div class="table_row_func">
-													<div class="button_func_tb button_func_tb_red"><img src="/resources/images/icon/bin.svg" alt="bin"></div>
-													<div class="button_func_tb button_func_tb_blue"><img src="/resources/images/icon/pencil.svg" alt="pencil"></div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>Щербаков</td>
-											<td>Станислав </td>
-											<td>Игоревич</td>
-											<td>Account7212</td>
-											<td>
-												<div class="table_row_func">
-													<div class="button_func_tb button_func_tb_red"><img src="/resources/images/icon/bin.svg" alt="bin"></div>
-													<div class="button_func_tb button_func_tb_blue"><img src="/resources/images/icon/pencil.svg" alt="pencil"></div>
-												</div>
-											</td>
-										</tr> -->
 									</tbody>
 								</table>
 							</div>

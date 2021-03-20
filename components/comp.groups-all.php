@@ -1,5 +1,10 @@
 <?php
 
+if (!Account::$AUTH) {
+	header('Location: /login');
+	exit;
+}
+
 // Таблица групп
 $all_groups = R::findAll('groups_students', 'id_institution = ? ORDER BY `id` DESC', array(Account::$INSTITUTION_ID));
 

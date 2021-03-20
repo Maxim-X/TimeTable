@@ -1,4 +1,8 @@
 <?PHP
+if (!Account::$AUTH) {
+	header('Location: /login');
+	exit;
+}
 
 $info_group = R::findOne('groups_students', 'id = ?', array($_GET['id']));
 
@@ -50,5 +54,30 @@ $pr_use_space = $use_space * 100 / (int)Core::$DISC_SPACE;
 			last_template_dom.lastChild.remove();
 			id_template--;
 		}
+	}
+
+	function generatingAuthInfo(group_id){
+
+		$.ajax({
+			url: '/assets/ajax/ajax.generating-auth-info.php',
+			type: 'POST',
+			dataType: 'json',
+			data: {group_id: group_id},
+		})
+		.done(function() {
+			console.log("success");
+		})
+		.fail(function(data) {
+			console.log("error");
+		})
+		.always(function(data) {
+			var $a = $("<a>");
+		    $a.attr("href",data.file);
+		    $("body").append($a);
+		    $a.attr("download","Аккаунты группы <?=$info_group->name;?>.xls");
+		    $a[0].click();
+		    $a.remove();
+		});
+		
 	}
 </script>

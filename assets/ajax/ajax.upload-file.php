@@ -22,12 +22,13 @@ R::ext('xdispense', function( $type ){
 
 if(!R::testConnection()){ 
 	echo json_encode(["status"=> false, "message"=> 'Ошибка подключения к Базе Данных!']);
+    exit;
 }
 
 Account::init();
 
 if (!Account::$AUTH) {
-	echo "В доступе отказанно!";
+	echo json_encode("В доступе отказано!");
 	exit;
 }
 

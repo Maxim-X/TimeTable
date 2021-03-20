@@ -27,7 +27,7 @@
 									<tbody>
 										<?php 
 										foreach ($all_groups as $group):
-											$count_students = R::count( 'accounts', 'group_id = ?', array($group->id));
+											$count_students = R::count( 'accounts_generated', 'group_id = ?', array($group->id));
 										?>
 										<tr>
 											

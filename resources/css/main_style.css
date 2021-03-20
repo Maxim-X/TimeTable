@@ -1020,6 +1020,24 @@ ul.title_remaining_resources li {font-family: "Tahoma", sans-serif;font-size: 14
     background: #025ce2;
 }
 
+.button-delete {
+    background: #fd0e0e;
+    width: 30px;
+    height: 30px;
+    line-height: 31px;
+    text-align: center;
+    color: white;
+    font-weight: 300;
+    font-size: 20px;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.button-delete:hover {
+    cursor: pointer;
+    background: #e20202;
+}
+
 /* Large desktops and laptops */
 @media (min-width: 1200px) {
 	section#login {

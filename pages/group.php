@@ -8,7 +8,7 @@
 			<?php include("inc/menu.top.php"); ?>
 			<section id="content">
 				<div class="main_content">
-					<h1 class="main_header">Таблица учеников <span class="highlight">17П-1 <div class="choise_head"><img src="/resources/images/icon/choose-arrow.svg" alt="choose-arrow" class="choise_head_but"></div></span></h1>
+					<h1 class="main_header">Таблица учеников <span class="highlight"><?=$info_group->name;?><div class="choise_head"><img src="/resources/images/icon/choose-arrow.svg" alt="choose-arrow" class="choise_head_but"></div></span></h1>
 					<div class="row all_content_mg">
 						<div class="col-xxl-7 col-xl-7 col-lg-7 col-md-12">
 							<div class="bar_table">
@@ -27,7 +27,25 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
+										<?php 
+											foreach ($students_group as $student):
+										?>
+											<tr>
+												<td><?=$student->surname;?></td>
+												<td><?=$student->name;?> </td>
+												<td><?=$student->middle_name;?></td>
+												<td><?=$student->login;?></td>
+												<td>
+													<div class="table_row_func">
+														<div class="button_func_tb button_func_tb_red"><img src="/resources/images/icon/bin.svg" alt="bin"></div>
+														<div class="button_func_tb button_func_tb_blue"><img src="/resources/images/icon/pencil.svg" alt="pencil"></div>
+													</div>
+												</td>
+											</tr>
+										<?php 
+											endforeach;
+										?>
+										<!-- <tr>
 											<td>Щербаков</td>
 											<td>Станислав </td>
 											<td>Игоревич</td>
@@ -98,19 +116,7 @@
 													<div class="button_func_tb button_func_tb_blue"><img src="/resources/images/icon/pencil.svg" alt="pencil"></div>
 												</div>
 											</td>
-										</tr>
-										<tr>
-											<td>Щербаков</td>
-											<td>Станислав </td>
-											<td>Игоревич</td>
-											<td>Account7212</td>
-											<td>
-												<div class="table_row_func">
-													<div class="button_func_tb button_func_tb_red"><img src="/resources/images/icon/bin.svg" alt="bin"></div>
-													<div class="button_func_tb button_func_tb_blue"><img src="/resources/images/icon/pencil.svg" alt="pencil"></div>
-												</div>
-											</td>
-										</tr>
+										</tr> -->
 									</tbody>
 								</table>
 							</div>
@@ -236,31 +242,31 @@
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
-	      <div class="all_add_students_list">
+	      <div class="all_add_students_list" id="all_add_students_list">
 	      	<div class="row">
 		      	<div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12">
 			      	<div class="modal-body">
-			        <label for="inputNameStudent" class="form-label">Имя студента</label>
-					<input type="text" name="name_student" id="inputNameStudent" class="form-control">
+			        <label for="inputNameStudent_1" class="form-label">Имя студента</label>
+					<input type="text" name="name_student_1" id="inputNameStudent_1" class="form-control">
 			     	</div>
 		      	</div>
 		      	<div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12">
 			      <div class="modal-body">
-			        <label for="inputSurnameStudent" class="form-label">Фамилия студента</label>
-					<input type="text" name="surname_student" id="inputSurnameStudent" class="form-control">
+			        <label for="inputSurnameStudent_1" class="form-label">Фамилия студента</label>
+					<input type="text" name="surname_student_1" id="inputSurnameStudent_1" class="form-control">
 			      </div>
 		      	</div>
 		      	<div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12">
 			      <div class="modal-body">
-			        <label for="inputMiddleNameStudent" class="form-label">Отчество студента</label>
-					<input type="text" name="middle-name_student" id="inputMiddleNameStudent" class="form-control">
+			        <label for="inputMiddleNameStudent_1" class="form-label">Отчество студента</label>
+					<input type="text" name="middle-name_student_1" id="inputMiddleNameStudent_1" class="form-control">
 			      </div>
 		      </div>
 		   </div>
 	      </div>
 	      <div class="add-new-input-student">
-	      	<div class="button-delete">+</div>
-	      	<div class="button-add">+</div>
+	      	<div class="button-delete" onclick="deleteTamplateStudent()">-</div>
+	      	<div class="button-add" onclick="addTamplateStudent()">+</div>
 	      </div>
 	      <!-- <div class="modal-body">
 	        <label for="inputGroupStudent" class="form-label">Группа</label>

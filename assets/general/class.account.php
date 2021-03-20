@@ -162,6 +162,42 @@ class Account
 		return ["status" => true, "message" => "Успешная регистрация!"];
 	}
 
+	public static function signup_system_account($user_info){
+		$user_info = self::trim_info($user_info);
+
+		$name 		 = trim($user_info['name']);
+		$surname 	 = trim($user_info['surname']);
+		$middle_name = trim($user_info['middle_name']);
+		$account_type = $user_info['account_type'];
+		$group_id = $user_info['group_id'];
+
+		if (empty($name) || empty($surname) || empty($middle_name)) {
+			return array("status" => false, "message" => "Информация введена неверно!");
+		}
+
+		if (empty($user_info['group_id']) || $user_info['group_id'] <= 0) {
+			return array("status" => false, "message" => "Группа указана неверно!");
+		}
+
+		$password = self::generation_password(4);
+		$login = "Account_";
+
+		# регистрируем пользователя
+		$user = R::xdispense('accounts_generated');
+		$user->login 	= $login;
+		$user->password = $password;
+		$user->account_type = $account_type;
+		$user->name = $name;
+		$user->surname = $surname;
+		$user->middle_name = $middle_name;
+		$user->group_id = $group_id;
+		$user_id = R::store($user);
+
+		$user = R::load('accounts_generated', $user_id);
+		$user->login = $login.$user_id;
+		$user = R::store($user);
+	}
+
 	public static function delete_account(){
 	    if (!self::$AUTH){
             return array("status" => false, "message" => "Для удаления аккаунта вам необходимо авторизоваться!");
@@ -445,5 +481,39 @@ class Account
 
 
 
+	}
+
+	private static function generation_password($iter = 4){
+		echo "<hr>";
+		$arr_characters = array('a','b','c','d','e','f',
+			'g','h','i','j','k','l',
+			'm','n','o','p','r','s',
+			't','u','v','x','y','z',
+			'A','B','C','D','E','F',
+			'G','H','I','J','K','L',
+			'M','N','O','P','R','S',
+			'T','U','V','X','Y','Z',
+			'1','2','3','4','5','6',
+			'7','8','9','0');
+			// Генерируем пароль
+			
+		do{
+			$pass = "";
+			for($i = 1; $i < $iter; $i++)
+			{
+				$sec_pass = "";
+				for ($j=0; $j < $iter ; $j++) { 
+					$sec_pass .= $arr_characters[rand(0, count($arr_characters) - 1)];
+				}
+				// $index = rand(0, count($arr_letters) - 1);
+				if ($i == $iter - 1) {
+					$pass .= $sec_pass;
+				}else{
+					$pass .= $sec_pass . "-";
+				}
+			}
+		}while(!self::password_valid($pass)['status']);
+
+		return $pass;
 	}
 }

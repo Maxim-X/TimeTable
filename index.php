@@ -86,6 +86,11 @@ Route::path("/groups-all", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/groups-all.php");
 });
 
+Route::path("/files-all", function(){
+	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.files-all.php");
+	include($_SERVER["DOCUMENT_ROOT"]."/pages/files-all.php");
+});
+
 
 /*
  | ГЛАВНЫЙ КОНТРОЛЛЕР

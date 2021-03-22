@@ -1,8 +1,8 @@
 <?php 
 # Старт сессии
-session_start(); 
+@session_start(); 
 # Старт буфера
-ob_start(); 
+@ob_start(); 
 # Устанавливаем время по Гринвичу
 date_default_timezone_set('UTC'); 
 
@@ -24,9 +24,6 @@ R::ext('xdispense', function( $type ){
 require_once($_SERVER["DOCUMENT_ROOT"]."/assets/start/classes.init.php");
 require_once($_SERVER["DOCUMENT_ROOT"]."/config/config.core.php"); Core::init(); // настройки сайта
 
-
-
-
 /*
  | ГЛАВНЫЙ КОНТРОЛЛЕР
 */
@@ -47,6 +44,7 @@ Route::path("/", function(){
 		
 	}
 });
+
 
 Route::path("/", function(){
 	//Не авторизованный пользователь
@@ -90,11 +88,20 @@ Route::path("/files-all", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.files-all.php");
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/files-all.php");
 });
-
-
 /*
  | ГЛАВНЫЙ КОНТРОЛЛЕР
 */
 
-
 include($_SERVER["DOCUMENT_ROOT"]."/inc/footer.php");
+
+
+$content_page = ob_get_contents();
+
+ob_end_clean();
+
+$content_page = str_replace("{!TITLE!}",Route::$TITLE, $content_page);
+$content_page = str_replace('{!DESCRIPTION!}',Route::$DESCRIPTION, $content_page);
+
+echo $content_page
+
+;

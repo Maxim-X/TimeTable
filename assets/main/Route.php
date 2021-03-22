@@ -9,6 +9,9 @@ require_once 'assets/modules/mobile_detect/Mobile_Detect.php';
 
 class Route
 {
+
+	public static $TITLE;
+	public static $DESCRIPTION;
 	
 	public static function path($url, $func, $where = array()){
 		$url_now = $_SERVER['REQUEST_URI'];

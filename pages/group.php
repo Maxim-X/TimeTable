@@ -38,7 +38,7 @@
 												<td>
 													<div class="table_row_func">
 														<div class="button_func_tb button_func_tb_red"><img src="/resources/images/icon/bin.svg" alt="bin"></div>
-														<div class="button_func_tb button_func_tb_blue"><img src="/resources/images/icon/pencil.svg" alt="pencil"></div>
+														<div class="button_func_tb button_func_tb_blue" onclick="editStudentInfo(<?=$student->id;?>)"><img src="/resources/images/icon/pencil.svg" alt="pencil"></div>
 													</div>
 												</td>
 											</tr>
@@ -51,55 +51,86 @@
 						</div>
 						<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
 							<div class="block_func_full">
-								<div class="interactions_drive">
-									<div class="info_drive">
-										<div class="head_info_drive">
-											<div class="image_head_info_drive">
-												<img src="/resources/images/icon/cloud.svg" alt="cloud">
+								<div class="block_drive">
+									<div class="interactions_drive">
+										<div class="info_drive">
+											<div class="head_info_drive">
+												<div class="image_head_info_drive">
+													<img src="/resources/images/icon/cloud.svg" alt="cloud">
+												</div>
+												<div class="title_head_info_drive">
+													<p class="main">Ваш диск</p>
+													<p class="general">Provided by TimeTable</p>
+												</div>
 											</div>
-											<div class="title_head_info_drive">
-												<p class="main">Ваш диск</p>
-												<p class="general">Provided by TimeTable</p>
+											<div class="remaining_resources">
+												<ul class="title_remaining_resources">
+													<li><span id="use_space_mb"><?=number_format($use_space_mb, 2);?></span>M</li>
+													<li><span id="disk_space_mb"><?=$disk_space_mb;?></span>M</li>
+												</ul>
+												<div class="progress_bar_remaining_resources">
+													<div class="line" id="pr_use_space" style="width: <?=$pr_use_space;?>%"></div>
+												</div>
 											</div>
 										</div>
-										<div class="remaining_resources">
-											<ul class="title_remaining_resources">
-												<li><span id="use_space_mb"><?=number_format($use_space_mb, 2);?></span>M</li>
-												<li><span id="disk_space_mb"><?=$disk_space_mb;?></span>M</li>
-											</ul>
-											<div class="progress_bar_remaining_resources">
-												<div class="line" id="pr_use_space" style="width: <?=$pr_use_space;?>%"></div>
-											</div>
-										</div>
-									</div>
-									<div class="drag_and_drop_file">
-										<!-- <form action="/assets/ajax/ajax.upload-file.php" class="dropzone"> -->
+										<div class="drag_and_drop_file">
 											<div class="image"><img src="/resources/images/icon/file-folder.svg" alt="file"></div>
-											<div class="title"><p>Перетащите файл сюда или <br> <span id="upload_but">выберите файл</span> 
-												<!-- <div class="dz-default dz-message">
-													<button class="dz-button func_upload_file" type="button">выберите файл</button>
-												</div></p> -->
+												<div class="title"><p>Перетащите файл сюда или <br> <span id="upload_but">выберите файл</span> 
+												</div>
 											</div>
-										<!-- </form> -->
 									</div>
-								</div>
-								<div class="all_user_file">
-									<div class="head_user_file">
-										<h3>Ваши <span>файлы</span></h3>
-										<p><a href="/files-all">все файлы <img src="/resources/images/icon/right-arrow-angle-mini.svg" alt="arrow"></a></p>
-									</div>
-									<div class="list_user_files">
+									<div class="all_user_file">
+										<div class="head_user_file">
+											<h3>Ваши <span>файлы</span></h3>
+											<p><a href="/files-all">все файлы <img src="/resources/images/icon/right-arrow-angle-mini.svg" alt="arrow"></a></p>
+										</div>
+										<div class="list_user_files">
 
-										<div class="file-upload-list"></div>
-										<div id="all_user_files"></div>
+											<div class="file-upload-list"></div>
+											<div id="all_user_files"></div>
+										</div>
+									</div>
+									<div class="inform_use_file">
+										<div class="image">
+											<img src="/resources/images/icon/information.svg" alt="information">
+										</div>
+										<div class="title">
+											<p>Используйте ваши файлы для автоматического импорта учеников в систему.</p>
+										</div>
 									</div>
 								</div>
-								<div class="inform_use_file">
-									<div class="image">
-										<img src="/resources/images/icon/information.svg" alt="information">
-									</div>
-									<div class="title">
-										<p>Используйте ваши файлы для автоматического импорта учеников в систему.</p>
+								<div class="block_edit_user">
+									<div class="edit_user">
+										<div class="head_edit_user">
+											<h3>Редактировать профиль #<span id="user_edit_id"></span></h3>
+											<p><a href="#" onclick="closeEditStudentInfo();return;">отменить</a></p>
+										</div>
+										<form id="edit_info_student" method="POST">
+											<input type="hidden" name="user_id" class="form-control form-control-input" id="user_id" value="2" required="">
+											<div class="mb-3">
+											    <label for="user_name" class="form-label">Имя</label>
+												<input type="text" name="user_name" class="form-control form-control-input" id="user_name" value="" required="">
+											</div>
+											<div class="mb-3">
+											    <label for="user_surname" class="form-label">Фамилия</label>
+												<input type="text" name="user_surname" class="form-control form-control-input" id="user_surname" value="" required="">
+											</div>
+											<div class="mb-3">
+											    <label for="user_middle_name" class="form-label">Отчество</label>
+												<input type="text" name="user_middle_name" class="form-control form-control-input" id="user_middle_name" value="" required="">
+											</div>
+											<div class="mb-3">
+											    <label for="user_group" class="form-label">Группа</label>
+											    <select class="form-select form-control-input" name="user_group" id="user_group">
+											    	<?php foreach ($all_groups as $group): ?>
+												  		<option value="<?=$group->id;?>" <?php if($group->id == $info_group->id){echo "selected";} ?>><?=$group->name;?></option>
+													<?php endforeach; ?>
+												</select>
+											</div>
+											<div class="mb-3">
+												<button type="submit" name="editUserData" class="btn btn-primary btn-def" style="width: 100%;">Сохранить</button>
+											</div>
+										</form>
 									</div>
 								</div>
 							</div>

@@ -1069,6 +1069,37 @@ ul.title_remaining_resources li {font-family: "Tahoma", sans-serif;font-size: 14
     backdrop-filter: blur(4.5px);
 }
 
+.modal-body label {
+    color: #C6C6C6;
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.head_edit_user a {
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+    color: #C6C6C6;
+}
+
+.head_edit_user h3 {
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 20px;
+    color: white;
+    font-weight: 400;
+}
+
+.head_edit_user {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0px 15px;
+}
+
+.block_edit_user{
+    display: none;
+}
+
 /* Large desktops and laptops */
 @media (min-width: 1200px) {
 	section#login {

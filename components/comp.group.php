@@ -24,7 +24,47 @@ if (isset($_POST['add_students'])) {
 	header("Refresh: 0");
 }
 
+if (isset($_POST['editUserData'])) {
+
+	$user_id = htmlspecialchars($_POST['user_id']);
+	$user_name = htmlspecialchars($_POST['user_name']);
+	$user_surname = htmlspecialchars($_POST['user_surname']);
+	$user_middle_name = htmlspecialchars($_POST['user_middle_name']);
+	$user_group = htmlspecialchars($_POST['user_group']);
+
+	if (Account::$AUTH || Account::$ACCOUNT_TYPE == 3) {
+		$id_institution = R::exec('SELECT groups_students.id_institution FROM `accounts_generated`, `groups_students`  WHERE accounts_generated.id = ? AND groups_students.id = accounts_generated.group_id ', array($user_id));
+		
+		if (isset($user_id) || Institution::$ID == $id_institution ) {
+		
+			if ( !empty($user_name) && !empty($user_surname) && !empty($user_middle_name) ) {
+
+				$check_group = R::findOne('groups_students', 'id = ?', array($user_group));
+				
+				if ( isset($user_group) && !empty($user_group) && $user_group > 0 && $check_group ) {
+					$user = R::load('accounts_generated', $user_id);
+					$user->name = $user_name;
+					$user->surname = $user_surname;
+					$user->middle_name = $user_middle_name;
+					$user->group_id = $user_group;
+					R::store($user);
+				}else{ $error_edit = "Данной группы не обнаруженно!"; }
+
+			}else{ $error_edit = "Одно из полей не заполненно!"; }
+		
+		}else{$error_edit = "Вам запрещено редактировать информацию этого ученика!";}
+		
+	}else{$error_edit = "Вам запрещено редактировать информацию учеников!";}
+
+	
+		
+	echo $error_edit;
+
+}
+
 $students_group = R::find('accounts_generated', 'account_type = ? AND group_id = ?', array(1, $info_group->id));
+$all_groups = R::find('groups_students', 'id_institution = ?', array(Institution::$ID));
+
 
 $disk_space_mb = (int)Core::$DISC_SPACE / 1024 / 1024;
 $user_files = R::find('users_files', 'user_id = ?', array(Account::$ID));
@@ -114,5 +154,38 @@ $pr_use_space = $use_space * 100 / (int)Core::$DISC_SPACE;
 		    $a.remove();
 		});
 		
+	}
+
+	function editStudentInfo(user_id){
+
+		$.ajax({
+			url: '/assets/ajax/ajax.user-info.php',
+			type: 'POST',
+			dataType: 'json',
+			data: {user_id: user_id},
+		})
+		.done(function(data) {
+			if (data.status) {
+				let user = data.user;
+				console.log(user);
+				document.querySelector('input#user_id').value = user.id;
+				document.querySelector('input#user_name').value = user.name;
+				document.querySelector('input#user_surname').value = user.surname;
+				document.querySelector('input#user_middle_name').value = user.middle_name;
+				document.querySelector('#user_edit_id').innerHTML = user.id;
+				document.querySelector('.block_edit_user').style.display = "block";
+				document.querySelector('.block_drive').style.display = "none";
+			}else{
+				alert(data.message);
+			}
+		})
+		.fail(function(data) {
+			alert("Error");
+		});
+	}
+
+	function closeEditStudentInfo(){
+		document.querySelector('.block_edit_user').style.display = "none";
+		document.querySelector('.block_drive').style.display = "block";
 	}
 </script>

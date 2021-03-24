@@ -21,6 +21,7 @@ class Account
 	public static $MIDDLENAME;
 	public static $INSTITUTION_ID;
 	public static $AFFILIATION;
+	public static $ACCOUNT_TYPE;
 	protected static $ACCESSLEVEL;
 
 	 
@@ -57,6 +58,7 @@ class Account
 				self::$MIDDLENAME 		= $user_data_db->middle_name;
 				self::$INSTITUTION_ID 	= $user_data_db->institution_id;
 				self::$AFFILIATION		= $affiliation_name;
+				self::$ACCOUNT_TYPE		= $account_type;
 				// self::$ACCESSLEVEL 	= $user_data["accesslevel"];
 			}
 		}

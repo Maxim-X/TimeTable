@@ -92,11 +92,12 @@ $sheet->setCellValue("A1" , "ФИО");
 $sheet->setCellValue("B1" , "Логин");
 $sheet->setCellValue("C1" , "Пароль");
 
-foreach ($list_users as $index => $user) {
-	$index = $index + 1;
-	$sheet->setCellValue("A".$index , $user->surname." ".$user->name." ".$user->middle_name);
-	$sheet->setCellValue("B".$index , $user->login);
-	$sheet->setCellValue("C".$index , $user->password);
+$ind = 2;
+foreach ($list_users as $user) {
+	$sheet->setCellValue("A".$ind , $user->surname." ".$user->name." ".$user->middle_name);
+	$sheet->setCellValue("B".$ind , $user->login);
+	$sheet->setCellValue("C".$ind , $user->password);
+	$ind++;
 }
 
 // $sheet->setCellValue("A1", "ЗначениеЗначение Значение Значение");

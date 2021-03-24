@@ -8,6 +8,7 @@
 class Institution
 {
 	public static $EXISTS = false;
+	public static $ID;
 	public static $SHORT_NAME;
 	public static $FULL_NAME;
 	public static $ID_TIMEZONE;
@@ -20,6 +21,7 @@ class Institution
 				$inst_data_db = R::findOne('institutions', 'id = ?', array(Account::$INSTITUTION_ID));
 
 				self::$EXISTS 		= true;
+				self::$ID 	= $inst_data_db->id;
 				self::$SHORT_NAME 	= $inst_data_db->short_name;
 				self::$FULL_NAME 	= $inst_data_db->full_name;
 				self::$ID_TIMEZONE 	= $inst_data_db->timezone;

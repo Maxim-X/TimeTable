@@ -479,7 +479,7 @@ h1.main_header .highlight {
     border-color: #17181A;
 }
 
-.content_search .nene_search {
+.content_search .none_search {
     top: 50%;
     left: 50%;
     position: absolute;
@@ -1037,6 +1037,36 @@ ul.title_remaining_resources li {font-family: "Tahoma", sans-serif;font-size: 14
 .button-delete:hover {
     cursor: pointer;
     background: #e20202;
+}
+
+.modal-content {
+    background: #282B30;
+}
+
+.modal-content .modal-header {
+    border-bottom: 1px solid #020202;
+    font-family: "SF Pro Display", sans-serif;
+}
+
+.modal-content .modal-footer {
+    border-top: 1px solid #020202;
+}
+
+.modal-header .modal-title {
+    font-family: "SF Pro Display", sans-serif;
+    font-weight: 400;
+    color: white;
+}
+
+.modal-content label {
+    color: #C6C6C6;
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.modal.fade.show {
+    backdrop-filter: blur(4.5px);
 }
 
 /* Large desktops and laptops */

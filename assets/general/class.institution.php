@@ -52,34 +52,34 @@ class Institution
 		$timeZoneInst 		= trim($inst_data['timeZoneInst']);
 		$offRepresentative 	= trim($inst_data['offRepresentative']);
 
-		// Проверка типа учереждения
+		// Проверка типа учреждения
 		if (empty($type_inst)) {
-			return array("status" => false, "message" => "Тип учереждения введен неверно!");
+			return array("status" => false, "message" => "Тип учреждения введен неверно!");
 		}
 		$find_type_inst = R::findOne('types_institutions', 'id = ?', array($type_inst));
 		if (!$find_type_inst) {
-			return array("status" => false, "message" => "Данный тип учереждения не обнаружен!");
+			return array("status" => false, "message" => "Данный тип учреждения не обнаружен!");
 		}
 
-		// Проверка полного названия учереждения
+		// Проверка полного названия учреждения
 		if (empty($fullNameInst)) {
-			return array("status" => false, "message" => "Название учереждения введено неверно!");
+			return array("status" => false, "message" => "Название учреждения введено неверно!");
 		}
 		$find_full_name_inst = R::findOne('institutions', 'full_name = ?', array($fullNameInst));
 		if ($find_full_name_inst) {
 			return array("status" => false, "message" => "Учереждение с данным названием уже добавленно!");
 		}
 
-		// Проверка краткого названия учереждения
+		// Проверка краткого названия учреждения
 		if (empty($shortNameInst)) {
-			return array("status" => false, "message" => "Краткое название учереждения введено неверно!");
+			return array("status" => false, "message" => "Краткое название учреждения введено неверно!");
 		}
 		$find_short_name_inst = R::findOne('institutions', 'short_name = ?', array($shortNameInst));
 		if ($find_short_name_inst) {
 			return array("status" => false, "message" => "Учереждение с данной аббревиатурой уже добавленно!");
 		}
 
-		// Проверка часового пояса учереждения
+		// Проверка часового пояса учреждения
 		if (empty($timeZoneInst)) {
 			return array("status" => false, "message" => "Часовой пояс введен неверно!");
 		}

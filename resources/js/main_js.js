@@ -1,4 +1,3 @@
-
 jQuery(document).ready(function($) {
 
         // Ввод в глобальный поиск
@@ -41,23 +40,23 @@ jQuery(document).ready(function($) {
 
         // var previewNode = $(".list_user_files");
         // var previewTemplate = document.createElement("div");
-        var previewNode = document.querySelector("#template");
-        previewNode.id = "";
-        var previewTemplate = previewNode.parentNode.innerHTML;
-        previewNode.parentNode.removeChild(previewNode);
+        // var previewNode = document.querySelector("#template");
+        // previewNode.id = "";
+        // var previewTemplate = previewNode.parentNode.innerHTML;
+        // previewNode.parentNode.removeChild(previewNode);
 
-        var myDropzone = new Dropzone('div.drag_and_drop_file', { // Make the whole body a dropzone
-          url: "/assets/ajax/ajax.upload-file.php", // Set the url
-          thumbnailWidth: 80,
-          // maxFiles: 1,
-          acceptedFiles: 'application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-          thumbnailHeight: 80,
-          parallelUploads: 20,
-          previewTemplate: previewTemplate,
-          // autoQueue: false, // Make sure the files aren't queued until manually added
-          previewsContainer: ".file-upload-list", // Define the container to display the previews
-          // clickable: "#upload_but" // Define the element that should be used as click trigger to select files.
-        });
+        // var myDropzone = new Dropzone('div.drag_and_drop_file', { // Make the whole body a dropzone
+        //   url: "/assets/ajax/ajax.upload-file.php", // Set the url
+        //   thumbnailWidth: 80,
+        //   // maxFiles: 1,
+        //   acceptedFiles: 'application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        //   thumbnailHeight: 80,
+        //   parallelUploads: 20,
+        //   previewTemplate: previewTemplate,
+        //   // autoQueue: false, // Make sure the files aren't queued until manually added
+        //   previewsContainer: ".file-upload-list", // Define the container to display the previews
+        //   // clickable: "#upload_but" // Define the element that should be used as click trigger to select files.
+        // });
 
         // Dropzone.options.myAwesomeDropzone = {
         //   init: function() {
@@ -72,18 +71,7 @@ jQuery(document).ready(function($) {
         // });
 
 // Update the total progress bar
-myDropzone.on("totaluploadprogress", function(progress) {
-  console.log(progress);
-});
 
-myDropzone.on('canceled', function(file) {
-    console.log("canceled");
-});
-myDropzone.on('error', function(file) {
-    file.previewElement.classList.add('error');
-    console.log(file.previewElement);
-    setTimeout(() => file.previewElement.remove(), 3000);
-});
 // myDropzone.on("queuecomplete", function(progress) {
 //   document.querySelector("#total-progress").style.opacity = "0";
 // });
@@ -112,3 +100,4 @@ myDropzone.on('error', function(file) {
 
 
 });
+

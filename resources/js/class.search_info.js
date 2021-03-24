@@ -12,21 +12,14 @@ class Search_info{
 		}
 		let search_students = search_students_dop(find_str);
 		search_students = Object.values(search_students);
+		let search_groups = search_groups_dop(find_str);
+		search_groups = Object.values(search_groups);
 
 		return {
 				status: true, 
 				search_info: {
-					students: [{
-						id: '1',
-						fio: 'Иванов Иван Иванович',
-						group: '16П-1',
-					}, 
-					{
-						id: '2',
-						fio: 'Иванов Иван Иванович',
-						group: '16П-1',
-					}],
-					groups: search_students,
+					students: search_students,
+					groups: search_groups,
 				}
 			};
 	}
@@ -42,6 +35,26 @@ function search_students_dop(find_str){
     	async:false
 	})
 	.done(function(data) {
+		console.log(data);
+		ret = data.search_students;
+	})
+	.fail( function() {
+		//
+	});
+	return ret;
+}
+
+function search_groups_dop(find_str){
+	var ret = "";
+	$.ajax({
+		url: '/assets/ajax/ajax.search-students-info.php',
+		type: 'POST',
+		dataType: 'json',
+		data: {find_str: find_str},
+    	async:false
+	})
+	.done(function(data) {
+		console.log(data);
 		ret = data.search_groups;
 	})
 	.fail( function() {

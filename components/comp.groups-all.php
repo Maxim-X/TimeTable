@@ -5,6 +5,9 @@ if (!Account::$AUTH) {
 	exit;
 }
 
+Route::$TITLE = "Таблица групп";
+Route::$DESCRIPTION = "Таблица групп";
+
 // Таблица групп
 $all_groups = R::findAll('groups_students', 'id_institution = ? ORDER BY `id` DESC', array(Account::$INSTITUTION_ID));
 

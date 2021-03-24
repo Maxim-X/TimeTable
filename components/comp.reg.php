@@ -1,4 +1,6 @@
 <?PHP 
+Route::$TITLE = "Регистрация";
+Route::$DESCRIPTION = "Регистрация";
 
 function check_step_2(){
 	if (Account::$AUTH && 

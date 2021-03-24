@@ -3,8 +3,7 @@
 @session_start(); 
 # Старт буфера
 @ob_start(); 
-# Устанавливаем время по Гринвичу
-date_default_timezone_set('UTC'); 
+
 
 define("INDEX", ""); // УСТАНОВКА КОНСТАНТЫ ГЛАВНОГО КОНТРОЛЛЕРА
 
@@ -23,6 +22,20 @@ R::ext('xdispense', function( $type ){
 
 require_once($_SERVER["DOCUMENT_ROOT"]."/assets/start/classes.init.php");
 require_once($_SERVER["DOCUMENT_ROOT"]."/config/config.core.php"); Core::init(); // настройки сайта
+
+if (!Account::$AUTH) {
+	# Устанавливаем время по Гринвичу
+	$time_zone = 'UTC';
+}else{
+	# Устанавливаем время по часовому поясу учреждения
+	$time_zone = R::findOne('time_zones', 'id = ?', array(Institution::$ID_TIMEZONE))->name;
+}
+
+
+
+date_default_timezone_set($time_zone);
+ 
+
 
 /*
  | ГЛАВНЫЙ КОНТРОЛЛЕР
@@ -94,7 +107,7 @@ Route::path("/files-all", function(){
 
 include($_SERVER["DOCUMENT_ROOT"]."/inc/footer.php");
 
-
+// echo "<script></script>";
 $content_page = ob_get_contents();
 
 ob_end_clean();
@@ -102,6 +115,4 @@ ob_end_clean();
 $content_page = str_replace("{!TITLE!}",Route::$TITLE, $content_page);
 $content_page = str_replace('{!DESCRIPTION!}',Route::$DESCRIPTION, $content_page);
 
-echo $content_page
-
-;
+echo $content_page;

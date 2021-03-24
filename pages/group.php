@@ -86,39 +86,12 @@
 								<div class="all_user_file">
 									<div class="head_user_file">
 										<h3>Ваши <span>файлы</span></h3>
-										<p><a href="#">все файлы <img src="/resources/images/icon/right-arrow-angle-mini.svg" alt="arrow"></a></p>
+										<p><a href="/files-all">все файлы <img src="/resources/images/icon/right-arrow-angle-mini.svg" alt="arrow"></a></p>
 									</div>
 									<div class="list_user_files">
 
 										<div class="file-upload-list"></div>
-										<div id="all_user_files">
-					<!-- 						<div class="file">
-												<div class="file_info">
-													<div class="image"><img src="/resources/images/icon/excel.svg" alt="excel"></div>
-													<div class="name_file"><p>Студенты 2021г.xls</p></div>
-													<div class="size_file"><p>4.1М</p></div>
-													<div class="button_add"><div class="button_add_f"><img src="/resources/images/icon/add_mini.svg" alt="add"><p>Добавить студентов из этого файла</p></div></div>
-												</div>
-											</div>
-
-											<div class="file">
-												<div class="file_info">
-													<div class="image"><img src="/resources/images/icon/excel.svg" alt="excel"></div>
-													<div class="name_file"><p>Document EXCEL all students all students 2019-2020.xls</p></div>
-													<div class="size_file"><p>7.9М</p></div>
-													<div class="button_add"><div class="button_add_f"><img src="/resources/images/icon/add_mini.svg" alt="add"><p>Добавить студентов из этого файла</p></div></div>
-												</div>
-											</div>
-
-											<div class="file">
-												<div class="file_info">
-													<div class="image"><img src="/resources/images/icon/excel.svg" alt="excel"></div>
-													<div class="name_file"><p>Студенты 2020г.xls</p></div>
-													<div class="size_file"><p>5.6М</p></div>
-													<div class="button_add"><div class="button_add_f"><img src="/resources/images/icon/add_mini.svg" alt="add"><p>Добавить студентов из этого файла</p></div></div>
-												</div>
-											</div> -->
-										</div>
+										<div id="all_user_files"></div>
 									</div>
 								</div>
 								<div class="inform_use_file">
@@ -144,20 +117,13 @@
 		<div class="file_info">
 			<div class="image"><img src="/resources/images/icon/surface1.svg" alt="surface"></div>
 			<div class="name_file"><p data-dz-name></p></div>
-			<!-- <div class="size_file"><p>74%</p></div> -->
 		</div>
 		<div class="progressbar_upload" data-dz-uploadprogress></div>
 	</div>
   </div>
 
 </div>
-<script src="/resources/js/dropzone.js"></script>
 
-<script>
-	window.onload = function(){
-		EDIT_DOM.reload_all_files();
-	}
-</script>
 
 <!-- Модальное окно -->
 <div class="modal fade" id="add-students" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -165,7 +131,7 @@
     <div class="modal-content">
       <form method="POST">
 	      	<div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Добавить студентов в группу <span>17П-1</span></h5>
+	        <h5 class="modal-title" id="exampleModalLabel">Добавить студентов в группу <span><?=$info_group->name;?></span></h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
@@ -175,19 +141,19 @@
 		      	<div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12">
 			      	<div class="modal-body">
 			        <label for="inputNameStudent_1" class="form-label">Имя студента</label>
-					<input type="text" name="name_student_1" id="inputNameStudent_1" class="form-control">
+					<input type="text" name="name_student_1" id="inputNameStudent_1" class="form-control form-control-input">
 			     	</div>
 		      	</div>
 		      	<div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12">
 			      <div class="modal-body">
 			        <label for="inputSurnameStudent_1" class="form-label">Фамилия студента</label>
-					<input type="text" name="surname_student_1" id="inputSurnameStudent_1" class="form-control">
+					<input type="text" name="surname_student_1" id="inputSurnameStudent_1" class="form-control form-control-input">
 			      </div>
 		      	</div>
 		      	<div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12">
 			      <div class="modal-body">
 			        <label for="inputMiddleNameStudent_1" class="form-label">Отчество студента</label>
-					<input type="text" name="middle-name_student_1" id="inputMiddleNameStudent_1" class="form-control">
+					<input type="text" name="middle-name_student_1" id="inputMiddleNameStudent_1" class="form-control form-control-input">
 			      </div>
 		      </div>
 		   </div>
@@ -196,16 +162,12 @@
 	      	<div class="button-delete" onclick="deleteTamplateStudent()">-</div>
 	      	<div class="button-add" onclick="addTamplateStudent()">+</div>
 	      </div>
-	      <!-- <div class="modal-body">
-	        <label for="inputGroupStudent" class="form-label">Группа</label>
-			<input type="text" name="group_student" id="inputGroupStudent" class="form-control" value="17П-1" disabled>
-	      </div> -->
 	      <div class="modal-footer">
-	        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button> -->
-	        <!-- <button type="button" name="add_group"  class="btn btn-primary"></button> -->
-	        <input type="submit" name="add_students" class="btn btn-primary" value="Добавить студентов в группу">
+	        <input type="submit" name="add_students" class="btn btn-primary btn-def" value="Добавить студентов в группу">
 	      </div>
       </form>
     </div>
   </div>
 </div>
+
+<script src="/resources/js/dropzone.js"></script>

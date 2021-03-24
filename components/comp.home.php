@@ -1,4 +1,6 @@
 <?PHP
+Route::$TITLE = "TimeTable";
+Route::$DESCRIPTION = "TimeTable";
 // require_once($_SERVER["DOCUMENT_ROOT"]."/assets/general/class.account.php");
 // Account::init();
 

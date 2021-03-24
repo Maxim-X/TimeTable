@@ -15,9 +15,9 @@
 							<div class="line_left_block">
 								<div class="block_func">
 									<div class="name">
-										<a href="#">
+										<a href="/groups-all">
 											<span name="title">Обучающиеся</span>
-											<span name="count">712 чел.</span>
+											<span name="count"><?=$count_students;?> чел.</span>
 											<div class="arrow"><img src="resources/images/icon/right-arrow-angle.svg" alt="right arrow angle"></div>
 										</a>
 									</div>
@@ -29,43 +29,8 @@
 											</form>
 										</div>
 										<div class="content_search" id="result_student_search">
-											<div class="name_group_search">Обучающиеся</div>
-											<div class="line_cont_search">
-												<a href="#">
-													<div class="main_name">Потапов Гавриил Степанович</div>
-													<div class="optionally">19ИС-1</div>
-												</a>
-											</div>
-											<div class="line_cont_search">
-												<a href="#">
-													<div class="main_name">Потапов Гавриил Степанович</div>
-													<div class="optionally">19ИС-1</div>
-												</a>
-											</div>
-											<div class="line_cont_search">
-												<a href="#">
-													<div class="main_name">Потапов Гавриил Степанович</div>
-													<div class="optionally">19ИС-1</div>
-												</a>
-											</div>
-											<div class="name_group_search">Группы</div>
-											<div class="line_cont_search">
-												<a href="#">
-													<div class="main_name">18П-19</div>
-													<div class="optionally">24 Ученика</div>
-												</a>
-											</div>
-											<div class="line_cont_search">
-												<a href="#">
-													<div class="main_name">18П-19</div>
-													<div class="optionally">24 Ученика</div>
-												</a>
-											</div>
-											<div class="line_cont_search">
-												<a href="#">
-													<div class="main_name">18П-19</div>
-													<div class="optionally">24 Ученика</div>
-												</a>
+											<div class="none_search">
+												<img src="resources/images/none_search.svg">
 											</div>
 										</div>
 									</div>
@@ -87,30 +52,9 @@
 											</form>
 										</div>
 										<div class="content_search">
-											<div class="nene_search">
+											<div class="none_search">
 												<img src="resources/images/none_search.svg">
 											</div>
-											<!-- <div class="name_group_search">Преподаватели</div>
-											<div class="line_cont_search">
-												<a href="#">
-													<div class="main_name">Потапов Гавриил Степанович</div>
-												</a>
-											</div>
-											<div class="line_cont_search">
-												<a href="#">
-													<div class="main_name">Потапов Гавриил Степанович</div>
-												</a>
-											</div>
-											<div class="line_cont_search">
-												<a href="#">
-													<div class="main_name">Потапов Гавриил Степанович</div>
-												</a>
-											</div>
-											<div class="line_cont_search">
-												<a href="#">
-													<div class="main_name">Потапов Гавриил Степанович</div>
-												</a>
-											</div> -->
 										</div>
 									</div>
 								</div>

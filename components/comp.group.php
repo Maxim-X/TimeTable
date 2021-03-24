@@ -4,6 +4,9 @@ if (!Account::$AUTH) {
 	exit;
 }
 
+Route::$TITLE = "Группа ".$info_group->name;
+Route::$DESCRIPTION = "Группа ".$info_group->name;
+
 $info_group = R::findOne('groups_students', 'id = ?', array($_GET['id']));
 
 if (isset($_POST['add_students'])) {
@@ -39,11 +42,43 @@ $pr_use_space = $use_space * 100 / (int)Core::$DISC_SPACE;
 ?>
 
 <script>
+	window.onload = function(){
+
+		EDIT_DOM.reload_all_files();
+
+		var previewNode = document.querySelector("#template");
+        previewNode.id = "";
+        var previewTemplate = previewNode.parentNode.innerHTML;
+        previewNode.parentNode.removeChild(previewNode);
+
+        var myDropzone = new Dropzone('div.drag_and_drop_file', { // Make the whole body a dropzone
+          url: "/assets/ajax/ajax.upload-file.php", // Set the url
+          thumbnailWidth: 80,
+          // maxFiles: 1,
+          acceptedFiles: 'application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          thumbnailHeight: 80,
+          parallelUploads: 20,
+          previewTemplate: previewTemplate,
+          // autoQueue: false, // Make sure the files aren't queued until manually added
+          previewsContainer: ".file-upload-list", // Define the container to display the previews
+          // clickable: "#upload_but" // Define the element that should be used as click trigger to select files.
+        });
+
+		myDropzone.on('success', function(file) {
+		    EDIT_DOM.reload_all_files();
+		    setTimeout(() => file.previewElement.remove(), 3000);
+		});
+		myDropzone.on('error', function(file) {
+		    file.previewElement.classList.add('error');
+		    console.log(file.previewElement);
+		    setTimeout(() => file.previewElement.remove(), 3000);
+		});
+	}
 	var id_template = 2;
 	function addTamplateStudent(){
 		var template = document.createElement('div');
 		template.className = 'row';
-		template.innerHTML = '<div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12"><div class="modal-body"><label for="inputNameStudent_'+id_template+'" class="form-label">Имя студента</label><input type="text" name="name_student_'+id_template+'" id="inputNameStudent_'+id_template+'" class="form-control"></div></div><div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12"><div class="modal-body"><label for="inputSurnameStudent_'+id_template+'" class="form-label">Фамилия студента</label><input type="text" name="surname_student_'+id_template+'" id="inputSurnameStudent_'+id_template+'" class="form-control"></div></div><div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12"><div class="modal-body"><label for="inputMiddleNameStudent_'+id_template+'" class="form-label">Отчество студента</label><input type="text" name="middle-name_student_'+id_template+'" id="inputMiddleNameStudent_'+id_template+'" class="form-control"></div></div>';
+		template.innerHTML = '<div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12"><div class="modal-body"><label for="inputNameStudent_'+id_template+'" class="form-label">Имя студента</label><input type="text" name="name_student_'+id_template+'" id="inputNameStudent_'+id_template+'" class="form-control form-control-input"></div></div><div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12"><div class="modal-body"><label for="inputSurnameStudent_'+id_template+'" class="form-label">Фамилия студента</label><input type="text" name="surname_student_'+id_template+'" id="inputSurnameStudent_'+id_template+'" class="form-control form-control-input"></div></div><div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12"><div class="modal-body"><label for="inputMiddleNameStudent_'+id_template+'" class="form-label">Отчество студента</label><input type="text" name="middle-name_student_'+id_template+'" id="inputMiddleNameStudent_'+id_template+'" class="form-control form-control-input"></div></div>';
 		document.querySelector("#all_add_students_list").append(template);
 		id_template++;
 	}

@@ -6,6 +6,9 @@ if (Account::$AUTH) {
 	die();
 }
 
+Route::$TITLE = "Восстановление пароля";
+Route::$DESCRIPTION = "Восстановление пароля";
+
 // Востановление пароля
 if (isset($_POST["reminderUser"])) {
 	$email = htmlspecialchars($_POST["inputEmail"]);

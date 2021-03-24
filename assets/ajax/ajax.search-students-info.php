@@ -34,8 +34,15 @@ $find_str = $_POST['find_str'];
 $search_groups = R::find('groups_students', "WHERE `name` LIKE ?",array('%'.$find_str.'%'));
 
 foreach ($search_groups as &$group) {
-	$count_students = R::count( 'accounts', 'group_id = ?', array($group->id));
+	$count_students = R::count( 'accounts_generated', 'group_id = ?', array($group->id));
 	$group["count_students"] = $count_students;
 }
 
-echo json_encode(["status"=> true, "search_groups"=> $search_groups]);
+$search_students = R::find('accounts_generated', "WHERE `name` LIKE ? OR `surname` LIKE ? OR `middle_name` LIKE ?", array('%'.$find_str.'%', '%'.$find_str.'%', '%'.$find_str.'%'));
+
+foreach ($search_students as &$student) {
+	$group_student = R::findOne( 'groups_students', 'id = ?', array($student->group_id));
+	$student["group_name"] = $group_student->name;
+}
+
+echo json_encode(["status"=> true, "search_groups"=> $search_groups, "search_students" => $search_students]);

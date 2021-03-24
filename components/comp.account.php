@@ -5,5 +5,7 @@ if (!Account::$AUTH) {
 	exit;
 }
 
-Route::$TITLE = "Аккаунт";
-Route::$DESCRIPTION = "Аккаунт";
+Route::$TITLE = "Панель диспетчера";
+Route::$DESCRIPTION = "Панель диспетчера";
+
+$count_students = R::count("accounts_generated", "account_type = ?", array("1"));

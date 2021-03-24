@@ -55,10 +55,6 @@
 </div>
 </div>
 
-<!-- Кнопка-триггер модального окна -->
-<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Запустить демонстрацию модального окна
-</button> -->
 
 <!-- Модальное окно -->
 <div class="modal fade" id="add-group" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -66,19 +62,17 @@
     <div class="modal-content">
       <form method="POST">
 	      	<div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Заголовок модального окна</h5>
+	        <h5 class="modal-title" id="exampleModalLabel">Добавить группу</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
 	      <div class="modal-body">
 	        <label for="inputNameGroup" class="form-label">Введите название группы</label>
-			<input type="text" name="name_group" id="inputNameGroup" class="form-control">
+			<input type="text" name="name_group" id="inputNameGroup" class="form-control form-control-input">
 	      </div>
 	      <div class="modal-footer">
-	        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button> -->
-	        <!-- <button type="button" name="add_group"  class="btn btn-primary"></button> -->
-	        <input type="submit" name="add_group" class="btn btn-primary" value="Добавить группу">
+	        <input type="submit" name="add_group" class="btn btn-primary btn-def" value="Добавить группу">
 	      </div>
       </form>
     </div>

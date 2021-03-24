@@ -4,11 +4,12 @@ if (isset($_GET["exit"])) {
 	echo "1";
 	Account::exit();
 }
+Route::$TITLE = "Авторизация";
+Route::$DESCRIPTION = "Авторизация";
 
 if (Account::$AUTH) {
-	echo "True";
-}else{
-	echo "False";
+	header('Location: /');
+	exit;
 }
 
 // Авторизация

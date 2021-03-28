@@ -58,7 +58,7 @@ class Account
 				self::$MIDDLENAME 		= $user_data_db->middle_name;
 				self::$INSTITUTION_ID 	= $user_data_db->institution_id;
 				self::$AFFILIATION		= $affiliation_name;
-				self::$ACCOUNT_TYPE		= $account_type;
+				self::$ACCOUNT_TYPE		= $user_data_db->account_type;
 				// self::$ACCESSLEVEL 	= $user_data["accesslevel"];
 			}
 		}
@@ -167,18 +167,23 @@ class Account
 	public static function signup_system_account($user_info){
 		$user_info = self::trim_info($user_info);
 
-		$name 		 = trim($user_info['name']);
-		$surname 	 = trim($user_info['surname']);
-		$middle_name = trim($user_info['middle_name']);
-		$account_type = $user_info['account_type'];
-		$group_id = $user_info['group_id'];
+		$name 		 	= $user_info['name'];
+		$surname 	 	= $user_info['surname'];
+		$middle_name 	= $user_info['middle_name'];
+		$account_type 	= $user_info['account_type'];
+		$group_id 		= $user_info['group_id'];
+		$institution_id = $user_info['institution_id'];
 
 		if (empty($name) || empty($surname) || empty($middle_name)) {
 			return array("status" => false, "message" => "Информация введена неверно!");
 		}
 
-		if (empty($user_info['group_id']) || $user_info['group_id'] <= 0) {
+		if ($account_type == 1 && (empty($user_info['group_id']) || $user_info['group_id'] <= 0)) {
 			return array("status" => false, "message" => "Группа указана неверно!");
+		}
+
+		if ($account_type == 2 && (empty($user_info['institution_id']) || $user_info['institution_id'] <= 0)) {
+			return array("status" => false, "message" => "Учебное учреждение указано неверно!");
 		}
 
 		$password = self::generation_password(4);
@@ -192,12 +197,19 @@ class Account
 		$user->name = $name;
 		$user->surname = $surname;
 		$user->middle_name = $middle_name;
-		$user->group_id = $group_id;
+		if (isset($group_id)) {
+			$user->group_id = $group_id;
+		}
+		if (isset($institution_id)) {
+			$user->institution_id = $institution_id;
+		}
+		
 		$user_id = R::store($user);
 
 		$user = R::load('accounts_generated', $user_id);
 		$user->login = $login.$user_id;
 		$user = R::store($user);
+		return array("status" => true, "message" => "Аккаунт успешно добавлен!");
 	}
 
 	public static function delete_account(){

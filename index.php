@@ -101,6 +101,11 @@ Route::path("/files-all", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.files-all.php");
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/files-all.php");
 });
+
+Route::path("/teachers", function(){
+	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.teachers.php");
+	include($_SERVER["DOCUMENT_ROOT"]."/pages/teachers.php");
+});
 /*
  | ГЛАВНЫЙ КОНТРОЛЛЕР
 */

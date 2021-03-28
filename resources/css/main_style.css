@@ -1100,6 +1100,30 @@ ul.title_remaining_resources li {font-family: "Tahoma", sans-serif;font-size: 14
     display: none;
 }
 
+.lessons .lesson {
+    color: #8D8D8D;
+    font-size: 14px;
+}
+
+.lessons .lesson span.delete {
+    background: #ff4d4d1a;
+    color: #ff4d4d;
+    padding: 2.5px 10px;
+    margin-left: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.lessons .lesson span.delete:hover {background: #ff4d4d4d;}
+
+.lessons .lesson span.delete img {
+    width: 7px;
+}
+
+.sec_menu img {
+    width: 15.8px;
+}
+
 /* Large desktops and laptops */
 @media (min-width: 1200px) {
 	section#login {

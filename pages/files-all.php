@@ -82,18 +82,18 @@
 	</div>
 </div>
 </div>
-<div class="table table-striped" class="files" id="previews">
-
-	<div id="template" class="file_upload">
-		<div class="file_info">
-			<div class="image"><img src="/resources/images/icon/surface1.svg" alt="surface"></div>
-			<div class="name_file"><p data-dz-name></p></div>
-			<!-- <div class="size_file"><p>74%</p></div> -->
+<div style="display: none">
+	<div class="table table-striped" class="files" id="previews">
+		<div id="template" class="file_upload">
+			<div class="file_info">
+				<div class="image"><img src="/resources/images/icon/surface1.svg" alt="surface"></div>
+				<div class="name_file"><p data-dz-name></p></div>
+				<!-- <div class="size_file"><p>74%</p></div> -->
+			</div>
+			<div class="progressbar_upload" data-dz-uploadprogress></div>
 		</div>
-		<div class="progressbar_upload" data-dz-uploadprogress></div>
 	</div>
-  </div>
-
+</div>
 <script src="/resources/js/dropzone.js"></script>
 
 <script>

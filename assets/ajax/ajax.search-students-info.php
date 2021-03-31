@@ -38,7 +38,7 @@ foreach ($search_groups as &$group) {
 	$group["count_students"] = $count_students;
 }
 
-$search_students = R::find('accounts_generated', "WHERE `name` LIKE ? OR `surname` LIKE ? OR `middle_name` LIKE ?", array('%'.$find_str.'%', '%'.$find_str.'%', '%'.$find_str.'%'));
+$search_students = R::find('accounts_generated', "WHERE (`account_type` = ?) AND (`name` LIKE ? OR `surname` LIKE ? OR `middle_name` LIKE ?)", array('1', '%'.$find_str.'%', '%'.$find_str.'%', '%'.$find_str.'%'));
 
 foreach ($search_students as &$student) {
 	$group_student = R::findOne( 'groups_students', 'id = ?', array($student->group_id));

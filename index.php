@@ -106,6 +106,11 @@ Route::path("/teachers", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.teachers.php");
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/teachers.php");
 });
+
+Route::path("/schedule", function(){
+	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.schedule.php");
+	include($_SERVER["DOCUMENT_ROOT"]."/pages/schedule.php");
+});
 /*
  | ГЛАВНЫЙ КОНТРОЛЛЕР
 */

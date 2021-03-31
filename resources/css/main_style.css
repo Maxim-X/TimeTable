@@ -1124,6 +1124,117 @@ ul.title_remaining_resources li {font-family: "Tahoma", sans-serif;font-size: 14
     width: 15.8px;
 }
 
+.all_groups {
+    margin-top: 30px;
+}
+
+.group_info {
+    background-color: #282B30;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    padding: 13px 15px;
+    display: grid;
+    grid-template-columns: 55px auto 10px;
+    transition: 0.3s;
+}
+
+.group_info .image .back {
+    background-color: #212123;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    border-radius: 50px;
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    transform: translateY(-50%);
+}
+
+.group_info .image {
+    position: relative;
+}
+
+.group_info .image .back img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.group_info .title .name {
+    font-size: 17px;
+    font-family: "SF Pro Display", sans-serif;
+}
+
+.group_info .title .option {
+    font-size: 14px;
+    color: #8D8D8D;
+    font-family: "SF Pro Display", sans-serif;
+}
+
+.group_info .opt .on {
+    background-color: rgb(92 253 103 / 10%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50px;
+    position: relative;
+}
+
+.group_info .opt .on:after {content: "";background-color: #5CFD67;width: 5px;height: 5px;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);border-radius: 50px;}
+
+.all_groups .group_back {
+    padding-right: 0px;
+}
+
+.all_groups .group_back a {
+    color: white;
+    text-decoration: none;
+}
+
+.group_info:hover {
+    transform: scale(1.05) translateY(-10px);
+}
+
+.group_info:hover:after {content: "";position: absolute;background: rgb(40 43 48 / 75%);width: 70%;height: 7px;bottom: -7px;z-index: 5;left: 50%;transform: translateX(-50%);opacity: 1;border-radius: 0px 0px 4px 4px;transition: 0.3s;}
+
+.group_info:after {
+    opacity: 0;
+    content: "";
+    position: absolute;
+    background: #2e3033;
+    width: 51%;
+    height: 5px;
+    bottom: 0px;
+    z-index: 5;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    border-radius: 5px 5px 50px 50px;
+    transition: 0.3s;
+    bottom: 0px;
+}
+
+.group_info:hover:before {
+    content: "";
+    background: rgb(40 43 48 / 30%);
+    width: 43%;
+    height: 5px;
+    z-index: 5;
+    opacity: 1;
+    border-radius: 0px 0px 4px 4px;
+    transition: 0.3s;
+    bottom: -12px;
+}
+
+.group_info:before {
+    opacity: 1;
+    bottom: -4px;
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 /* Large desktops and laptops */
 @media (min-width: 1200px) {
 	section#login {

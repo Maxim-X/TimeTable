@@ -108,16 +108,20 @@ Route::path("/teachers", function(){
 });
 
 Route::path("/schedule", function(){
+	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.schedule-all.php");
+	include($_SERVER["DOCUMENT_ROOT"]."/pages/schedule-all.php");
+});
+
+Route::path("/schedule/{id}", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.schedule.php");
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/schedule.php");
-});
+}, ["id"=>"[0-9]+"]);
 /*
  | ГЛАВНЫЙ КОНТРОЛЛЕР
 */
 
 include($_SERVER["DOCUMENT_ROOT"]."/inc/footer.php");
 
-// echo "<script></script>";
 $content_page = ob_get_contents();
 
 ob_end_clean();

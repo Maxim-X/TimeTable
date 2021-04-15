@@ -93,7 +93,7 @@ class Account
 	}
 
 	public static function exit(){
-		R::hunt('reminder_password', 'key_session = ?', array($_SESSION[self::$sess_user_key]));
+		R::hunt('sessions', 'key_session = ?', array($_SESSION[self::$sess_user_key]));
 		unset($_SESSION[self::$sess_user_key]);
 
 		if (!isset($_SESSION[self::$sess_user_key])) {
@@ -118,6 +118,10 @@ class Account
 		if (strlen($user_info['login']) < 5){
 		    return ["status" => false, "message" => "Логин должен состоять не менее чем из 5 символов!"];
         }
+
+        if (preg_match('/Account|account/m', $user_info['login'])) {
+			return ["status" => false, "message" => "Логин пользователя не должен содеражать слово 'Account'!"];
+		}
 
         $pattern = '/^[a-zA-Z][a-zA-Z0-9]{4,20}$/U';
         if (!preg_match($pattern, $user_info['login'])){
@@ -216,13 +220,26 @@ class Account
 	    if (!self::$AUTH){
             return array("status" => false, "message" => "Для удаления аккаунта вам необходимо авторизоваться!");
         }
-        $delete = R::load('accounts', self::$ID);
-        $delete = R::trash($delete);
+        echo self::$INSTITUTION_ID;
+
+        if (self::$INSTITUTION_ID != "") {
+        	return array("status" => false, "message" => "Ваш аккаунт привязан к учебному заведению, его нельзя удалить!");
+        }
+
+        // Выходим из аккаунта и удаляем сессию
+        self::exit();
+
+        // Удаляем запросы на восстановление пароля 
+        R::hunt('reminder_password', 'user_id = ?', array(self::$ID));
+
+        $delete = R::hunt('accounts', 'id = ?', array(self::$ID));
+        var_dump($delete);
+
 
         if (!$delete){
             return array("status" => false, "message" => "При удалении аккаунта произошла ошибка, попробуйте позже!");
         }
-        self::exit();
+        
 
         return array("status" => true, "message" => "Аккаунт удален!");
 

@@ -192,6 +192,7 @@ section#left_menu {
     height: 100vh;
     position: fixed;
     width: inherit;
+    z-index: 9999;
 }
 
 .left_menu .logo {
@@ -1727,16 +1728,82 @@ ul.title_remaining_resources li {font-family: "Tahoma", sans-serif;font-size: 14
 	section#login {
 	    margin-top: 50px;
 	}
+    .block_func_full {
+        max-width: none;
+    }
 }
 
 /* Portrait tablets and small desktops */
 @media (min-width: 768px) and (max-width: 991px) {
+    .menu_open .sec_menu span {
+    display: block;
+}
 
+.menu_open {
+    width: 300px !important;
+}
+
+.menu_open .sec_menu {
+    width: 100%;
+    display: flex;
+}
+
+.sec_menu span{
+    display: none;
+}
+.sec_menu img {
+    width: 19px;
+}
+
+.sec_menu {
+    width: max-content;
+    background: #282b30;
+    padding: 10px;
+    width: 55px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+section#left_menu {
+    position: fixed;
+    overflow: hidden;
+    height: -webkit-fill-available;
+}
+
+.elem_menu {padding: 0px 15px;}
+
+nav {}
+
+section#left_menu {
+    overflow-y: scroll;
+    width: max-content;
+}
+
+.name_sec_menu {
+    display: none;
+}
+
+.left_menu .logo {
+    display: none;
+}
+.left_func {
+    width: 100%;
+}
+
+.block_func {
+    width: 100%;
+}
+.block_func_full {
+    max-width: none;
+    margin-top: 30px;
+}
 }
 
 /* Landscape phones and portrait tablets */
 @media (max-width: 767px) {
-
+    .sec_menu span{
+        display: none;
+    }
 }
 
 /* Landscape phones and smaller */

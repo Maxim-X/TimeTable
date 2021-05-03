@@ -12,6 +12,7 @@
        <div class="line_sec_menu"></div>
        <li><a href="/teachers"><div class="sec_menu"><img src="/resources/images/icon/user.svg"><span>Таблица преподавателей</span></div></a></li>
        <li><a href="/schedule"><div class="sec_menu"><img src="/resources/images/icon/copy.svg"><span>Расписание для групп</span></div></a></li>
+       <li><a href="/timeline"><div class="sec_menu"><img src="/resources/images/icon/wall-clock.svg"><span>Временные графики</span></div></a></li>
      <!--   <li><a href="#"><div class="sec_menu"><img src="/resources/images/icon/copy.svg"><span>Панель администратора</span></div></a></li>
        <div class="line_sec_menu"></div>
        <li><a href="#"><div class="sec_menu"><img src="/resources/images/icon/copy.svg"><span>Панель администратора</span></div></a></li>

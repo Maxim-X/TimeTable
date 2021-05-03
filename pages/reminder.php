@@ -1,7 +1,7 @@
 <section id="reminder">
 	<div class="container">
 		<div class="row">
-			<div class="col-xxl-4 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 mx-auto">
+			<div class="col-xxl-4 col-xl-5 col-lg-8 col-md-8 col-sm-12 col-12 mx-auto">
 				<div class="main_user_login">
 					<h3 style="font-size: 32px;">Восстановление пароля</h3>
 					<p class="title_head">Какой-то текст!</p>

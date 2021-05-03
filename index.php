@@ -116,6 +116,11 @@ Route::path("/schedule/{id}", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.schedule.php");
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/schedule.php");
 }, ["id"=>"[0-9]+"]);
+
+Route::path("timeline", function(){
+	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.timeline.php");
+	include($_SERVER["DOCUMENT_ROOT"]."/pages/timeline.php");
+}, ["id"=>"[0-9]+"]);
 /*
  | ГЛАВНЫЙ КОНТРОЛЛЕР
 */

@@ -4,7 +4,7 @@ if ($_GET['step'] == "1") {
 <section id="login">
 	<div class="container">
 		<div class="row">
-			<div class="col-xxl-4 col-xl-4 col-lg-6 col-md-8 col-sm-12 col-12 mx-auto">
+			<div class="col-xxl-4 col-xl-5 col-lg-8 col-md-8 col-sm-12 col-12 mx-auto">
 				<div class="main_user_login">
 					<h3>Регистрация</h3>
 					<p class="title_head">Зарегистрируйтесь чтобы добавить ваше учебное заведение или вступить в команду!</p>
@@ -48,7 +48,7 @@ if ($_GET['step'] == "2") {
 <section id="login">
 	<div class="container">
 		<div class="row">
-			<div class="col-xxl-4 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 mx-auto">
+			<div class="col-xxl-4 col-xl-5 col-lg-8 col-md-8 col-sm-12 col-12 mx-auto">
 				<div class="main_user_login">
 					<h3>Создать учетную запись</h3>
 					<p class="title_head">Зарегистрируйтесь чтобы добавить ваше учебное заведение или вступить в команду!</p>
@@ -87,7 +87,7 @@ if ($_GET['step'] == "3") {
 <section id="login">
 	<div class="container">
 		<div class="row">
-			<div class="col-xxl-4 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 mx-auto">
+			<div class="col-xxl-4 col-xl-5 col-lg-8 col-md-8 col-sm-12 col-12 mx-auto">
 				<div class="main_user_login">
 					<h3>Каков ваш путь?</h3>
 					<form method="POST">
@@ -131,7 +131,7 @@ if ($_GET['step'] == "4") {
 <section id="login">
 	<div class="container">
 		<div class="row">
-			<div class="col-xxl-4 col-xl-5 col-lg-6 col-md-8 col-sm-12 col-12 mx-auto">
+			<div class="col-xxl-4 col-xl-5 col-lg-8 col-md-8 col-sm-12 col-12 mx-auto">
 				<div class="main_user_login">
 					<h3 class="mb-4">Учебное заведение</h3>
 					<form method="POST">

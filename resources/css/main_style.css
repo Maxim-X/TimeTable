@@ -1,4 +1,4 @@
-import url('/resources/css/fonts.css');
+@import url('/resources/css/fonts.css');
 
 html {
     font-size: 16px;
@@ -1295,12 +1295,40 @@ ul.title_remaining_resources li {font-family: "Tahoma", sans-serif;font-size: 14
     margin-top: 30px;
 }
 
+.schedule_none {
+    opacity:0.5;
+    cursor: default;
+    -ms-user-select: none; 
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+}
+
 .schedule_day_full {
     background-color: #1C1C1E;
     padding: 15px;
     width: 100%;
     border-radius: 4px;
     height: inherit;
+}
+
+.none_schedule {
+    display: grid;
+    grid-template-columns: max-content 15px max-content;
+    width: max-content;
+    margin: auto;
+}
+.none_schedule img {
+    width: 27px;
+    margin: 12px 0px;
+}
+.none_schedule p {
+    grid-column: 3;
+    font-size: 18px;
+    color: #cccccc;
+    margin-bottom: 5px;
+    line-height: 58px;
+    margin: 0px;
 }
 
 .schedule_day .name_day {
@@ -1436,10 +1464,10 @@ ul.title_remaining_resources li {font-family: "Tahoma", sans-serif;font-size: 14
  color: rgba(119, 119, 119, 0.5);
 }
 .reating-arkows input[type="checkbox"]:focus ~ label .trianglesusing, .reating-arkows input[type="checkbox"]:hover ~ label .trianglesusing {
- background-color: #333333;
+ background-color: #72767d;
 }
 .reating-arkows input[type="checkbox"]:focus ~ label .trianglesusing:after, .reating-arkows input[type="checkbox"]:hover ~ label .trianglesusing:after {
- color: #484242;
+ color: #72767d;
 }
 .reating-arkows input[type="checkbox"]:hover ~ label {
  color: #615b5b;
@@ -1448,10 +1476,10 @@ ul.title_remaining_resources li {font-family: "Tahoma", sans-serif;font-size: 14
  color: #38962d;
 }
 .reating-arkows input[type="checkbox"]:checked ~ label .trianglesusing {
- background-color: #46963e;
+ background-color: #4cb583;
 }
 .reating-arkows input[type="checkbox"]:checked ~ label .trianglesusing:after {
- color: #388e2e;
+ color: #4cb583;
 }
 .reating-arkows input[type="checkbox"]:checked:focus ~ label .trianglesusing, .reating-arkows input[type="checkbox"]:checked:hover ~ label .trianglesusing {
  background-color: #45a53a;
@@ -1467,7 +1495,7 @@ ul.title_remaining_resources li {font-family: "Tahoma", sans-serif;font-size: 14
 .reating-arkows label .trianglesusing {
  -webkit-transition: background-color 0.3s cubic-bezier(0, 1, 0.5, 1);
  transition: background-color 0.3s cubic-bezier(0, 1, 0.5, 1);
- background: #736d6d;
+ background: #72767d;
 }
 .reating-arkows label .trianglesusing:before {
  color: rgba(255, 255, 255, 0.5);
@@ -1642,7 +1670,7 @@ ul.title_remaining_resources li {font-family: "Tahoma", sans-serif;font-size: 14
 .reating-arkows.zatujgdsanuk input[type="checkbox"]:focus ~ label .trianglesusing, .reating-arkows.zatujgdsanuk input[type="checkbox"]:hover ~ label .trianglesusing {
 }
 .reating-arkows.zatujgdsanuk input[type="checkbox"]:focus ~ label .trianglesusing:after, .reating-arkows.zatujgdsanuk input[type="checkbox"]:hover ~ label .trianglesusing:after {
- color: #2b2b2b;
+ color: #72767d;
 }
 .reating-arkows.zatujgdsanuk input[type="checkbox"]:hover ~ label {
  color: #C2C2C2;
@@ -1651,16 +1679,22 @@ ul.title_remaining_resources li {font-family: "Tahoma", sans-serif;font-size: 14
  color: #62b125;
 }
 .reating-arkows.zatujgdsanuk input[type="checkbox"]:checked ~ label .trianglesusing {
- background-color: #75d32d;
+ background-color: #4cb583;
 }
 .reating-arkows.zatujgdsanuk input[type="checkbox"]:checked ~ label .trianglesusing:after {
- color: #5da924;
+    color: #4cb583;
+    content: "";
+    line-height: 20px;
+    background-image: url('/resources/images/icon/checking-mark.svg');
+    background-repeat: no-repeat;
+    background-size: 11px;
+    background-position: 4px 4px;
 }
 .reating-arkows.zatujgdsanuk input[type="checkbox"]:checked:focus ~ label .trianglesusing, .reating-arkows.zatujgdsanuk input[type="checkbox"]:checked:hover ~ label .trianglesusing {
- background-color: #69be28;
+ background-color: #4cb583;
 }
 .reating-arkows.zatujgdsanuk input[type="checkbox"]:checked:focus ~ label .trianglesusing:after, .reating-arkows.zatujgdsanuk input[type="checkbox"]:checked:hover ~ label .trianglesusing:after {
- color: #52941f;
+ color: #4cb583;
 }
 .reating-arkows.zatujgdsanuk label .moresharpened {
  -webkit-flex: 1;
@@ -1670,7 +1704,7 @@ ul.title_remaining_resources li {font-family: "Tahoma", sans-serif;font-size: 14
 .reating-arkows.zatujgdsanuk label .trianglesusing {
  -webkit-transition: background-color 0.3s cubic-bezier(0.86, 0, 0.07, 1);
  transition: background-color 0.3s cubic-bezier(0.86, 0, 0.07, 1);
- background: #515151;
+ background: #72767d;
 }
 .reating-arkows.zatujgdsanuk label .trianglesusing:before {
  color: rgba(255, 255, 255, 0.7);
@@ -1678,18 +1712,16 @@ ul.title_remaining_resources li {font-family: "Tahoma", sans-serif;font-size: 14
 .reating-arkows.zatujgdsanuk label .trianglesusing:after {
  -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
  transition: transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
- color: #444;
+ color: #72767d;
 }
 .reating-arkows.zatujgdsanuk input[type="checkbox"]:focus ~ label .trianglesusing:after, .reating-arkows.zatujgdsanuk input[type="checkbox"]:hover ~ label .trianglesusing:after {
- box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+ box-shadow: none;
 }
 .reating-arkows.zatujgdsanuk input[type="checkbox"]:checked ~ label .trianglesusing:after {
  -webkit-transform: translate3d(34px, 0, 0);
  transform: translate3d(19px, 0, 0);
 }
-.reating-arkows.zatujgdsanuk input[type="checkbox"]:checked:focus ~ label .trianglesusing:after, .reating-arkows.zatujgdsanuk input[type="checkbox"]:checked:hover ~ label .trianglesusing:after {
- box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
-}
+.reating-arkows.zatujgdsanuk input[type="checkbox"]:checked:focus ~ label .trianglesusing:after, .reating-arkows.zatujgdsanuk input[type="checkbox"]:checked:hover ~ label .trianglesusing:after {box-shadow: none;}
 .reating-arkows.zatujgdsanuk label {
  font-size: 13px;
  display: grid;
@@ -1713,12 +1745,17 @@ ul.title_remaining_resources li {font-family: "Tahoma", sans-serif;font-size: 14
  padding: 0 12px;
 }
 .reating-arkows.zatujgdsanuk label .trianglesusing:after {
- top: 2px;
- left: 2px;
- border-radius: 13px;
- width: 21px;
- height: 21px;
- font-size: 13px;
+    top: 3px;
+    left: 3px;
+    border-radius: 13px;
+    width: 19px;
+    height: 19px;
+    font-size: 13px;
+    line-height: 20px;
+    background-image: url('/resources/images/icon/checking-none.svg');
+    background-repeat: no-repeat;
+    background-size: 9px;
+    background-position: 5px 5px;
 }
 .reating-arkows.zatujgdsanuk label .trianglesusing:hover:after {
  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
@@ -1727,6 +1764,10 @@ ul.title_remaining_resources li {font-family: "Tahoma", sans-serif;font-size: 14
 
 .title_but {
     display: inline-block;
+    font-family: "SF Pro Display", sans-serif;
+    color: white;
+    letter-spacing: 0.2px;
+    font-size: 14px;
 }
 
 .schedule_day_head {

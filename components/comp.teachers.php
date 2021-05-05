@@ -1,5 +1,5 @@
  <?PHP
-if (!Account::$AUTH) {
+if (!Account::$AUTH || Account::$ACCOUNT_TYPE != 3) {
 	header('Location: /login');
 	exit;
 }

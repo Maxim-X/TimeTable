@@ -12,38 +12,65 @@
 					<div class="row all_content_mg">
 						<div class="col-xxl-10 col-xl-12 col-lg-12 col-md-12">
 							<div class="bar_table">
-								<div class="reating-arkows zatujgdsanuk">
-								 <input id="e" type="checkbox">
-								 <label for="e">
-								 <div class="trianglesusing" data-checked="Yes" data-unchecked="No"></div>
-								 <div class="title_but">Четная/нечетная неделя</div>
-								 </label>
-								</div>
+								<form method="POST">
+									<div class="reating-arkows zatujgdsanuk">
+										<input id="edit_sunday" name="edit_sunday" onchange="document.querySelector('input#save_edit_sunday').click();" type="checkbox" <?=$check_use_sunday;?>>
+										<label for="edit_sunday">
+										<div class="trianglesusing" data-checked="Yes" data-unchecked="No"></div>
+										<div class="title_but">Суббота</div>
+										</label>
+										<input type="submit" style="display: none" name="save_edit_sunday" id="save_edit_sunday">
+									</div>
+								</form>
+								<form method="POST">
+									<div class="reating-arkows zatujgdsanuk">
+										<input id="edit_even" name="edit_even" onchange="document.querySelector('input#save_edit_even').click();" type="checkbox" <?=$check_use_even;?>>
+										<label for="edit_even">
+										<div class="trianglesusing" data-checked="Yes" data-unchecked="No"></div>
+										<div class="title_but">Четность недели</div>
+										</label>
+										<input type="submit" style="display: none" name="save_edit_even" id="save_edit_even">
+									</div>
+								</form>
 								<div class="button_table_func button_table_func_opacity" onclick="generatingAuthInfo(<?=$info_group->id;?>)"><img src="/resources/images/icon/document.svg" alt="document"><span>Экспорт паролей</span></div>
 								<div class="button_table_func button_table_func_blue" data-toggle="modal" data-target="#add-teachers"><img src="/resources/images/icon/add.svg" alt="document"><span>Добавить</span></div>
 							</div>
 							<div class="schedule_table">
 								<?php 
-									$name_week = array('Нечетная', 'Четная');
+									
 								if ($group->use_even != 0) {
 									$count_week = 1;
+									$name_week = array('Нечетная', 'Четная');
 								}else{
 									$count_week = 0;
 								}
-								for ($week_num = 0; $week_num <= $count_week; $week_num++):?>
+								for ($week_num = 0; $week_num <= $count_week; $week_num++):
+
+									?>
 								<div class="row">
+									<?php if (isset($name_week)): ?>
 									<div class="block_even_week"><h2 class="even_week"><?=$name_week[$week_num];?></h2></div>
-									<?php foreach ($day_of_the_week as $day):
+									<?php endif; ?>
+									<?php foreach ($day_of_the_week as $index => $day):
+										$none_sunday = $index == 6 && $group->use_sunday == 0 ? true : false;
 										$all_schedules = R::getAll('SELECT schedules.* FROM `schedules`, `timeline` WHERE schedules.timeline = timeline.id AND schedules.id_group = ? AND schedules.id_day = ? AND schedules.even_numbered = ? ORDER BY timeline.time_start', array($id_group, $day->id, $week_num));
 										$all_schedules = R::convertToBeans( 'schedules', $all_schedules);
 										?>
 										<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-											<div class="schedule_day">
+											<div class="schedule_day <?php if($none_sunday){echo "schedule_none";}?>"  >
 												<div class="schedule_day_head">
 													<div class="name_day"><?=$day->name;?></div>
+													<?php if(!$none_sunday): ?>
 													<div class="button_anim_scale" onclick="show_form_add_schedule(this)" data-toggle="modal" id="button_open_add_schedule" day="<?=$day->id;?>" even_numbered="<?=$week_num;?>" data-target="#add-group"><img src="/resources/images/icon/plus-positive-add-mathematical-symbol.svg"></div>
+												<?php endif; ?>
 												</div>
 												<div class="schedule_day_full">
+													<?php if (count($all_schedules) == 0): ?>
+														<div class="none_schedule">
+															<img src="/resources/images/icon/speech-bubble.svg" alt="none schedule">
+															<p>Расписание отсутствует</p>
+														</div>
+													<?php endif ?>
 													<?php foreach ($all_schedules as $schedule): 
 														$lesson = R::findOne("lessons", "id = ?", array($schedule->id_lesson));
 														$time_lesson = R::findOne('timeline', 'id = ?', array($schedule->timeline));

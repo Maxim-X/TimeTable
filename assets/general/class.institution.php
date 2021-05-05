@@ -17,8 +17,13 @@ class Institution
 	
 	public static function init(){
 		if (Account::auth_check()) {
-			if (Account::$INSTITUTION_ID != 0) {	
-				$inst_data_db = R::findOne('institutions', 'id = ?', array(Account::$INSTITUTION_ID));
+			if ((Account::$INSTITUTION_ID != 0 && (Account::$ACCOUNT_TYPE == 3 || Account::$ACCOUNT_TYPE == 2)) || (Account::$GROUP_ID != 0 && Account::$ACCOUNT_TYPE == 1)) {	
+				if(Account::$ACCOUNT_TYPE == 1){
+					$group_data_db = R::findOne('groups_students', 'id = ?', array(Account::$GROUP_ID));
+					$inst_data_db = R::findOne('institutions', 'id = ?', array($group_data_db->id_institution));
+				}else{
+					$inst_data_db = R::findOne('institutions', 'id = ?', array(Account::$INSTITUTION_ID));
+				}
 
 				self::$EXISTS 		= true;
 				self::$ID 	= $inst_data_db->id;

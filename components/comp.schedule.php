@@ -1,6 +1,6 @@
 <?PHP
   
-if (!Account::$AUTH) {
+if (!Account::$AUTH || Account::$ACCOUNT_TYPE != 3) {
 	header('Location: /login');
 	exit;
 }
@@ -18,6 +18,33 @@ if ($group->id_institution != Account::$INSTITUTION_ID) {
 Route::$TITLE = "Расписание для группы " . $group->name;
 Route::$DESCRIPTION = "Расписание для группы " . $group->name;
 
+
+if (isset($_POST['save_edit_even'])) {
+	if ($_POST['edit_even']) {
+		$group_edit = R::load('groups_students', $group->id);
+		$group_edit->use_even = 1;
+		R::store($group_edit);
+	}else{
+		$group_edit = R::load('groups_students', $group->id);
+		$group_edit->use_even = 0;
+		R::store($group_edit);
+	}
+	$group = R::findOne('groups_students', 'id = ?', array($id_group));
+}
+
+if (isset($_POST['save_edit_sunday'])) {
+	if ($_POST['edit_sunday']) {
+		$group_edit = R::load('groups_students', $group->id);
+		$group_edit->use_sunday = 1;
+		R::store($group_edit);
+	}else{
+		$group_edit = R::load('groups_students', $group->id);
+		$group_edit->use_sunday = 0;
+		R::store($group_edit);
+	}
+	$group = R::findOne('groups_students', 'id = ?', array($id_group));
+}
+
 if ($group->use_sunday == 0) {
 	$day_of_the_week = R::find("day_of_the_week", "id != ?", array(7));
 }else{
@@ -26,6 +53,13 @@ if ($group->use_sunday == 0) {
 
 $all_lessons = R::find("lessons", "institution_id = ?", array(Institution::$ID));
 $all_head_timeline = R::find("head_timeline", "id_institution = ?", array(Institution::$ID));
+
+if ($group->use_even) {
+	$check_use_even = 'checked';
+}
+if ($group->use_sunday) {
+	$check_use_sunday = 'checked';
+}
 ?>
 
 <script>

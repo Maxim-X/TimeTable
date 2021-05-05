@@ -1,9 +1,6 @@
 <section id="login">
 	<div class="container">
 		<div class="row">
-		<!-- 	<div class="col-xxl-4 col-xl-4 col-lg-3 d-md-none d-none d-lg-block d-xl-block d-xxl-block">
-				<img src="/resources/images/logo.svg" alt="Logo">
-			</div> -->
 			<div class="col-xxl-4 col-xl-5 col-lg-8 col-md-8 col-sm-12 col-12 mx-auto">
 				<div class="main_user_login">
 					<h3>С возвращением!</h3>

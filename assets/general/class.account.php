@@ -20,6 +20,7 @@ class Account
 	public static $SURNAME;
 	public static $MIDDLENAME;
 	public static $INSTITUTION_ID;
+	public static $GROUP_ID;
 	public static $AFFILIATION;
 	public static $ACCOUNT_TYPE;
 	protected static $ACCESSLEVEL;
@@ -38,7 +39,11 @@ class Account
 
 		if (self::auth_check()) {
 			$user_session = R::findOne('sessions', 'key_session = ?', array($_SESSION[self::$sess_user_key]));
-			$user_data_db = R::findOne('accounts', 'id = ?', array($user_session['user_id']));
+			if ($user_session->type_account == 3) {
+				$user_data_db = R::findOne('accounts', 'id = ?', array($user_session['user_id']));
+			}else if($user_session->type_account == 1 || $user_session->type_account == 2){
+				$user_data_db = R::findOne('accounts_generated', 'id = ?', array($user_session['user_id']));
+			}
 
 			// Информация о должности пользователя
 			$affiliation_name = R::findOne('types_account', 'id = ?', array($user_data_db->account_type))->name;
@@ -48,17 +53,37 @@ class Account
 			R::store($user_session);
 
 			if ($user_data_db) {
+
+				// Информация о пользователе (Общая)
 				self::$AUTH 			= true;
 				self::$ID 				= $user_data_db->id;
-				self::$EMAIL 			= $user_data_db->email;
 				self::$SESSION_KEY 		= $_SESSION[self::$sess_user_key];
 				self::$LOGIN 			= $user_data_db->login;
 				self::$NAME 			= $user_data_db->name;
 				self::$SURNAME 			= $user_data_db->surname;
 				self::$MIDDLENAME 		= $user_data_db->middle_name;
-				self::$INSTITUTION_ID 	= $user_data_db->institution_id;
 				self::$AFFILIATION		= $affiliation_name;
 				self::$ACCOUNT_TYPE		= $user_data_db->account_type;
+				self::$INSTITUTION_ID 	= 0;
+				self::$GROUP_ID 		= 0;
+
+				// Информация о диспетчере
+				if (self::$ACCOUNT_TYPE == 3) {
+					self::$EMAIL 			= $user_data_db->email;
+					self::$INSTITUTION_ID 	= $user_data_db->institution_id;
+				}
+
+				// Информация об обучающемся
+				if (self::$ACCOUNT_TYPE == 1) {
+					self::$GROUP_ID = $user_data_db->group_id;
+					self::$INSTITUTION_ID 	= $user_data_db->institution_id;
+				}
+
+				// Информация об преподавателе
+				if (self::$ACCOUNT_TYPE == 2) {
+					self::$INSTITUTION_ID 	= $user_data_db->institution_id;
+				}
+
 				// self::$ACCESSLEVEL 	= $user_data["accesslevel"];
 			}
 		}
@@ -68,11 +93,16 @@ class Account
 
 		if (!self::auth_check()) {
 			$user_data_db = R::findOne('accounts', 'login = ? OR email = ?', array($login, $login));
+			$user_generated = false;
+			if (!$user_data_db) {
+				$user_data_db = R::findOne('accounts_generated', 'login = ?', array($login));
+				$user_generated = true;
+			}
 			if ($user_data_db) {
-				if (password_verify($password.$user_data_db->salt, $user_data_db->password) ) {
+				if (($user_generated && $password == $user_data_db->password) || (password_verify($password.$user_data_db->salt, $user_data_db->password)) ) {
 
 					# Создаем сессию
-					$add_session = self::add_session($user_data_db->id);
+					$add_session = self::add_session($user_data_db->id, $user_generated);
 					if ($add_session["status"]) {
 						return array("status" => true, "user_id" => $user_data_db->id, "message" => "Успешная авторизация!");
 					}else{
@@ -300,7 +330,7 @@ class Account
 
 	}
 
-	public static function add_session($user_id){
+	public static function add_session($user_id, $user_generated){
 		if ($user_id <= 0) {
 			return array("status" => false, "message" => "Идентификатор пользователя введен неверно");
 		}
@@ -314,8 +344,16 @@ class Account
 			$key_session = substr(str_shuffle(self::$permitted_chars), 0, 20);
 		} while (R::findOne('sessions', 'key_session = ?', array($key_session)));
 
+		if ($user_generated) {
+			$user_info = R::findOne('accounts_generated', 'id = ?', array($user_id));
+		}else{
+			$user_info = R::findOne('accounts', 'id = ?', array($user_id));
+		}
+		
+
 		$session->user_id 		= $user_id;
 		$session->key_session 	= $key_session;
+		$session->type_account  = $user_info->account_type;
 		$session->date_add 		= strtotime(date("Y-m-d H:i:s"));
 
 		if(!R::store($session)){

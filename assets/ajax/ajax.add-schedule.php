@@ -43,6 +43,7 @@ $building = trim($_POST['building']);
 
 $id_group = trim($_POST['id_group']);
 $id_day = trim($_POST['id_day']);
+$even_numbered = trim($_POST['even_numbered']);
 
 
 // Проверка уровня доступа
@@ -137,7 +138,7 @@ $schedules->timeline 	=  $id_timeline;
 $schedules->office 		=  $office;
 $schedules->floor 		=  $floor;
 $schedules->building 	=  $building;
-$schedules->even_numbered =  1;
+$schedules->even_numbered =  $even_numbered;
 $schedules->id_day  	=  $id_day;
 R::store($schedules);
 

@@ -46,13 +46,25 @@ include($_SERVER["DOCUMENT_ROOT"]."/inc/header.php");
 Route::path("/", function(){
 	//Авторизованный пользователь
 	if (Account::$AUTH) {
-		//Пользователь использует мобильное устройство
-		if (Route::is_mobile()) {
-			include($_SERVER["DOCUMENT_ROOT"]."/components/comp.account.php");
-			include($_SERVER["DOCUMENT_ROOT"]."/pages/account.php");
-		}else{ //Пользователь не использует мобильное устройство
-			include($_SERVER["DOCUMENT_ROOT"]."/components/comp.account.php");
-			include($_SERVER["DOCUMENT_ROOT"]."/pages/account.php");
+		if (Account::$ACCOUNT_TYPE == 1 || Account::$ACCOUNT_TYPE == 2) {
+			//Пользователь использует мобильное устройство
+			if (Route::is_mobile()) {
+				include($_SERVER["DOCUMENT_ROOT"]."/components/comp.timetable.php");
+				include($_SERVER["DOCUMENT_ROOT"]."/pages/timetable.php");
+			}else{ //Пользователь не использует мобильное устройство
+				include($_SERVER["DOCUMENT_ROOT"]."/components/comp.timetable.php");
+				include($_SERVER["DOCUMENT_ROOT"]."/pages/timetable.php");
+			}
+		}
+		if (Account::$ACCOUNT_TYPE == 3) {
+			//Пользователь использует мобильное устройство
+			if (Route::is_mobile()) {
+				include($_SERVER["DOCUMENT_ROOT"]."/components/comp.account.php");
+				include($_SERVER["DOCUMENT_ROOT"]."/pages/account.php");
+			}else{ //Пользователь не использует мобильное устройство
+				include($_SERVER["DOCUMENT_ROOT"]."/components/comp.account.php");
+				include($_SERVER["DOCUMENT_ROOT"]."/pages/account.php");
+			}
 		}
 		
 	}

@@ -1,7 +1,6 @@
 <?PHP 
 //Выход из аккаунта
 if (isset($_GET["exit"])) {
-	echo "1";
 	Account::exit();
 }
 Route::$TITLE = "Авторизация";

@@ -23,6 +23,7 @@ class Account
 	public static $GROUP_ID;
 	public static $AFFILIATION;
 	public static $ACCOUNT_TYPE;
+	public static $GROUP_NAME;
 	protected static $ACCESSLEVEL;
 
 	 
@@ -47,6 +48,8 @@ class Account
 
 			// Информация о должности пользователя
 			$affiliation_name = R::findOne('types_account', 'id = ?', array($user_data_db->account_type))->name;
+
+
 
 			// Обновляем сессию
 			$user_session->date_add = strtotime(date("Y-m-d H:i:s"));;
@@ -75,8 +78,11 @@ class Account
 
 				// Информация об обучающемся
 				if (self::$ACCOUNT_TYPE == 1) {
+					// Информация о группе
+					$group = R::findOne('groups_students', 'id = ?', array($user_data_db->group_id));
 					self::$GROUP_ID = $user_data_db->group_id;
 					self::$INSTITUTION_ID 	= $user_data_db->institution_id;
+					self::$GROUP_NAME 	= $group->name;
 				}
 
 				// Информация об преподавателе

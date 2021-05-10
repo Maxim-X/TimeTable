@@ -1,6 +1,9 @@
 <?php
 
 $id_head_timeline = trim($_POST['id_head_timeline']);
+$id_group = trim($_POST['id_group']);
+$id_day = trim($_POST['id_day']);
+$even_numbered = trim($_POST['even_numbered']);
 
 # Старт сессии
 session_start(); 
@@ -46,7 +49,9 @@ if (!$head_timeline) {
 	exit;
 }
 
-$times = R::getAll('SELECT * FROM timeline WHERE id_head_timeline = ? ORDER BY time_start ASC', array($id_head_timeline));
+$times = R::getAll('SELECT * FROM timeline WHERE id_head_timeline = ? AND id NOT IN (SELECT timeline FROM `schedules` WHERE id_group = ? AND even_numbered = ? AND id_day = ?) ORDER BY time_start ASC', array($id_head_timeline, $id_group, $even_numbered, $id_day ));
+
+// SELECT timeline FROM `schedules` WHERE id_group = 1 AND even_numbered = 0 AND id_day = 2
 
 
 echo json_encode(["status"=> true, "times"=> $times]);

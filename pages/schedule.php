@@ -140,19 +140,10 @@
 	        	<div class="col-6 mb-3">
 	        		<label for="inputTime" class="form-label">Выберите время</label>
 	        			<select class="form-select form-control-input" id="inputTime" aria-label="Преподаватель" required>
-	        				<?php 
 	        				
-	        				if (isset($id_user_head_timeline)) {
-	        					$times = R::find('timeline', 'id_head_timeline = ?', array($id_user_head_timeline));
-	  
-	        					foreach($times as $time): 
-	        					?>
-					  				<option value="<?=$time->id?>"><?=substr($time->time_start,0,-3);?> - <?=substr($time->time_end,0,-3);?></option>
-								<?php endforeach;
-	        				}
-	        				?>
 	        			</select>
 	        	</div>
+
 	        	<div class="col-12">
 	        		<div class="row">
 	        			<div class="col-6">
@@ -183,3 +174,4 @@
     </div>
   </div>
 </div>
+

@@ -78,7 +78,7 @@ Route::path("/", function(){
 		include($_SERVER["DOCUMENT_ROOT"]."/pages/home.php");
 	}
 });
-
+ 
 Route::path("/login", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.login.php");
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/login.php");
@@ -129,10 +129,15 @@ Route::path("/schedule/{id}", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/schedule.php");
 }, ["id"=>"[0-9]+"]);
 
-Route::path("timeline", function(){
+Route::path("/timeline", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.timeline.php");
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/timeline.php");
 }, ["id"=>"[0-9]+"]);
+
+Route::path("/replacing/{date}", function(){
+	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.replacing.php");
+	include($_SERVER["DOCUMENT_ROOT"]."/pages/replacing.php");
+}, ["date"=>"[0-9,-]+"]);
 /*
  | ГЛАВНЫЙ КОНТРОЛЛЕР
 */

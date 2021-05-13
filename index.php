@@ -138,6 +138,11 @@ Route::path("/replacing/{date}", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.replacing.php");
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/replacing.php");
 }, ["date"=>"[0-9,-]+"]);
+
+Route::path("/replacing/edit/{date}", function(){
+	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.replacing.edit.php");
+	include($_SERVER["DOCUMENT_ROOT"]."/pages/replacing.edit.php");
+}, ["date"=>"[0-9,-]+"]);
 /*
  | ГЛАВНЫЙ КОНТРОЛЛЕР
 */

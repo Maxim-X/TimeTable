@@ -93,15 +93,14 @@ class Calendar
 			}
 
 			$count_replacing = R::count('replacing', 'date = ?', array($year.'-'.$month.'-'.$day));
-			
 			if ($count_replacing != 0) {
-				$out.= '<td class="calendar-day ' . $class . ' event"><div class="num-day">' . $day . '</div>';
+				$out.= '<td data-href="/replacing/edit/'.$year.'-'.$month.'-'.$day.'?" class="calendar-day ' . $class . ' event"><div class="num-day">' . $day . '</div>';
 				$out.= '<div class="calendar-popup">' . $count_replacing . ' Замен занятий</div>';
 				$out.= '</td>';
 			} else {
-				$out.= '<td class="calendar-day ' . $class . '"><div class="num-day">' . $day . '</div></td>';
+				$out.= '<td data-href="/replacing/edit/'.$year.'-'.$month.'-'.$day.'?" class="calendar-day ' . $class . '"><div class="num-day">' . $day . '</div></td>';
 			}
- 
+ 			// $out.= '</a><div>';
 			if ($day_week == 6) {
 				$out.= '</tr>';
 				if (($days_counter + 1) != $days_month) {
@@ -128,3 +127,13 @@ $full_calendar_use = date("Y-m", strtotime($_GET['date']));
 
 $Calendar = new Calendar;
 $Calendar_use = $Calendar->getMonth($m_calendar_use, $y_calendar_use);
+
+?>
+<script>
+$(document).ready(function() {
+	$('td.calendar-day').on('click', '', function(e){
+    e.prevenDefault;
+    document.location.href = $(this).data('href');
+})
+});
+</script>

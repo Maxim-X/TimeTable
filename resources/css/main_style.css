@@ -138,11 +138,24 @@ label.btn-radio-ch {
     background: #3d89f4;
     background-color: #3d89f4;
     border-color: #3d89f4;
+    color: white;
 }
 
 .inform_blue p:nth-last-child(1) {
     margin-bottom: 0px;
 }
+
+.def-group {
+    width: max-content;
+}
+
+.def-group select {
+    min-width: 200px !important;
+    border: 1px solid #3c89f4;
+    background-color: #3c89f426;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+}
+
 
 .btn-def:hover{
     background: #3a7edd;
@@ -370,6 +383,58 @@ section#menu_top {
     cursor: default;
 }
 
+.all_dop_page_info {
+    background-color: rgb(0 0 0 / 10%);
+    height: 100%;
+    position: fixed;
+    width: inherit;
+    z-index: 100;
+    margin-left: -2px;
+    padding-top: 60px;
+    padding: 60px 15px 0px 15px;
+}
+
+.head_dop_info {
+    font-family: "Tahoma", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #D6D6D6;
+}
+
+.item_repl_lesson {
+    display: grid;
+    grid-template-columns: max-content auto;
+    grid-template-rows: max-content max-content;
+    grid-column-gap: 15px;
+}
+
+.item_repl_lesson p {
+    grid-column: 2;
+    margin: 0px;
+    font-family: "Tahoma", sans-serif;
+    font-size: 14px;
+    color: #C6C6C6;
+}
+
+.item_repl_lesson img {
+    grid-row-start: 1;
+    grid-row-end: 3;
+    width: 26px;
+    margin-top: 11px;
+}
+
+.all_folders_repl {
+    margin-top: 15px;
+    margin-left: -15px;
+    margin-right: -15px;
+    padding: 3px 20px;
+}
+
+.dop_head_text {
+    font-size: 14px;
+    color: #C6C6C6;
+}
+
 .menu_month .name_month {
     line-height: 37px;
     font-size: 19px;
@@ -382,17 +447,20 @@ section#menu_top {
     display: block;
 }
 .calendar-popup {
-    background: rgb(92 253 103 / 30%);
-    color: white;
+        background: rgb(92 253 103 / 30%);
+    color: rgb(92 253 103);
     border-radius: 25px;
+    border: 1px solid rgb(92 253 103);
     width: max-content;
     margin: auto;
-    padding: 1px 5px;
+    padding: 3px 8px;
     max-width: 100%;
     font-size: 13px;
     margin-top: 5px;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+
+td.calendar-day.today {color: #5c92fd;background: #5c92fd14;}
 
 .calendar tbody tr td {
     text-align: center;
@@ -400,6 +468,18 @@ section#menu_top {
     padding: 10px 0px 5px;
     height: 80px;
     vertical-align: baseline;
+}
+
+.calendar tbody tr td.calendar-day.last {
+    opacity: 0.2;
+}
+
+.calendar tbody tr td {
+    background: #19191959;
+}
+
+.calendar tbody tr td.calendar-day {
+    background: none !important;
 }
 
 .main_search .img img {
@@ -510,12 +590,25 @@ h1.main_header .highlight {
     transform: translateY(-50%);
     transition: 0.4s;
 }
+
+.calendar tbody tr td.calendar-day:hover {background: rgb(25 25 25) !important;cursor: pointer;}
+
 .block_func .name a:hover .arrow {
     transform: translate(5px, -50%);
 }
 .block_func .name {
     position: relative;
     margin-bottom: 20px;
+}
+
+.head_dop_info span {
+    color: #5C92FD;
+}
+
+.item_repl_lesson div {font-family: "Tahoma", sans-serif;}
+
+.all_folders_repl:hover {
+    background: #232323;
 }
 
 .inp_search label {

@@ -49,6 +49,9 @@
 
 														$replace = R::findOne('replacing', 'id_schedule = ? AND date = ?', array($schedule->id, $date_now));
 														if ($replace) {
+															if ($replace->cancel == 1) {
+																continue;
+															}
 															$schedule = $replace;
 														}
 

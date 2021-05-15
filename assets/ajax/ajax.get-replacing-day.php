@@ -43,7 +43,7 @@ if (!isset($date_day) || empty($date_day)) {
 $date_day_format = date('Y-m-d', strtotime($date_day));
 
 // $all_replacing = R::find('replacing', 'date = ?', array($date_day_format));
-$all_replacing = R::getAll('SELECT (SELECT name FROM groups_students WHERE id = replacing.id_group) AS group_name, COUNT(replacing.id) AS count FROM replacing WHERE replacing.id_group IN (SELECT id FROM groups_students WHERE id_institution = ?) AND replacing.date = ? GROUP BY replacing.id_group', array(Account::$INSTITUTION_ID, $date_day_format));
+$all_replacing = R::getAll('SELECT (SELECT name FROM groups_students WHERE id = replacing.id_group) AS group_name, COUNT(replacing.id) AS count, (SELECT id FROM groups_students WHERE id = replacing.id_group) AS id FROM replacing WHERE replacing.id_group IN (SELECT id FROM groups_students WHERE id_institution = ?) AND replacing.date = ? GROUP BY replacing.id_group', array(Account::$INSTITUTION_ID, $date_day_format));
 // $all_replacing = R::exportAll( $all_replacing );
 
 

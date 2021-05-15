@@ -171,16 +171,16 @@
 	      <div class="all_add_students_list" id="all_add_students_list">
 	      	<div class="row">
 		      	<div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12">
-			      	<div class="modal-body">
-			        <label for="inputNameStudent_1" class="form-label">Имя студента</label>
-					<input type="text" name="name_student_1" id="inputNameStudent_1" class="form-control form-control-input">
-			     	</div>
-		      	</div>
-		      	<div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12">
 			      <div class="modal-body">
 			        <label for="inputSurnameStudent_1" class="form-label">Фамилия студента</label>
 					<input type="text" name="surname_student_1" id="inputSurnameStudent_1" class="form-control form-control-input">
 			      </div>
+		      	</div>
+		      	<div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12">
+			      	<div class="modal-body">
+			        <label for="inputNameStudent_1" class="form-label">Имя студента</label>
+					<input type="text" name="name_student_1" id="inputNameStudent_1" class="form-control form-control-input">
+			     	</div>
 		      	</div>
 		      	<div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12">
 			      <div class="modal-body">

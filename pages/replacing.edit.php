@@ -8,11 +8,6 @@
 				<div class="block_dop_info">
 					<div class="head_dop_info">Замены занятий <span id="num_repl_lesson">(0)</span><div class="dop_head_text">на <?=$date_day_format;?></div></div>
 					<div class="all_folders_repl" id="all_folders_repl">
-						<div class="item_repl_lesson">
-							<img src="/resources/images/icon/folder.svg" alt="folder">
-							<div>Группа 17П-1</div>
-							<p>Замен: 4</p>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -29,11 +24,8 @@
 								<div class="input-group def-group">
 								  <select class="form-select form-control-input" id="inputGroupSelect04" aria-label="Example select with button addon">
 								    <option selected>Выберите группу</option>
-								    <option value="1">One</option>
-								    <option value="2">Two</option>
-								    <option value="3">Three</option>
 								  </select>
-								  <button class="btn btn-outline-secondary btn btn-primary btn-def" type="button">Добавить замены</button>
+								  <button class="btn btn-outline-secondary btn btn-primary btn-def" onclick="open_group()" type="button">Добавить замены</button>
 								</div>
 							</div>
 						</div>
@@ -109,7 +101,7 @@
 										$all_schedules = R::convertToBeans( 'schedules', $all_schedules);
 										?>	
 										<div class="name_day">Замены</div>
-										<div class="button_anim_scale" onclick="show_form_add_schedule(this)" data-toggle="modal" id="button_open_add_schedule" day="<?=$_GET['date'];?>" data-target="#add-group"><img src="/resources/images/icon/plus-positive-add-mathematical-symbol.svg"></div>
+										<!-- <div class="button_anim_scale" onclick="show_form_add_schedule(this)" data-toggle="modal" id="button_open_add_schedule" day="<?=$_GET['date'];?>" data-target="#add-group"><img src="/resources/images/icon/plus-positive-add-mathematical-symbol.svg"></div> -->
 									</div>
 									<div class="schedule_day_full">
 										<?php if (count($all_schedules) == 0): ?>
@@ -127,7 +119,7 @@
 											$time_lesson = R::findOne('timeline', 'id = ?', array($schedule->timeline));
 											?>
 
-											<div class="one_lesson" id="one_lesson"<?php if (!$replace):?> style="opacity: 0.1" <?php endif ?>>
+											<div class="one_lesson" data-toggle="modal" onclick="get_schedule_info(<?=$schedule->id;?>)" id-schedule="<?=$schedule->id;?>" id="button_open_add_schedule" data-target="#edit-lesson" id="one_lesson"<?php if (!$replace):?> style="opacity: 0.1" <?php endif ?>>
 												<div class="time">
 													<div class="time_start"><?=date("H:i", strtotime($time_lesson->time_start));?></div>
 													<div class="time_end"><?=date("H:i", strtotime($time_lesson->time_end));?></div>
@@ -176,6 +168,9 @@
 										<?php foreach ($all_schedules as $schedule): 
 											$replace = R::findOne('replacing', 'id_schedule = ? AND date = ?', array($schedule->id, $_GET['date']));
 											if ($replace) {
+												if ($replace->cancel == 1) {
+													continue;
+												}
 												$schedule = $replace;
 											}
 											$lesson = R::findOne("lessons", "id = ?", array($schedule->id_lesson));
@@ -216,7 +211,7 @@
     <div class="modal-content">
       <form method="POST">
 	      	<div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Добавить замену урока</h5>
+	        <h5 class="modal-title" id="exampleModalLabel">Добавить урок</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
@@ -275,6 +270,60 @@
 	      </div>
 	      <div class="modal-footer">
 	        <input type="submit" onclick="add_new_schedule()" name="add_group" class="btn btn-primary btn-def" value="Добавить урок">
+	      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="edit-lesson" tabindex="-1" aria-labelledby="edit-lesson" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST">
+	      	<div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Добавить замену урока</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <div class="row">
+	        	<div class="col-12 mb-3">
+	        		<label for="input_edit_Lesson" class="form-label">Выберите урок</label>
+					<select class="form-select form-control-input" id="input_edit_Lesson" aria-label="Предмет" required>
+						<option value="0">Выберите урок</option>
+						<?php foreach($all_lessons as $lesson): ?>
+					  		<option value="<?=$lesson->id?>"><?=$lesson->name;?></option>
+						<?php endforeach; ?>
+					</select>
+	        	</div>
+	        	<div class="col-12">
+	        		<div class="row">
+	        			<div class="col-6">
+	        				<label for="input_edit_Teacher" class="form-label">Преподаватель</label>
+	        				<select class="form-select form-control-input" id="input_edit_Teacher" aria-label="Преподаватель" disabled required>
+							</select>
+	        			</div>
+	        			<div class="col-6">
+	        				<label for="input_edit_Office" class="form-label">Кабинет</label>
+	        				<div class="all_input_cab row">
+	        					<div class="col"><input type="text" placeholder="Каб." name="input_edit_Office" id="input_edit_Office" class="form-control form-control-input" onkeyup="this.value = this.value.replace(/[^\d]/g,'');"></div>
+	        					<div class="col"><input type="text" placeholder="Этаж" name="input_edit_Floor" id="input_edit_Floor" class="form-control form-control-input" onkeyup="this.value = this.value.replace(/[^\d]/g,'');"></div>
+	        					<div class="col"><input type="text" placeholder="Корпус" name="input_edit_Building" id="input_edit_Building" class="form-control form-control-input" onkeyup="this.value = this.value.replace(/[^\d]/g,'');"></div>
+	        				</div>
+	        			</div>
+	        		</div>
+	        		<input type="hidden" name="input_edit_id_group" id="input_edit_id_group" value="<?=$id_group;?>" readonly>
+	        		<input type="hidden" name="input_edit_Schedule" id="input_edit_Schedule" value="<?=$id_group;?>" readonly>
+	        		<input type="hidden" name="input_edit_Date" id="input_edit_Date" value="<?=$_GET['date'];?>" readonly>
+
+	        	</div>
+
+	        </div>
+	      </div>
+	      <div class="modal-footer">
+	        <input type="submit" onclick="cancel_lesson()" name="add_group" class="btn btn-primary btn-def" value="Отменить занятие">
+	        <input type="submit" onclick="add_new_replace()" name="add_group" class="btn btn-primary btn-def" value="Добавить замену занятия">
 	      </div>
       </form>
     </div>

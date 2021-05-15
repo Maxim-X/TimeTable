@@ -8,7 +8,8 @@
       </div>
     </div>
     <div class="content_sec_menu">
-      <div class="main_search">
+      <div class="full_name_inst"><?=Institution::$FULL_NAME;?></div>
+      <!-- <div class="main_search">
           <div class="img">
             <div class="all_icon_search">
               <img src="/resources/images/icon/loupe.svg" alt="loupe">
@@ -16,7 +17,7 @@
             </div>
           </div>
         <div class="input_search"><input type="text" name="main_search" placeholder="Глобальный поиск..."></div>
-      </div>
+      </div> -->
     </div>
     <div class="content_sec_menu">
       <div class="user_name">

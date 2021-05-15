@@ -11,11 +11,11 @@
 					<h1 class="main_header">Расписание для групп <span class="highlight"><?=Institution::$SHORT_NAME;?></span></h1>
 					<div class="row all_content_mg">
 						<div class="col-xxl-10 col-xl-12 col-lg-12 col-md-12">
-							<div class="bar_table">
+							<!-- <div class="bar_table">
 								<div class="button_table_func button_table_func_opacity" onclick="generatingAuthInfo(<?=$info_group->id;?>)"><img src="/resources/images/icon/document.svg" alt="document"><span>Экспорт паролей</span></div>
 								<div class="button_table_func button_table_func_blue" data-toggle="modal" data-target="#add-teachers"><img src="/resources/images/icon/add.svg" alt="document"><span>Добавить</span></div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 					<div class="all_groups">
 						<div class="row">

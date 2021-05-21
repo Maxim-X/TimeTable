@@ -12,7 +12,7 @@
 					<div class="row all_content_mg">
 						<div class="col-xxl-7 col-xl-10 col-lg-12 col-md-12">
 							<div class="bar_table">
-								<div class="button_table_func button_table_func_opacity"><img src="/resources/images/icon/document.svg" alt="document"><span>Экспорт паролей</span></div>
+								<!-- <div class="button_table_func button_table_func_opacity"><img src="/resources/images/icon/document.svg" alt="document"><span>Экспорт паролей</span></div> -->
 								<div class="button_table_func button_table_func_blue" data-toggle="modal" data-target="#add-group"><img src="/resources/images/icon/add.svg"  alt="document"><span>Добавить группу</span></div>
 							</div>
 							<div class="section_table">
@@ -35,7 +35,7 @@
 												<td><a href="/group/<?=$group->id;?>"><?=$count_students;?></a></td>
 												<td>
 													<div class="table_row_func">
-														<div class="button_func_tb button_func_tb_red"><img src="/resources/images/icon/bin.svg" alt="bin"></div>
+														<!-- <div class="button_func_tb button_func_tb_red"><img src="/resources/images/icon/bin.svg" alt="bin"></div> -->
 														<a href="/group/<?=$group->id;?>"><div class="button_func_tb button_func_tb_blue"><img src="/resources/images/icon/right-chevron.svg" alt="right chevron"></div></a>
 													</div>
 												</td>

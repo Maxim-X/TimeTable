@@ -8,7 +8,7 @@
 			<?php include("inc/menu.top.php"); ?>
 			<section id="content">
 				<div class="main_content">
-					<h1 class="main_header">Таблица учеников <span class="highlight"><?=$info_group->name;?><div class="choise_head"><img src="/resources/images/icon/choose-arrow.svg" alt="choose-arrow" class="choise_head_but"></div></span></h1>
+					<h1 class="main_header">Таблица учеников <span class="highlight"><?=$info_group->name;?></span></h1>
 					<div class="row all_content_mg">
 						<div class="col-xxl-7 col-xl-7 col-lg-7 col-md-12">
 							<div class="bar_table">

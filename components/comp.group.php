@@ -9,6 +9,11 @@ Route::$DESCRIPTION = "Группа ".$info_group->name;
 
 $info_group = R::findOne('groups_students', 'id = ?', array($_GET['id']));
 
+if ($info_group->id_institution != Institution::$ID) {
+	header('Location: /');
+	exit;
+}
+
 if (isset($_POST['add_students'])) {
 	$id_add_account = 1;
 

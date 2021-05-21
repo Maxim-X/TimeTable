@@ -14,28 +14,35 @@
 						<div class="left_func">
 							<div class="line_left_block">
 								<div class="block_func">
-									<div class="name">
-										<a href="/groups-all">
-											<span name="title">Обучающиеся</span>
-											<span name="count"><?=$count_students;?> чел.</span>
-											<div class="arrow"><img src="resources/images/icon/right-arrow-angle.svg" alt="right arrow angle"></div>
-										</a>
-									</div>
-									<div class="inp_search" id="student">
-										<label for="student_search">Быстрый поиск</label>
-										<div class="search">
-											<form>
-												<input type="text" oninput="EDIT_DOM.student_search(Search_info.search_students($(this).val()), 'result_student_search');" id="student_search" name="student_search" class="form-control form-control-input" action='' autocomplete='off' placeholder="ФИО студента или группа">
-											</form>
-										</div>
-										<div class="content_search" id="result_student_search">
-											<div class="none_search">
-												<img src="resources/images/none_search.svg">
+											<div class="name">
+												<a href="/groups-all">
+													<span name="title">Обучающиеся</span>
+													<span name="count"><?=$count_students;?> чел.</span>
+													<div class="arrow"><img src="resources/images/icon/right-arrow-angle.svg" alt="right arrow angle"></div>
+												</a>
+											</div>
+											<div class="inp_search" id="student">
+												<label for="student_search">Быстрый поиск</label>
+												<div class="search">
+													<form>
+														<input type="text" oninput="EDIT_DOM.student_search(Search_info.search_students($(this).val()), 'result_student_search');" id="student_search" name="student_search" class="form-control form-control-input" action='' autocomplete='off' placeholder="ФИО студента или группа">
+													</form>
+												</div>
+												<div class="content_search" id="result_student_search">
+													<div class="none_search">
+														<img src="resources/images/none_search.svg">
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-								<div class="block_func">
+	
+									<div class="row calendar">
+										<div class="col-xxl-10 col-xl-12 col-lg-12 col-md-12">
+											<?=$Calendar_use['calendar']; ?>
+										</div>
+									</div>
+								<!-- <div class="block_func">
 									<div class="name">
 										<a href="#">
 											<span name="title">Преподаватели</span>
@@ -57,7 +64,7 @@
 											</div>
 										</div>
 									</div>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</div>

@@ -10,9 +10,9 @@
 				<div class="main_content">
 					<h1 class="main_header">Таблица преподавателей <span class="highlight"><?=Institution::$SHORT_NAME;?></span></h1>
 					<div class="row all_content_mg">
-						<div class="col-xxl-7 col-xl-7 col-lg-7 col-md-12">
+						<div class="col-xxl-7 col-xl-8 col-lg-8 col-md-12">
 							<div class="bar_table">
-								<div class="button_table_func button_table_func_opacity" onclick="generatingAuthInfo(<?=$info_group->id;?>)"><img src="/resources/images/icon/document.svg" alt="document"><span>Экспорт паролей</span></div>
+								<div class="button_table_func button_table_func_opacity" onclick="generatingAuthInfo()"><img src="/resources/images/icon/document.svg" alt="document"><span>Экспорт паролей</span></div>
 								<div class="button_table_func button_table_func_blue" data-toggle="modal" data-target="#add-teachers"><img src="/resources/images/icon/add.svg" alt="document"><span>Добавить</span></div>
 							</div>
 							<div class="section_table">
@@ -39,10 +39,6 @@
 													<?php foreach ($all_lessons_teacher as $lesson): ?>
 														<div class="lesson"><?=$lesson['name'];?><span class="delete" onclick="deleteLessonForTeacher(this, <?=$lesson['id_lesson'];?>, <?=$teacher->id;?>);"><img src="/resources/images/icon/close.svg" alt="close"></span></div>
 													<?php endforeach; ?>
-													<!-- <div class="lesson">Программирование в компьютерных системах</div>
-													<div class="lesson">WEB-программирование</div>
-													<div class="lesson">Информационные технологии</div>
-													<div class="lesson">Разработка мобильных приложений</div> -->
 												</div></td>
 												<td>
 													<div class="table_row_func">
@@ -117,12 +113,12 @@
 										<form id="edit_info_teacher" method="POST">
 											<input type="hidden" name="user_id" class="form-control form-control-input" id="user_id" required="">
 											<div class="mb-3">
-											    <label for="user_name" class="form-label">Имя</label>
-												<input type="text" name="user_name" class="form-control form-control-input" id="user_name" value="" required="">
-											</div>
-											<div class="mb-3">
 											    <label for="user_surname" class="form-label">Фамилия</label>
 												<input type="text" name="user_surname" class="form-control form-control-input" id="user_surname" value="" required="">
+											</div>
+											<div class="mb-3">
+											    <label for="user_name" class="form-label">Имя</label>
+												<input type="text" name="user_name" class="form-control form-control-input" id="user_name" value="" required="">
 											</div>
 											<div class="mb-3">
 											    <label for="user_middle_name" class="form-label">Отчество</label>
@@ -188,16 +184,16 @@
 	      <div class="all_add_students_list" id="all_add_teachers_list">
 	      	<div class="row">
 		      	<div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12">
-			      	<div class="modal-body">
-			        <label for="inputNameTeacher_1" class="form-label">Имя преподавателя</label>
-					<input type="text" name="name_teacher_1" id="inputNameTeacher_1" class="form-control form-control-input">
-			     	</div>
-		      	</div>
-		      	<div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12">
 			      <div class="modal-body">
 			        <label for="inputSurnameTeacher_1" class="form-label">Фамилия преподавателя</label>
 					<input type="text" name="surname_teacher_1" id="inputSurnameTeacher_1" class="form-control form-control-input">
 			      </div>
+		      	</div>
+		      	<div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12">
+			      	<div class="modal-body">
+			        <label for="inputNameTeacher_1" class="form-label">Имя преподавателя</label>
+					<input type="text" name="name_teacher_1" id="inputNameTeacher_1" class="form-control form-control-input">
+			     	</div>
 		      	</div>
 		      	<div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12">
 			      <div class="modal-body">

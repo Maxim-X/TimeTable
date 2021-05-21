@@ -15,8 +15,19 @@ $all_head_timeline = R::find("head_timeline", "id_institution = ?", array(Instit
 
 if (!isset($_GET['group'])) {
 	$_GET['group'] = 0;
+}else{
+	$info_group = R::findOne('groups_students', 'id = ?', array($_GET['group']));
+	if ($info_group->id_institution != Institution::$ID) {
+		header('Location: /');
+		exit;
+	}
 }
 
+
+
+
+
+$all_groups = R::find('groups_students', 'id_institution = ?', array(Institution::$ID));
 ?>
 
 
@@ -88,7 +99,7 @@ if (!isset($_GET['group'])) {
 		
 
 		get_replacing_day('<?=$_GET['date'];?>');
-		get_groups_none_repl();
+		// get_groups_none_repl();
 	}
 		function open_group(){
 			var select = $('#inputGroupSelect04').val();
@@ -155,6 +166,7 @@ if (!isset($_GET['group'])) {
 			.always(function(data) {
 				console.log("complete");
 				console.log(data);
+				window.location.reload();
 			});
 	    }
 
@@ -187,6 +199,7 @@ if (!isset($_GET['group'])) {
 			.always(function(data) {
 				console.log("complete");
 				console.log(data);
+				window.location.reload();
 			});
 		}
 

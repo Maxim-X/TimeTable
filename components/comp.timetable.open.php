@@ -1,17 +1,23 @@
-<?php
+<?php 
+Route::$TITLE = "Расписание группы ";
+Route::$DESCRIPTION = "Расписание группы ";
 
-if (!Account::$AUTH || !(Account::$ACCOUNT_TYPE != 1 || Account::$ACCOUNT_TYPE != 2)) {
-	header('Location: /login');
-	exit;
-}
+$institution_id = trim($_GET['institution_id']);
+$group_id = trim($_GET['group_id']);
 
-Route::$TITLE = "Расписание";
-Route::$DESCRIPTION = "Расписание";
 
-$group = R::findOne('groups_students', 'id = ?', array(Account::$GROUP_ID));
 
-if (!$group) {
-	die('Группа не найдена!'); 
+if (empty($group_id) && !empty($institution_id)) {
+	$all_groups = R::findAll('groups_students', 'id_institution = ? ORDER BY `name` DESC', array($institution_id));
+	$institution = R::findOne('institutions', 'id = ?', array($institution_id));
+}else if (!empty($group_id)) {
+	$group = R::findOne('groups_students', 'id = ?', array($group_id));
+	if (!$group) {
+		die('Группа не найдена!'); 
+	}
+	$institution = R::findOne('institutions', 'id = ?', array($group->id_institution));
+	Route::$TITLE = "Расписание группы ".$group->name;
+	Route::$DESCRIPTION = "Расписание группы ".$group->name;
 }
 
 $day_of_the_week = R::find("day_of_the_week");
@@ -21,7 +27,6 @@ if ($group->use_even == 1) {
 	$even_numbered = $week % 2 == 0 && $group->use_even == 1 ? 1:0;
 	$name_week = $name_week[$even_numbered];
 }
-
 ?>
 
 <script>

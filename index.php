@@ -74,8 +74,8 @@ Route::path("/", function(){
 Route::path("/", function(){
 	//Не авторизованный пользователь
 	if (!Account::$AUTH) {
-		include($_SERVER["DOCUMENT_ROOT"]."/components/comp.home.php");
-		include($_SERVER["DOCUMENT_ROOT"]."/pages/home.php");
+		include($_SERVER["DOCUMENT_ROOT"]."/components/comp.login.php");
+		include($_SERVER["DOCUMENT_ROOT"]."/pages/login.php");
 	}
 });
  
@@ -143,6 +143,12 @@ Route::path("/replacing/edit/{date}", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.replacing.edit.php");
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/replacing.edit.php");
 }, ["date"=>"[0-9,-]+"]);
+
+Route::path("timetable-open", function(){
+	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.timetable.open.php");
+	include($_SERVER["DOCUMENT_ROOT"]."/pages/timetable.open.php");
+});
+
 /*
  | ГЛАВНЫЙ КОНТРОЛЛЕР
 */

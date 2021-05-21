@@ -15,7 +15,7 @@ if (isset($_POST['add_teachers'])) {
 							'middle_name' => $_POST['middle-name_teacher_'.$id_add_account],
 							'account_type' => 2,
 							'institution_id' => Institution::$ID);
-		var_dump(Account::signup_system_account($user_info));
+		Account::signup_system_account($user_info);
 		$id_add_account++;
 	}
 	header("Refresh: 0");
@@ -121,7 +121,7 @@ $pr_use_space = $use_space * 100 / (int)Core::$DISC_SPACE;
 	function addTamplateTeacher(){
 		var template = document.createElement('div');
 		template.className = 'row';
-		template.innerHTML = '<div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12"><div class="modal-body"><label for="inputNameTeacher_'+id_template+'" class="form-label">Имя преподавателя</label><input type="text" name="name_teacher_'+id_template+'" id="inputNameTeacher_'+id_template+'" class="form-control form-control-input"></div></div><div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12"><div class="modal-body"><label for="inputSurnameTeacher_'+id_template+'" class="form-label">Фамилия преподавателя</label><input type="text" name="surname_teacher_'+id_template+'" id="inputSurnameTeacher_'+id_template+'" class="form-control form-control-input"></div></div><div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12"><div class="modal-body"><label for="inputMiddleNameTeacher_'+id_template+'" class="form-label">Отчество преподавателя</label><input type="text" name="middle-name_teacher_'+id_template+'" id="inputMiddleNameTeacher_'+id_template+'" class="form-control form-control-input"></div></div>';
+		template.innerHTML = '<div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12"><div class="modal-body"><label for="inputSurnameTeacher_'+id_template+'" class="form-label">Фамилия преподавателя</label><input type="text" name="surname_teacher_'+id_template+'" id="inputSurnameTeacher_'+id_template+'" class="form-control form-control-input"></div></div><div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12"><div class="modal-body"><label for="inputNameTeacher_'+id_template+'" class="form-label">Имя преподавателя</label><input type="text" name="name_teacher_'+id_template+'" id="inputNameTeacher_'+id_template+'" class="form-control form-control-input"></div></div><div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-12"><div class="modal-body"><label for="inputMiddleNameTeacher_'+id_template+'" class="form-label">Отчество преподавателя</label><input type="text" name="middle-name_teacher_'+id_template+'" id="inputMiddleNameTeacher_'+id_template+'" class="form-control form-control-input"></div></div>';
 		document.querySelector("#all_add_teachers_list").append(template);
 		id_template++;
 	}
@@ -214,6 +214,31 @@ $pr_use_space = $use_space * 100 / (int)Core::$DISC_SPACE;
 			}else{
 				alert(data.message);
 			}
+		});
+		
+	}
+
+	function generatingAuthInfo(){
+
+		$.ajax({
+			url: '/assets/ajax/ajax.generating-auth-info-teacher.php',
+			type: 'POST',
+			dataType: 'json',
+			data: {},
+		})
+		.done(function() {
+			console.log("success");
+		})
+		.fail(function(data) {
+			console.log("error");
+		})
+		.always(function(data) {
+			var $a = $("<a>");
+		    $a.attr("href",data.file);
+		    $("body").append($a);
+		    $a.attr("download","Аккаунты преподавателей.xls");
+		    $a[0].click();
+		    $a.remove();
 		});
 		
 	}

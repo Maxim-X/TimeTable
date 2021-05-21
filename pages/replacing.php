@@ -24,7 +24,6 @@
 									<div class="name_month"><?=$Calendar_use['month'];?> <?=$Calendar_use['year'];?></div>
 									<div class="next"><a href="/replacing/<?=date('Y-m', strtotime('+1 MONTH', strtotime($full_calendar_use)));?>"><img src="/resources/images/icon/calendar-menu-arrow.svg" alt="arrow"></a></div>
 								</div>
-								<div class="button_table_func button_table_func_blue" data-toggle="modal" data-target="#add-head-timeline"><img src="/resources/images/icon/add.svg" alt="document"><span>Добавить временной график</span></div>
 							</div>
 						</div>
 					</div>

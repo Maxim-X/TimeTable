@@ -92,7 +92,7 @@ class Calendar
 				}
 			}
 
-			$count_replacing = R::count('replacing', 'date = ?', array($year.'-'.$month.'-'.$day));
+			$count_replacing = R::count('replacing', 'date = ? AND id_schedule IN (SELECT id FROM schedules WHERE schedules.id_group IN (SELECT id FROM groups_students WHERE groups_students.id_institution = ?))', array($year.'-'.$month.'-'.$day, Account::$INSTITUTION_ID));
 			if ($count_replacing != 0) {
 				$out.= '<td data-href="/replacing/edit/'.$year.'-'.$month.'-'.$day.'?" class="calendar-day ' . $class . ' event"><div class="num-day">' . $day . '</div>';
 				$out.= '<div class="calendar-popup">' . $count_replacing . ' Замен занятий</div>';

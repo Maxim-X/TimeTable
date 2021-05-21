@@ -6,7 +6,7 @@ defined('INDEX') OR die('Прямой доступ к странице запр�
 class db
 {
 	public static $HostDB = "localhost";
-	public static $UserDB = "root";
-	public static $PassDB = "root";
-	public static $BaseDB = "db_time_table";
+	public static $UserDB = "cw46249_time";
+	public static $PassDB = "CHK-BnH-5Q8-3Ma";
+	public static $BaseDB = "cw46249_time";
 }

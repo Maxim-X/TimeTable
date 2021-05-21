@@ -4,7 +4,6 @@
 			<div class="col-xxl-4 col-xl-5 col-lg-8 col-md-8 col-sm-12 col-12 mx-auto">
 				<div class="main_user_login">
 					<h3 style="font-size: 32px;">Восстановление пароля</h3>
-					<p class="title_head">Какой-то текст!</p>
 					<form method="POST" class="mt-5">
 						<?php
 						if (isset($error_reminder)) {
@@ -19,7 +18,7 @@
 						</div>
 						<div class="mb-3">
 
-							<div class="g-recaptcha" data-theme="dark" data-sitekey="6LfauDoaAAAAAIunTLnBB5i4OvlC_GVVaBRzlW6X"></div>
+							<div class="g-recaptcha" data-theme="dark" data-sitekey="6Lc4rdYaAAAAACEBCkiHOjJgrTh3fCk5jCUTk_-v"></div>
 							
 						</div>
 						<button type="submit" name="reminderUser" class="btn btn-primary btn-def" style="width: 100%;">Отправить</button>

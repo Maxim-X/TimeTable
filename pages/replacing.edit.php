@@ -24,6 +24,9 @@
 								<div class="input-group def-group">
 								  <select class="form-select form-control-input" id="inputGroupSelect04" aria-label="Example select with button addon">
 								    <option selected>Выберите группу</option>
+								    <?php foreach ($all_groups as $group):?>
+								    	<option value='/replacing/edit/<?=$_GET['date'];?>?group=<?=$group->id;?>'><?=$group->name;?></option>
+								    <?php endforeach; ?>
 								  </select>
 								  <button class="btn btn-outline-secondary btn btn-primary btn-def" onclick="open_group()" type="button">Добавить замены</button>
 								</div>

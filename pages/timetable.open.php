@@ -1,19 +1,21 @@
+
+<?php 
+if (isset($group_id) && !empty($group_id)):
+?>
 <div class="container-fluad">
 	<div class="row" style="margin-right: 0px;">
-		<div class="col-xxl-2 col-xl-2 col-lg-2 col-md-1">
-			<?php include("inc/menu.php"); ?>
-		</div>
-
-		<div class="col-xxl-10 col-xl-10 col-lg-10 col-md-11 col-sm-12 col-12">
-			<?php include("inc/menu.top.php"); ?>
+		<div class="col-xxl-10 col-xl-10 col-lg-12 col-md-12 col-sm-12 col-12 offset-xxl-1 offset-xl-1">
 			<section id="content">
 				<div class="main_content">
-					<?php if (Account::$ACCOUNT_TYPE == 1): ?>
-						<h1 class="main_header">Расписание группы <span class="highlight"><?=Account::$GROUP_NAME;?></span> <?php if(isset($name_week)){echo '<span class="name_week">'.$name_week.'</span>';};?></h1>
-					<?php endif; ?>
+					<div class="col-xxl-10 col-xl-12 col-lg-12 col-md-12 mx-auto">
+						<div class="back_url"><a href="/timetable-open?institution_id=<?=$institution->id;?>"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" x="0" y="0" viewBox="0 0 447.243 447.243" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g>
+						<g xmlns="http://www.w3.org/2000/svg"><g><path d="M420.361,192.229c-1.83-0.297-3.682-0.434-5.535-0.41H99.305l6.88-3.2c6.725-3.183,12.843-7.515,18.08-12.8l88.48-88.48    c11.653-11.124,13.611-29.019,4.64-42.4c-10.441-14.259-30.464-17.355-44.724-6.914c-1.152,0.844-2.247,1.764-3.276,2.754    l-160,160C-3.119,213.269-3.13,233.53,9.36,246.034c0.008,0.008,0.017,0.017,0.025,0.025l160,160    c12.514,12.479,32.775,12.451,45.255-0.063c0.982-0.985,1.899-2.033,2.745-3.137c8.971-13.381,7.013-31.276-4.64-42.4    l-88.32-88.64c-4.695-4.7-10.093-8.641-16-11.68l-9.6-4.32h314.24c16.347,0.607,30.689-10.812,33.76-26.88    C449.654,211.494,437.806,195.059,420.361,192.229z" fill="#000000" data-original="#000000" style="" class=""></path></g></g><g xmlns="http://www.w3.org/2000/svg"></g>
+						</g></svg> ВЫБОР ГРУППЫ</a></div>
+						<h1 class="main_header">Расписание группы <span class="highlight"><?=$group->name;?></span> <?php if(isset($name_week)){echo '<span class="name_week">'.$name_week.'</span>';};?></h1>
+					</div>
 					<div class="section_all_func">
 						<div class="row all_content_mg">
-						<div class="col-xxl-10 col-xl-12 col-lg-12 col-md-12">
+						<div class="col-xxl-10 col-xl-12 col-lg-12 col-md-12 mx-auto">
 							<div class="schedule_table">
 								<?php 
 								// Определяем четность недели (0 - нечетная, 1 - четная)
@@ -32,7 +34,7 @@
 										$all_schedules = R::convertToBeans('schedules', $all_schedules);
 										$date_now = $dates[--$index];
 										?>
-										<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+										<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
 											<div class="schedule_day <?php if($none_sunday){echo "schedule_none";}?>"  >
 												<div class="schedule_day_head">
 													<div class="name_day"><?=$day->name;?></div>
@@ -46,6 +48,9 @@
 														</div>
 													<?php endif ?>
 													<?php foreach ($all_schedules as $schedule): 
+														if ($none_sunday) {
+															continue;
+														}
 														$id_schedule = $schedule->id;
 														$replace = R::findOne('replacing', 'id_schedule = ? AND date = ?', array($schedule->id, $date_now));
 														if ($replace) {
@@ -95,13 +100,7 @@
 	<div class="head-full-info">
 		<div class="close" id="close-modal-full-info"><img src="/resources/images/icon/close-white.svg" alt="close"></div>
 		<div class="user_name">
-	        <div class="user">
-	        	<div class="name"><?=Account::$SURNAME;?> <?=Account::$NAME;?> <?=Account::$MIDDLENAME;?></div>
-	        	<div class="role"><?=Account::$AFFILIATION;?></div>
-	        </div>
-	        <div class="avatar">
-	        	<div class="letter"><?=mb_substr(Account::$NAME, 0, 1);?></div>
-	        </div>
+	        
       	</div>
 	</div>
 	<div class="full-info">
@@ -137,3 +136,47 @@
 		</div>
 	</div>
 </div>
+<?php 
+elseif(isset($institution_id) && !empty($institution_id)):
+?>
+ <div class="container-fluad">
+	<div class="row" style="margin-right: 0px;">
+		<div class="col-xxl-10 col-xl-10 col-lg-12 col-md-12 col-sm-12 col-12 offset-xxl-1 offset-xl-1">
+			<section id="content">
+				<div class="main_content">
+					<div class="col-xxl-10 col-xl-12 col-lg-12 col-md-12 mx-auto">
+						<h1 class="main_header">Выберите группу <span class="highlight">(<?=$institution->short_name;?>)</span></h1>
+					</div>
+					<div class="row all_content_mg">
+					<div class="all_groups">
+						<div class="row">
+							<div class="col-xxl-10 col-xl-12 col-lg-12 col-md-12 mx-auto" >
+								<div class="row" style="margin: 0px">
+									<?php 
+									foreach ($all_groups as $group):
+										$count_students = R::count("accounts_generated", "group_id = ? AND account_type = ?", array($group->id, 1));
+									?>
+									<div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 group_back">
+										<a href="http://cw46249.tmweb.ru/timetable-open?group_id=<?=$group->id;?>">
+											<div class="group_info">
+												<div class="image"><div class="back"><img src="/resources/images/icon/hexagons.svg" alt="hexagons"></div></div>
+												<div class="title"><div class="name">Группа <?=$group->name;?></div><div class="option">Обучающихся: <?=$count_students;?></div></div>
+												<div class="opt"><div class="on"></div></div>
+											</div>
+										</a>
+									</div>
+									<?php 
+									endforeach;
+									?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</div>
+<?php 
+endif;
+?>

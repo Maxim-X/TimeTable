@@ -28,7 +28,7 @@ if ($_GET['step'] == "1") {
 						</div>
 						<div class="mb-3">
 
-							<div class="g-recaptcha" data-theme="dark" data-sitekey="6LfauDoaAAAAAIunTLnBB5i4OvlC_GVVaBRzlW6X"></div>
+							<div class="g-recaptcha" data-theme="dark" data-sitekey="6Lc4rdYaAAAAACEBCkiHOjJgrTh3fCk5jCUTk_-v"></div>
 							
 						</div>
 						<button type="submit" name="reg_step_1"  class="btn btn-primary btn-def" style="width: 100%;">Отправить</button>

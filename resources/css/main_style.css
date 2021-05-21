@@ -26,6 +26,17 @@ body{
     color: white;
 }
 
+.back_url a {
+    color: #dcdcdc;
+    text-decoration: none;
+    font-family: "SF Pro Display", sans-serif;
+    font-weight: 500;
+}
+
+.back_url a:hover {
+    color: #cccccc;
+}
+
 select.form-control-input {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
@@ -66,7 +77,12 @@ select.form-control-input {
     width: 37px;
     position: relative;
 }
-
+.sec_menu {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;
+}
 h2.even_week {
     font-family: "SF Pro Display", sans-serif;
     color: white;
@@ -123,6 +139,9 @@ label.btn-radio-ch {
     color: #a0a0a0;
     font-size: 13px;
     font-family: "Tahoma", sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .main_user_login {
@@ -275,6 +294,28 @@ section#left_menu {
 
 .elem_menu li:hover {
     padding: 7px 0px 7px 5px;
+}
+
+.replace-info {
+    padding-top: 15px;
+    margin-top: 2px;
+}
+
+.schedule_day_full .one_lesson:hover {
+    cursor: pointer;
+}
+
+.header-replace-info {
+    font-family: 'SF Pro Display', sans-serif;
+    color: #61b766;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.block-replace-info {
+    background: #212121;
+    padding: 15px;
+    border-top: 1px solid #4EB755;
 }
 
 .line_cont_search {
@@ -537,9 +578,22 @@ h1.main_header .highlight {
     background: #282B30;
     width: initial;
     padding: 18px 15px 10px 15px;
-    width: 400px;
+    width: 600px;
     margin-right: 30px;
     border-radius: 4px;
+}
+
+.back_url svg path {
+    fill: #dcdcdc;
+}
+
+.back_url svg {
+    width: 14px;
+    margin: 6px 5px 8px 5px;
+}
+
+.back_url:hover svg path {
+    fill: #cccccc;
 }
 
 .block_func_full {
@@ -735,6 +789,11 @@ button.btn-link {
     flex-grow: 1;
     text-align: right;
     height: 60px;
+    min-width: max-content;
+}
+
+.content_sec_menu {
+    min-width: 140px;
 }
 
 .user_name {
@@ -1534,6 +1593,10 @@ span.name_week {
     grid-template-columns: max-content 15px max-content;
     width: max-content;
     margin: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 .none_schedule img {
     width: 27px;

@@ -177,6 +177,7 @@ if ($group->use_sunday) {
     	}
 		function show_form_add_schedule(elem){
 			document.querySelector('input#inputIdDay').value = elem.getAttribute('day');
+			document.querySelector('input#inputEvenNumbered').value = elem.getAttribute('even_numbered');
 			get_true_timeline();
 		}
 
@@ -211,6 +212,7 @@ if ($group->use_sunday) {
 			.always(function(data) {
 				console.log("complete");
 				console.log(data);
+				window.location.reload();
 			});
 			
 

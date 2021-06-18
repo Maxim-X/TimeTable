@@ -18,7 +18,7 @@ if (isset($_POST["reminderUser"])) {
 	if(!empty($recaptcha))
 	{
 		// отправляем запрос на востановление пароля
-		$request_reminder = account::request_reminder_password($email);
+		$request_reminder = Account::request_reminder_password($email);
 
 		if ($request_reminder["status"]) {
 			$success_reminder = $request_reminder["message"];

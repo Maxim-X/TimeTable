@@ -40,6 +40,13 @@
 																<div class="name_lesson"><?=$item_timeline->name;?></div>
 																<!-- <div class="cabinet_lesson">308 каб. 3 этаж 1 корпус</div> -->
 															</div>
+															<form method="POST" style="display: none;">
+																<input type="text" name="id_timeline_del" value="<?=$item_timeline->id;?>">
+																<input type="submit" name="timeline_del" id="schedule_del_<?=$item_timeline->id;?>">
+															</form>
+															<div class="one_lesson_delete">
+																<div class="button_func_tb button_func_tb_red" onclick="console.log($('#schedule_del_<?=$item_timeline->id;?>').click());"><img src="/resources/images/icon/bin.svg" alt="bin"></div>
+															</div>
 														</div>
 													<?php endforeach; ?>
 												</div>
@@ -147,5 +154,16 @@
 	<?php 
 	if (count($add_timeline_error) != 0) {
 		echo "<script>window.onload = function(){ $('#add-timeline').modal('show'); }</script>";
+	}
+	
+	//Вывод ошибок
+	if (count($del_timeline_error) != 0) {
+		$error_del_text = "";
+		foreach ($del_timeline_error as $value) {
+			$error_del_text .= $value;
+		}
+		echo "<script>
+		window.onload = function(){alert('".$error_del_text."');}
+	</script>";
 	}
 	?>

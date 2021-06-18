@@ -149,6 +149,15 @@ Route::path("timetable-open", function(){
 	include($_SERVER["DOCUMENT_ROOT"]."/pages/timetable.open.php");
 });
 
+Route::path("lessons", function(){
+	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.lessons.php");
+	include($_SERVER["DOCUMENT_ROOT"]."/pages/lessons.php");
+});
+Route::path("add-lesson-for-teacher/{id}", function(){
+	include($_SERVER["DOCUMENT_ROOT"]."/components/comp.add-lesson-for-teacher.php");
+	include($_SERVER["DOCUMENT_ROOT"]."/pages/add-lesson-for-teacher.php");
+}, ["id"=>"[0-9]+"]);
+
 /*
  | ГЛАВНЫЙ КОНТРОЛЛЕР
 */

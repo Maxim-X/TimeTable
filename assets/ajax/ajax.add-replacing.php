@@ -32,17 +32,23 @@ if (!Account::$AUTH || Account::$ACCOUNT_TYPE != 3) {
 	exit;
 }
 $type = trim($_POST['type']);
-$id_schedule = trim($_POST['id_schedule']);
+
 $date = trim($_POST['date']);
 
-if ($type == 1) {
+if ($type == 1 || $type == 3) {
 	$id_lesson = trim($_POST['id_lesson']);
 	$id_group = trim($_POST['id_group']);
 	$id_teacher = trim($_POST['id_teacher']);
 	$office = trim($_POST['office']);
 	$floor = trim($_POST['floor']);
 	$building = trim($_POST['building']);
-	$id_timeline = R::findOne('schedules', 'id = ?', array($id_schedule))->timeline;
+	if ($type == 1) {
+		$id_schedule = trim($_POST['id_schedule']);
+		$id_timeline = R::findOne('schedules', 'id = ?', array($id_schedule))->timeline;
+	}else{
+		$id_timeline = trim($_POST['id_timeline']);
+	}
+	
 
 	// Проверка уровня доступа
 
@@ -82,7 +88,11 @@ if ($type == 1) {
 
 	$replacing = R::xdispense('replacing');
 	$replacing->date = $date;
-	$replacing->id_schedule = $id_schedule;
+	if ($type == 1) {
+		$replacing->id_schedule = $id_schedule;
+	}else{
+		$replacing->add_new = 1;
+	}
 	$replacing->id_lesson = $id_lesson;
 	$replacing->id_group = $id_group;
 	$replacing->id_teacher = $id_teacher;

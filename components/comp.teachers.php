@@ -21,6 +21,31 @@ if (isset($_POST['add_teachers'])) {
 	header("Refresh: 0");
 }
 
+if (isset($_POST['delete_teacher_id'])) {
+	$delete_teacher_id = trim($_POST['delete_teacher_id']);
+	$error_del = array();
+
+	$lesson_id_find = R::findOne('accounts_generated', 'id = ? AND institution_id = ?', array($delete_teacher_id, Account::$INSTITUTION_ID));
+	if (!$lesson_id_find) {
+		array_push($error_del, "Преподаватель не найден!");
+	}
+
+
+	if (count($error_del) == 0) {
+		$delete = R::load('accounts_generated', $delete_teacher_id);
+		
+		try {
+		    R::trash($delete);
+		    header("Refresh: 0");
+		} catch (Exception $e) {
+		    array_push($error_del, "Что-бы удалить преподавателя, вам необходимо удалить его занятия из основного расписания, замен занятий и очистить его нагрузку!");
+		}
+		
+
+		
+	}
+}
+
 if (isset($_POST['editUserData'])) {
 
 	$user_id = htmlspecialchars($_POST['user_id']);
@@ -90,32 +115,32 @@ $pr_use_space = $use_space * 100 / (int)Core::$DISC_SPACE;
 <script>
 	window.onload = function(){
 
-		EDIT_DOM.reload_all_files();
+		// EDIT_DOM.reload_all_files();
 
-		var previewNode = document.querySelector("#template");
-        previewNode.id = "";
-        var previewTemplate = previewNode.parentNode.innerHTML;
-        previewNode.parentNode.removeChild(previewNode);
+		// var previewNode = document.querySelector("#template");
+  //       previewNode.id = "";
+  //       var previewTemplate = previewNode.parentNode.innerHTML;
+  //       previewNode.parentNode.removeChild(previewNode);
 
-        var myDropzone = new Dropzone('div.drag_and_drop_file', { // Make the whole body a dropzone
-          url: "/assets/ajax/ajax.upload-file.php", // Set the url
-          thumbnailWidth: 80,
-          acceptedFiles: 'application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-          thumbnailHeight: 80,
-          parallelUploads: 20,
-          previewTemplate: previewTemplate,
-          previewsContainer: ".file-upload-list"
-        });
+  //       var myDropzone = new Dropzone('div.drag_and_drop_file', { // Make the whole body a dropzone
+  //         url: "/assets/ajax/ajax.upload-file.php", // Set the url
+  //         thumbnailWidth: 80,
+  //         acceptedFiles: 'application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  //         thumbnailHeight: 80,
+  //         parallelUploads: 20,
+  //         previewTemplate: previewTemplate,
+  //         previewsContainer: ".file-upload-list"
+  //       });
 
-		myDropzone.on('success', function(file) {
-		    EDIT_DOM.reload_all_files();
-		    setTimeout(() => file.previewElement.remove(), 3000);
-		});
-		myDropzone.on('error', function(file) {
-		    file.previewElement.classList.add('error');
-		    console.log(file.previewElement);
-		    setTimeout(() => file.previewElement.remove(), 3000);
-		});
+		// myDropzone.on('success', function(file) {
+		//     EDIT_DOM.reload_all_files();
+		//     setTimeout(() => file.previewElement.remove(), 3000);
+		// });
+		// myDropzone.on('error', function(file) {
+		//     file.previewElement.classList.add('error');
+		//     console.log(file.previewElement);
+		//     setTimeout(() => file.previewElement.remove(), 3000);
+		// });
 	}
 	var id_template = 2;
 	function addTamplateTeacher(){
@@ -171,13 +196,13 @@ $pr_use_space = $use_space * 100 / (int)Core::$DISC_SPACE;
 			if (data.status) {
 				let user = data.user;
 				document.querySelector('input#user_id').value = user.id;
-				document.querySelector('input#user_id_th').value = user.id;
+				// document.querySelector('input#user_id_th').value = user.id;
 				document.querySelector('input#user_name').value = user.name;
 				document.querySelector('input#user_surname').value = user.surname;
 				document.querySelector('input#user_middle_name').value = user.middle_name;
 				document.querySelector('#user_edit_id').innerHTML = user.id;
 				document.querySelector('.block_edit_user').style.display = "block";
-				document.querySelector('.block_drive').style.display = "none";
+				document.querySelector('.interactions_actions').style.display = "none";
 			}else{
 				alert(data.message);
 			}
@@ -189,7 +214,7 @@ $pr_use_space = $use_space * 100 / (int)Core::$DISC_SPACE;
 
 	function closeEditTeacherInfo(){
 		document.querySelector('.block_edit_user').style.display = "none";
-		document.querySelector('.block_drive').style.display = "block";
+		document.querySelector('.interactions_actions').style.display = "block";
 	}
 
 	function deleteLessonForTeacher(el, id_lesson, id_teacher){

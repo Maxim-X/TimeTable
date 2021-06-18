@@ -45,6 +45,29 @@ if (isset($_POST['save_edit_sunday'])) {
 	$group = R::findOne('groups_students', 'id = ?', array($id_group));
 }
 
+
+if (isset($_POST['schedule_del'])) {
+	$id_schedule_del = trim($_POST['id_schedule_del']);
+	$error_del = array();
+
+	$schedule_id_find = R::findOne('schedules', 'id = ?', array($id_schedule_del));
+	if (!$schedule_id_find) {
+		array_push($error_del, "Данный элемент расписания не найден!");
+	}
+
+
+	if (count($error_del) == 0) {
+		$delete = R::load('schedules', $id_schedule_del);
+		
+		try {
+		    R::trash($delete);
+		    header("Refresh: 0");
+		} catch (Exception $e) {
+		    array_push($error_del, "Что-бы удалить элемент расписания, вам необходимо удалить его из замен занятий!");
+		}
+	}
+}
+
 if ($group->use_sunday == 0) {
 	$day_of_the_week = R::find("day_of_the_week", "id != ?", array(7));
 }else{
@@ -60,6 +83,45 @@ if ($group->use_even) {
 if ($group->use_sunday) {
 	$check_use_sunday = 'checked';
 }
+
+
+
+
+//Учебные часы
+$training_hours_def = 36;
+//Четная неделя
+$training_hours = 0;
+//Нечетная неделя
+$training_hours_even = 0;
+
+
+if ($group->use_even != 0) {
+	$count_week = 1;
+	$name_week = array('Нечетная', 'Четная');
+}else{
+	$count_week = 0;
+}
+for ($week_num = 0; $week_num <= $count_week; $week_num++){
+	foreach ($day_of_the_week as $index => $day){
+		$all_schedules = R::getAll('SELECT schedules.* FROM `schedules`, `timeline` WHERE schedules.timeline = timeline.id AND schedules.id_group = ? AND schedules.id_day = ? AND schedules.even_numbered = ? ORDER BY timeline.time_start', array($id_group, $day->id, $week_num));
+		$all_schedules = R::convertToBeans( 'schedules', $all_schedules);
+		foreach ($all_schedules as $schedule){
+			$lesson = R::findOne("lessons", "id = ?", array($schedule->id_lesson));
+			$time_lesson = R::findOne('timeline', 'id = ?', array($schedule->timeline));
+			$time_start = strtotime($time_lesson->time_start);
+			$time_end = strtotime($time_lesson->time_end);
+			if ($week_num == 0) {
+				$training_hours +=  2; //($time_end-$time_start) / 60 / 60
+			}else if ($week_num == 1) {
+				$training_hours_even += 2; //($time_end-$time_start) / 60 / 60 
+			}
+
+		}
+	}
+}
+
+
+
 ?>
 
 <script>
@@ -77,7 +139,7 @@ if ($group->use_sunday) {
 						url: '/assets/ajax/ajax.get-teachers-for-lesson.php',
 						type: 'POST',
 						dataType: 'json',
-						data: {id_lesson: selected_lesson.value},
+						data: {id_lesson: selected_lesson.value, id_group: <?=$id_group;?> },
 					})
 					.always(function(data) {
 						document.querySelector("select#inputTeacher").innerHTML='';
@@ -155,9 +217,14 @@ if ($group->use_sunday) {
 					data: {id_head_timeline: selected_lesson.value, id_group: id_group, id_day: id_day, even_numbered: even_numbered},
 				})
 				.always(function(data) {
-					console.log(data['times']);
+					if (typeof data['use_head_timeline'] != 'undefined') {
+						$('#inputHeadTimeline option[value='+data['use_head_timeline']+']').prop('selected', true);
+						document.querySelector('#inputHeadTimeline').disabled = true;
+					}else{
+						document.querySelector('#inputHeadTimeline').disabled = false;
+					}
+					console.log(data);
 					document.querySelector("select#inputTime").innerHTML='';
-					console.log(data['times'].length);
 					if (data['times'].length > 0) {
 						data['times'].forEach(function(item, i, arr) {
 							if (i == 0) {var selected = 'selected';}else{selected = "";}

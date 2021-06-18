@@ -38,6 +38,9 @@
 								<div class="schedule_day">
 									<div class="schedule_day_head">
 										<?php 
+										function cmp_function($a, $b){
+											return ($a['time_start'] > $b['time_start']);
+										}
 										$day_num = date("N",strtotime($_GET['date']));
 										if ($group->use_even != 0) {
 											if (date("W",strtotime($_GET['date'])) % 2 == 0 ) {
@@ -65,6 +68,7 @@
 										<?php foreach ($all_schedules as $schedule): 
 											$lesson = R::findOne("lessons", "id = ?", array($schedule->id_lesson));
 											$time_lesson = R::findOne('timeline', 'id = ?', array($schedule->timeline));
+											$teacher = R::findOne('accounts_generated', 'id = ?', array($schedule->id_teacher));
 											?>
 											<div class="one_lesson" id="one_lesson">
 												<div class="time">
@@ -74,11 +78,15 @@
 												<div class="line_day_interf"></div>
 												<div class="short_info">
 													<div class="name_lesson"><?=$lesson->name;?></div>
-													<div class="cabinet_lesson">
-														<?php if (!empty($schedule->office)) {echo $schedule->office." каб. ";} ?>
-														<?php if (!empty($schedule->floor)) {echo $schedule->floor." этаж ";} ?>
-														<?php if (!empty($schedule->building)) {echo $schedule->building." корпус";} ?></div>
-												</div>
+													<div class="footer-lesson">
+															<div class="cabinet_lesson">
+																<?php if (!empty($schedule->office)) {echo $schedule->office." каб. ";} ?>
+																<?php if (!empty($schedule->floor)) {echo $schedule->floor." этаж ";} ?>
+																<?php if (!empty($schedule->building)) {echo $schedule->building." корпус";} ?>
+															</div>
+															<div class="teacher_lesson"><?=$teacher->surname;?> <?=mb_substr($teacher->name,0,1);?>. <?=mb_substr($teacher->middle_name,0,1);?>.</div>
+													</div>
+											</div>
 											</div>
 										<?php endforeach; ?>
 									</div>
@@ -100,11 +108,19 @@
 										}
 										$group = R::findOne('groups_students', 'id = ?', array($id_group));
 										$id_group = $_GET['group'];
-										$all_schedules = R::getAll('SELECT schedules.* FROM `schedules`, `timeline` WHERE schedules.timeline = timeline.id AND schedules.id_group = ? AND schedules.id_day = ? AND schedules.even_numbered = ? ORDER BY timeline.time_start', array($id_group, $day_num, $week_num));
+										$all_schedules = R::getAll('SELECT schedules.*, timeline.time_start FROM `schedules`, `timeline` WHERE schedules.timeline = timeline.id AND schedules.id_group = ? AND schedules.id_day = ? AND schedules.even_numbered = ? ORDER BY timeline.time_start', array($id_group, $day_num, $week_num));
+
+										$all_schedules_new_repl = R::getAll('SELECT replacing.*, timeline.time_start FROM `replacing`, `timeline` WHERE replacing.add_new = 1 AND replacing.timeline = timeline.id AND replacing.id_group = ? AND replacing.date = ? ORDER BY timeline.time_start', array($id_group, $_GET['date']));
+										foreach ($all_schedules_new_repl as &$value) {
+											array_push($all_schedules, $value);
+										}
+										 
+										uasort($all_schedules, 'cmp_function');
+										
 										$all_schedules = R::convertToBeans( 'schedules', $all_schedules);
 										?>	
 										<div class="name_day">Замены</div>
-										<!-- <div class="button_anim_scale" onclick="show_form_add_schedule(this)" data-toggle="modal" id="button_open_add_schedule" day="<?=$_GET['date'];?>" data-target="#add-group"><img src="/resources/images/icon/plus-positive-add-mathematical-symbol.svg"></div> -->
+										<div class="button_anim_scale" onclick="show_form_add_schedule(this)" data-toggle="modal" id="button_open_add_schedule" day="<?=$_GET['date'];?>" data-target="#add-group"><img src="/resources/images/icon/plus-positive-add-mathematical-symbol.svg"></div>
 									</div>
 									<div class="schedule_day_full">
 										<?php if (count($all_schedules) == 0): ?>
@@ -114,15 +130,21 @@
 											</div>
 										<?php endif ?>
 										<?php foreach ($all_schedules as $schedule): 
-											$replace = R::findOne('replacing', 'id_schedule = ? AND date = ?', array($schedule->id, $_GET['date']));
-											if ($replace) {
-												$schedule = $replace;
+											if ($schedule->add_new != 1) {
+												$replace = R::findOne('replacing', 'id_schedule = ? AND date = ?', array($schedule->id, $_GET['date']));
+												if ($replace) {
+													$schedule = $replace;
+												}
+											}else{
+												$replace = true;
 											}
+											
 											$lesson = R::findOne("lessons", "id = ?", array($schedule->id_lesson));
 											$time_lesson = R::findOne('timeline', 'id = ?', array($schedule->timeline));
+											$teacher = R::findOne('accounts_generated', 'id = ?', array($schedule->id_teacher));
 											?>
 
-											<div class="one_lesson" data-toggle="modal" onclick="get_schedule_info(<?=$schedule->id;?>)" id-schedule="<?=$schedule->id;?>" id="button_open_add_schedule" data-target="#edit-lesson" id="one_lesson"<?php if (!$replace):?> style="opacity: 0.1" <?php endif ?>>
+											<div class="one_lesson" data-toggle="modal" <?php if (!$replace): ?> onclick="get_schedule_info(<?=$schedule->id;?>)" data-target="#edit-lesson"<?php endif; ?> id-schedule="<?=$schedule->id;?>" id="button_open_add_schedule"  id="one_lesson"<?php if (!$replace):?> style="opacity: 0.1" <?php endif ?>>
 												<div class="time">
 													<div class="time_start"><?=date("H:i", strtotime($time_lesson->time_start));?></div>
 													<div class="time_end"><?=date("H:i", strtotime($time_lesson->time_end));?></div>
@@ -130,11 +152,24 @@
 												<div class="line_day_interf"></div>
 												<div class="short_info">
 													<div class="name_lesson"><?=$lesson->name;?></div>
-													<div class="cabinet_lesson">
-														<?php if (!empty($schedule->office)) {echo $schedule->office." каб. ";} ?>
-														<?php if (!empty($schedule->floor)) {echo $schedule->floor." этаж ";} ?>
-														<?php if (!empty($schedule->building)) {echo $schedule->building." корпус";} ?></div>
-												</div>
+													<div class="footer-lesson">
+															<div class="cabinet_lesson">
+																<?php if (!empty($schedule->office)) {echo $schedule->office." каб. ";} ?>
+																<?php if (!empty($schedule->floor)) {echo $schedule->floor." этаж ";} ?>
+																<?php if (!empty($schedule->building)) {echo $schedule->building." корпус";} ?>
+															</div>
+															<div class="teacher_lesson"><?=$teacher->surname;?> <?=mb_substr($teacher->name,0,1);?>. <?=mb_substr($teacher->middle_name,0,1);?>.</div>
+													</div>
+													</div>
+												<?php if ($replace): ?> 
+													<form method="POST" style="display: none;">
+														<input type="text" name="id_replace_schedule_del" value="<?=$schedule->id;?>">
+														<input type="submit" name="replace_schedule_del" id="replace_schedule_del_<?=$schedule->id;?>">
+													</form>
+													<div class="one_lesson_delete">
+														<div class="button_func_tb button_func_tb_red" onclick="console.log($('#replace_schedule_del_<?=$schedule->id;?>').click());"><img src="/resources/images/icon/bin.svg" alt="bin"></div>
+													</div>
+												<?php endif ?>
 											</div>
 										<?php endforeach; ?>
 									</div>
@@ -156,7 +191,14 @@
 										}
 										$group = R::findOne('groups_students', 'id = ?', array($id_group));
 										$id_group = $_GET['group'];
-										$all_schedules = R::getAll('SELECT schedules.* FROM `schedules`, `timeline` WHERE schedules.timeline = timeline.id AND schedules.id_group = ? AND schedules.id_day = ? AND schedules.even_numbered = ? ORDER BY timeline.time_start', array($id_group, $day_num, $week_num));
+										$all_schedules = R::getAll('SELECT schedules.*, timeline.time_start FROM `schedules`, `timeline` WHERE schedules.timeline = timeline.id AND schedules.id_group = ? AND schedules.id_day = ? AND schedules.even_numbered = ? ORDER BY timeline.time_start', array($id_group, $day_num, $week_num));
+
+										$all_schedules_new_repl = R::getAll('SELECT replacing.*, timeline.time_start FROM `replacing`, `timeline` WHERE replacing.add_new = 1 AND replacing.timeline = timeline.id AND replacing.id_group = ? AND replacing.date = ? ORDER BY timeline.time_start', array($id_group, $_GET['date']));
+
+										foreach ($all_schedules_new_repl as &$value) {
+											array_push($all_schedules, $value);
+										}
+										uasort($all_schedules, 'cmp_function');
 										$all_schedules = R::convertToBeans( 'schedules', $all_schedules);
 										?>	
 										<div class="name_day">Итог</div>
@@ -272,7 +314,7 @@
 	        </div>
 	      </div>
 	      <div class="modal-footer">
-	        <input type="submit" onclick="add_new_schedule()" name="add_group" class="btn btn-primary btn-def" value="Добавить урок">
+	        <input type="submit" onclick="add_new_replace_n()" name="add_group" class="btn btn-primary btn-def" value="Добавить урок">
 	      </div>
       </form>
     </div>
@@ -332,3 +374,17 @@
     </div>
   </div>
 </div>
+
+<?php
+//Вывод ошибок
+
+if (count($error_del) != 0) {
+	$error_del_text = "";
+	foreach ($error_del as $value) {
+		$error_del_text .= $value;
+	}
+	echo "<script>
+	window.onload = function(){alert('".$error_del_text."');}
+</script>";
+}
+?>

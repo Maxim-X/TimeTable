@@ -234,6 +234,8 @@ p.title_head_l {
 .login_url {
     margin-top: 1rem;
     margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
 }
 
 .left_menu {
@@ -272,6 +274,22 @@ section#left_menu {
     font-family: "Tahoma", sans-serif;
     font-size: 14px;
     margin-bottom: 10px;
+}
+
+.all_url_group .group {
+    display: flex;
+    margin-bottom: 10px;
+    line-height: 38px;
+    justify-content: space-between;
+}
+
+.all_url_group .group input {
+    width: 250px;
+}
+
+.all_url_group {
+    overflow-y: auto;
+    height: 267px;
 }
 
 .elem_menu li {
@@ -375,14 +393,44 @@ section#menu_top {
 .main_search .input_search input::-webkit-input-placeholder {
     color: #BBBBBB;
 }
+.calendar.opt tbody tr th {
+    text-align: left;
+}
 
+.calendar.opt tbody tr td {
+    vertical-align: inherit;
+}
+
+.table-option {
+    overflow-x: auto;
+}
+
+.calendar.opt table {
+    table-layout: unset;
+}
+
+.calendar.opt thead tr th:nth-child(1) {
+    width: 230px;
+}
 .calendar table {
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
 }
-
+.stat_info_for_bar {
+    background: rgb(81 81 81);
+    padding: 0px 15px;
+    line-height: 38px;
+    border-radius: 5px;
+    margin-right: 15px;
+}
 .calendar tbody tr th {
+    text-align: center;
+    border: 1px solid #2d2d2d;
+    padding: 10px;
+}
+
+.calendar thead tr th {
     text-align: center;
     border: 1px solid #2d2d2d;
     padding: 10px;
@@ -609,6 +657,14 @@ h1.main_header .highlight {
     margin-right: 0px;
 }
 
+.all_errors_found {
+    margin: 12px -10px 0px 30px;
+}
+
+.all_errors_found .alert.alert-primary {
+    padding: 10px 15px;
+}
+
 .block_func .content_search .line_cont_search:hover {
     background: #436dff1a;
 }
@@ -621,6 +677,17 @@ h1.main_header .highlight {
 
 .line_left_block {
     display: flex;
+}
+
+.one_lesson .short_info .teacher_lesson {
+    color: #7B7B7B;
+    font-size: 13px;
+    text-align: right;
+}
+
+.footer-lesson {
+    display: flex;
+    justify-content: space-between;
 }
 
 .block_func .name span[name="title"] {
@@ -877,6 +944,7 @@ div.choise_head img.choise_head_but {
     margin-right: 10px;
     margin-top: -2px;
     position: relative;
+    width: 14px;
 }
 
 .button_table_func.button_table_func_blue {
@@ -889,6 +957,7 @@ div.choise_head img.choise_head_but {
 
 .all_content_mg {
     margin-top: 40px;
+    background: #212123;
 }
 
 .section_table table {
@@ -906,6 +975,10 @@ div.choise_head img.choise_head_but {
     border: 1px solid #191919;
     border-radius: 5px;
     margin-top: 20px;
+}
+
+.inp-copy img {
+    width: 15px;
 }
 
 .section_table table thead tr {
@@ -980,15 +1053,136 @@ div.choise_head img.choise_head_but {
     padding: 13px 15px;
     border-radius: 5px;
 }
+.main_info_page {
+    background-color: #1C1C1E;
+    padding: 15px;
+    width: 100%;
+    border-radius: 4px;
+    height: inherit;
+}
 
+
+.item_quick_actions {
+    background: #282b30;
+    display: grid;
+    min-width: 5%;
+    height: 100px;
+    grid-template-rows: 30px auto max-content;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.item_quick_actions.option {
+    background: #5C92FD;
+}
+
+.item_quick_actions.option .txt_quick_actions p {
+    color: #141a27;
+    font-weight: 500;
+}
+
+.item_quick_actions.option:hover {
+    background: #4f7fde;
+}
+
+.inp-copy {
+    display: flex;
+}
+.inp-copy .copy:hover {
+    cursor: pointer;
+    background: #27292d;
+}
+.inp-copy .copy {
+    width: 32px;
+    text-align: center;
+    margin-right: 5px;
+    background: #303339;
+    border: 1px solid #17181A;
+    height: 36px;
+    margin-top: 1px;
+    border-radius: 4px;
+        line-height: 34px;
+}
+
+.item_quick_actions img {
+    width: 20px;
+}
+
+.item_quick_actions .txt_quick_actions {
+    grid-row: 3;
+}
+
+.item_quick_actions .txt_quick_actions p {
+    display: block;
+    font-family: "SF Pro Display", sans-serif;
+    color: #D6D6D6;
+}
+
+.quick_actions .title {
+    margin-bottom: 10px;
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 19px;
+}
+
+.item_quick_actions:hover {
+    background: #303339;
+    cursor: pointer;
+}
+
+.all_quick_actions {
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: 48% 48%;
+    width: 100%;
+}
+
+.item_quick_actions p {
+    margin: 0px;
+}
+
+
+.alert-primary-def {
+    background: #3c89f417;
+    color: #5c92fd;
+    border-color: #3c89f4;
+}
+
+.alert-primary-def div {
+    margin-left: 15px;
+}
+.main_info_page .name span[name='title'] {
+    font-family: "SF Pro Display", sans-serif;
+    color: white;
+    font-size: 21px;
+}
+
+.main_info_page .name {
+    margin-bottom: 15px;
+}
+.bar_table.table-mg {
+    margin: 0px 0px 10px 0px;
+}
 .interactions_drive {
     display: flex;
     gap: 15px;
 }
-
 .interactions_drive > div {
     width: 50%;
 }
+.interactions_actions {
+    display: block;
+    gap: 15px;
+}
+.interactions_actions > div {
+    width: auto;
+}
+.notification-info h3 {
+    font-size: 20px;
+    font-weight: 500;
+    font-family: "SF Pro Display", sans-serif;
+}
+
+.notification-info p {color: #dcdcdc;margin: 0px;}
 
 .image_head_info_drive {
     background: white;
@@ -1502,6 +1696,17 @@ span.name_week {
     font-size: 14px;
     color: #8D8D8D;
     font-family: "SF Pro Display", sans-serif;
+    display: none;
+}
+
+.generation_code {
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: auto 10px max-content;
+}
+
+.generation_code .btn {
+    grid-column: 3;
 }
 
 .group_info .opt .on {
@@ -1569,6 +1774,7 @@ span.name_week {
 
 .schedule_table {
     margin-top: 30px;
+      background: #212123;
 }
 
 .schedule_none {
@@ -1697,7 +1903,7 @@ span.name_week {
 
 .dark-back {
     background: rgb(18 18 18 / 50%);
-    position: absolute;
+    position: fixed;
     top: 0px;
     width: 100%;
     height: 100%;
@@ -1720,11 +1926,52 @@ span.name_week {
     margin-left: 15px;
 }
 
+.one_lesson_delete {
+    position: absolute;
+    right: -100px;
+    z-index: 9999;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 100%;
+    background: #1c1c1e;
+    transition: 0.1s;
+    padding-left: 10px;
+}
+
+.one_lesson_delete .button_func_tb.button_func_tb_red {
+    display: inline-block;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    cursor: pointer;
+    background: #ff4d4d1a;
+}
+
+.one_lesson_delete .button_func_tb.button_func_tb_red img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 14px;
+}
+
+.one_lesson:hover .one_lesson_delete {
+    right: 0px;
+    transition: 0.1s;
+}
+
+.one_lesson_delete .button_func_tb.button_func_tb_red:hover {
+    background: rgb(255 77 77 / 30%);
+}
+
 .schedule_day_full .one_lesson {
     display: grid;
     grid-template-columns: 50px 2px auto;
     max-width: 100%;
     margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
 }
 
 .short_info {
@@ -1765,6 +2012,7 @@ span.name_week {
 .one_lesson .short_info .cabinet_lesson {
     color: #7B7B7B;
     font-size: 13px;
+    margin-right: 10px;
 }
 
 .schedule_day {

@@ -37,56 +37,6 @@ class EDIT_DOM {
 				tr.append(td2);
 				tr.append(td3);
 
-				// let file = document.createElement('div');
-				// file.className = 'file';
-
-				// let file_info = document.createElement('div');
-				// file_info.className = 'file_info';
-
-				// let image = document.createElement('div');
-				// image.className = 'image';
-
-				// let img = document.createElement('img');
-				// img.src = '/resources/images/icon/excel.svg';
-				// img.alt = 'excel';
-
-				// let name_file = document.createElement('div');
-				// name_file.className = 'name_file';
-
-				// let name_file_p = document.createElement('p');
-				// name_file_p.innerHTML = item[1];
-
-				// let size_file = document.createElement('div');
-				// size_file.className = 'size_file';
-
-				// let size_file_p = document.createElement('p');
-				// size_file_p.innerHTML = item[2]+"М";
-
-				// let button_add = document.createElement('div');
-				// button_add.className = 'button_add';
-				
-				// let button_add_f = document.createElement('div');
-				// button_add_f.className = 'button_add_f';
-				
-
-				// let button_add_f_img = document.createElement('img');
-				// button_add_f_img.src = '/resources/images/icon/add_mini.svg';
-				// button_add_f_img.alt = 'add';
-
-				// let button_add_f_p = document.createElement('p');
-				// button_add_f_p.innerHTML = "Добавить студентов из этого файла";
-
-				// button_add_f.append(button_add_f_img);
-				// button_add_f.append(button_add_f_p);
-				// button_add.append(button_add_f);
-				// image.append(img);
-				// file_info.append(image);
-				// name_file.append(name_file_p);
-				// file_info.append(name_file);
-				// size_file.append(size_file_p);
-				// file_info.append(size_file);
-				// file_info.append(button_add);
-				// file.append(file_info);
 			  	document.querySelector('#all_user_files').append(tr);
 			});
 		})
@@ -247,7 +197,7 @@ class EDIT_DOM {
 					div_line_cont_search.className = 'line_cont_search';
 
 					let a_line_cont_search = document.createElement('a');
-					a_line_cont_search.href = "/group/"+item.id;
+					a_line_cont_search.href = "/schedule/"+item.id;
 
 					let div_main_name = document.createElement('div');
 					div_main_name.className = 'main_name';
@@ -256,7 +206,7 @@ class EDIT_DOM {
 
 					let div_optionally = document.createElement('div');
 					div_optionally.className = 'optionally';
-					div_optionally.innerHTML = item.count_students;
+					div_optionally.innerHTML = '&#10095;';
 					a_line_cont_search.append(div_optionally);
 
 					div_line_cont_search.append(a_line_cont_search);

@@ -10,7 +10,7 @@
 				<div class="main_content">
 					<h1 class="main_header">Таблица преподавателей <span class="highlight"><?=Institution::$SHORT_NAME;?></span></h1>
 					<div class="row all_content_mg">
-						<div class="col-xxl-7 col-xl-8 col-lg-8 col-md-12">
+						<div class="col-xxl-9 col-xl-9 col-lg-9 col-md-12">
 							<div class="bar_table">
 								<div class="button_table_func button_table_func_opacity" onclick="generatingAuthInfo()"><img src="/resources/images/icon/document.svg" alt="document"><span>Экспорт паролей</span></div>
 								<div class="button_table_func button_table_func_blue" data-toggle="modal" data-target="#add-teachers"><img src="/resources/images/icon/add.svg" alt="document"><span>Добавить</span></div>
@@ -19,6 +19,7 @@
 								<table>
 									<thead>
 										<tr>
+											<th>ID</th>
 											<th>Фамилия</th>
 											<th>Имя</th>
 											<th>Отчество</th>
@@ -29,21 +30,27 @@
 									<tbody>
 										<?php 
 											foreach ($teachers as $teacher):
-												$all_lessons_teacher = R::getAll("SELECT * FROM `lessons`, `teachers_lessons` WHERE teachers_lessons.id_teacher = ? AND lessons.id = teachers_lessons.id_lesson", array($teacher->id));
+												$all_lessons_teacher = R::getAll("SELECT lessons.name AS 'lesson_name', groups_students.name AS 'group_name' FROM `lessons`, `teachers_lessons`, `groups_students` WHERE teachers_lessons.id_teacher = ? AND lessons.id = teachers_lessons.id_lesson AND teachers_lessons.id_group = groups_students.id ORDER BY groups_students.name ASC", array($teacher->id));
 										?>
 											<tr>
+												<td><?=$teacher->id;?></td>
 												<td><?=$teacher->surname;?></td>
 												<td><?=$teacher->name;?> </td>
 												<td><?=$teacher->middle_name;?></td>
 												<td><div class="lessons">
 													<?php foreach ($all_lessons_teacher as $lesson): ?>
-														<div class="lesson"><?=$lesson['name'];?><span class="delete" onclick="deleteLessonForTeacher(this, <?=$lesson['id_lesson'];?>, <?=$teacher->id;?>);"><img src="/resources/images/icon/close.svg" alt="close"></span></div>
+														<div class="lesson"><?=$lesson['group_name'];?>&nbsp;&nbsp;&#10140;&nbsp;&nbsp;<?=$lesson['lesson_name'];?></div>
 													<?php endforeach; ?>
 												</div></td>
 												<td>
 													<div class="table_row_func">
-														<div class="button_func_tb button_func_tb_red"><img src="/resources/images/icon/bin.svg" alt="bin"></div>
+														<form method="POST" style="display: none;">
+															<input type="hidden" name="delete_teacher_id" value="<?=$teacher->id;?>" readonly>
+															<input type="submit" name="delete_teacher" id="delete_teacher_<?=$teacher->id;?>">
+														</form>
+														<div class="button_func_tb button_func_tb_red" onclick="console.log($('#delete_teacher_<?=$teacher->id;?>').click());"><img src="/resources/images/icon/bin.svg" alt="bin"></div>
 														<div class="button_func_tb button_func_tb_blue" onclick="editTeacherInfo(<?=$teacher->id;?>)"><img src="/resources/images/icon/pencil.svg" alt="pencil"></div>
+														<div class="button_func_tb button_func_tb_blue" onclick="document.location.href = '/add-lesson-for-teacher/<?=$teacher->id;?>';"><img src="/resources/images/icon/open-book.svg" alt="pencil"></div>
 													</div>
 												</td>
 											</tr>
@@ -54,11 +61,15 @@
 								</table>
 							</div>
 						</div>
-						<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12">
+						<div class="col-xxl-3 col-xl-3 col-lg-3 col-md-12">
 							<div class="block_func_full">
 								<div class="block_drive">
-									<div class="interactions_drive">
-										<div class="info_drive">
+									<div class="interactions_drive interactions_actions">
+										<div class="notification-info">
+											<h3>Редактирование профиля</h3>
+											<p>Здесь вы сможете отредактировать информацию о преподаватели, если выберите его из вашего списка!</p>
+										</div>
+										<!-- <div class="info_drive">
 											<div class="head_info_drive">
 												<div class="image_head_info_drive">
 													<img src="/resources/images/icon/cloud.svg" alt="cloud">
@@ -102,7 +113,7 @@
 										<div class="title">
 											<p>Используйте ваши файлы для автоматического импорта учеников в систему.</p>
 										</div>
-									</div>
+									</div> -->
 								</div>
 								<div class="block_edit_user">
 									<div class="edit_user">
@@ -128,8 +139,8 @@
 												<button type="submit" name="editUserData" class="btn btn-primary btn-def" style="width: 100%;">Сохранить</button>
 											</div>
 										</form>
-										<hr>
-										<form id="add_lesson_for_teacher" method="POST">
+										<!-- <hr> -->
+									<!-- 	<form id="add_lesson_for_teacher" method="POST">
 											<input type="hidden" name="user_id_th" class="form-control form-control-input" id="user_id_th" required="">
 											<div class="mb-3 mt-4">
 									    		<label for="user_group" class="form-label">Выберите предмет</label>
@@ -143,7 +154,7 @@
 											<div class="mb-3">
 												<button type="submit" name="add_lesson_for_teacher" class="btn btn-primary btn-def" style="width: 100%;">Добавить предмет</button>
 											</div>
-										</form>
+										</form> -->
 									</div>
 								</div>
 							</div>
@@ -204,7 +215,7 @@
 		   </div>
 	      </div>
 	      <div class="add-new-input-student">
-	      	<div class="button-delete" onclick="deleteTamplateStudent()">-</div>
+	      	<div class="button-delete" onclick="deleteTamplateTeacher()">-</div>
 	      	<div class="button-add" onclick="addTamplateTeacher()">+</div>
 	      </div>
 	      <div class="modal-footer">
@@ -217,5 +228,13 @@
 
 <script src="/resources/js/dropzone.js"></script>
 <?php
-if (isset($error_add_lesson)) { echo "<script>window.onload=function(){alert('".$error_add_lesson."');}</script>"; }
+if (count($error_del) != 0) {
+	$error_del_text = "";
+	foreach ($error_del as $value) {
+		$error_del_text .= $value;
+	}
+	echo "<script>
+	window.onload = function(){alert('".$error_del_text."');}
+</script>";
+}
 ?>

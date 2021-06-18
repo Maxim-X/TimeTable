@@ -1,6 +1,9 @@
 
 <?php 
 if (isset($group_id) && !empty($group_id)):
+	function cmp_function($a, $b){
+		return ($a['time_start'] > $b['time_start']);
+	}
 ?>
 <div class="container-fluad">
 	<div class="row" style="margin-right: 0px;">
@@ -16,23 +19,58 @@ if (isset($group_id) && !empty($group_id)):
 					<div class="section_all_func">
 						<div class="row all_content_mg">
 						<div class="col-xxl-10 col-xl-12 col-lg-12 col-md-12 mx-auto">
+							<div class="bar_table">
+								<form method="POST">
+									<div class="reating-arkows zatujgdsanuk">
+										<input id="edit_sunday" name="edit_sunday" onchange="location.href='<?=$alt_url;?>'" type="checkbox" <?php if($alt) echo "checked=''"; ?>>
+										<label for="edit_sunday">
+										<div class="trianglesusing" data-checked="Yes" data-unchecked="No"></div>
+										<div class="title_but">Основное расписание</div>
+										</label>
+										<input type="submit" style="display: none" name="save_edit_sunday" id="save_edit_sunday">
+									</div>
+								</form>
+								<!-- <div class="button_table_func button_table_func_opacity" onclick="exp_pdf()"><img src="/resources/images/icon/document.svg" alt="document"><span>Скачать основное расписание</span></div> -->
+								<div class="button_table_func button_table_func_opacity" onclick="exp_pdf()"><img src="/resources/images/icon/document.svg" alt="document"><span>Скачать расписание</span></div>
+							</div>
 							<div class="schedule_table">
 								<?php 
 								// Определяем четность недели (0 - нечетная, 1 - четная)
 								$even_numbered = $week % 2 == 0 && $group->use_even == 1 ? 1:0;
+
 								// Определяем даты нынешней недели
-								$date = strtotime('monday this week');
+								if ((date('w') == 7) || (date('w') == 6 && $group->use_sunday == 0)) {
+									$date = strtotime('monday next week');
+								}else{
+									$date = strtotime('monday this week');
+								}
+								
+
+
 							    $dates=[];
 							    for($i = 0;$i < 7;$i++) {
 							        $dates[] =  date("Y-m-d", strtotime('+'.$i.' day', $date));
 							    }
+							  
 									?>
 								<div class="row">
 									<?php foreach ($day_of_the_week as $index => $day):
-										$none_sunday = $index == 6 && $group->use_sunday == 0 ? true : false;
-										$all_schedules = R::getAll('SELECT schedules.* FROM `schedules`, `timeline` WHERE schedules.timeline = timeline.id AND schedules.id_group = ? AND schedules.id_day = ? AND schedules.even_numbered = ? ORDER BY timeline.time_start', array($group->id, $day->id, $even_numbered));
-										$all_schedules = R::convertToBeans('schedules', $all_schedules);
 										$date_now = $dates[--$index];
+										$none_sunday = $index == 5 && $group->use_sunday == 0 ? true : false;
+										$all_schedules = R::getAll('SELECT schedules.*, timeline.time_start FROM `schedules`, `timeline` WHERE schedules.timeline = timeline.id AND schedules.id_group = ? AND schedules.id_day = ? AND schedules.even_numbered = ? ORDER BY timeline.time_start', array($group->id, $day->id, $even_numbered));
+										
+										$all_schedules_new_repl = R::getAll('SELECT replacing.*, timeline.time_start FROM `replacing`, `timeline` WHERE replacing.add_new = 1 AND replacing.timeline = timeline.id AND replacing.id_group = ? AND replacing.date = ? ORDER BY timeline.time_start', array($group->id, $date_now));
+
+										if ($all_schedules_new_repl && !$alt) {
+											foreach ($all_schedules_new_repl as &$value) {
+												array_push($all_schedules, $value);
+											}
+											
+											uasort($all_schedules, 'cmp_function');
+										}
+
+										$all_schedules = R::convertToBeans('schedules', $all_schedules);
+										
 										?>
 										<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
 											<div class="schedule_day <?php if($none_sunday){echo "schedule_none";}?>"  >
@@ -52,19 +90,26 @@ if (isset($group_id) && !empty($group_id)):
 															continue;
 														}
 														$id_schedule = $schedule->id;
-														$replace = R::findOne('replacing', 'id_schedule = ? AND date = ?', array($schedule->id, $date_now));
-														if ($replace) {
-															if ($replace->cancel == 1) {
-																continue;
+														if (!$alt) {
+														if ($schedule->add_new != 1) {
+															$replace = R::findOne('replacing', 'id_schedule = ? AND date = ?', array($schedule->id, $date_now));
+															if ($replace) {
+																if ($replace->cancel == 1) {
+																	continue;
+																}
+																$schedule = $replace;
 															}
-															$schedule = $replace;
+														}else{
+															$replace = true;
 														}
+													}
 
 														$lesson = R::findOne("lessons", "id = ?", array($schedule->id_lesson));
 														$time_lesson = R::findOne('timeline', 'id = ?', array($schedule->timeline));
+														$teacher = R::findOne('accounts_generated', 'id = ?', array($schedule->id_teacher));
 
 														?>
-														<div class="one_lesson" id="one_lesson" id_schedule="<?=$id_schedule;?>" date="<?=strftime("%Y-%m-%d",strtotime($date_now));?>">
+														<div class="one_lesson" id="one_lesson" <?php if ($schedule->add_new != 1): ?> id_schedule="<?=$id_schedule;?>" <?php else: ?> id_replace="<?=$id_schedule;?>" <?php endif ?> date="<?=strftime("%Y-%m-%d",strtotime($date_now));?>">
 															<div class="time">
 																<div class="time_start"><?=date("H:i", strtotime($time_lesson->time_start));?></div>
 																<div class="time_end"><?=date("H:i", strtotime($time_lesson->time_end));?></div>
@@ -72,10 +117,14 @@ if (isset($group_id) && !empty($group_id)):
 															<div class="line_day_interf"></div>
 															<div class="short_info">
 																<div class="name_lesson"><?php if($replace):?><span class="replace"></span><?php endif; ?><?=$lesson->name;?></div>
-																<div class="cabinet_lesson">
-																	<?php if (!empty($schedule->office)) {echo $schedule->office." каб. ";} ?>
-																	<?php if (!empty($schedule->floor)) {echo $schedule->floor." этаж ";} ?>
-																	<?php if (!empty($schedule->building)) {echo $schedule->building." корпус";} ?></div>
+																<div class="footer-lesson">
+																	<div class="cabinet_lesson">
+																		<?php if (!empty($schedule->office)) {echo $schedule->office." каб. ";} ?>
+																		<?php if (!empty($schedule->floor)) {echo $schedule->floor." этаж ";} ?>
+																		<?php if (!empty($schedule->building)) {echo $schedule->building." корпус";} ?>
+																	</div>
+																	<div class="teacher_lesson"><?=$teacher->surname;?> <?=mb_substr($teacher->name,0,1);?>. <?=mb_substr($teacher->middle_name,0,1);?>.</div>
+																</div>
 															</div>
 														</div>
 													<?php endforeach; ?>
@@ -106,8 +155,9 @@ if (isset($group_id) && !empty($group_id)):
 	<div class="full-info">
 		<div class="lesson-time">10:35 - 12:05</div>
 		<div class="lesson-name">Программирование в компьютерных системах.</div>
-		<div class="lesson-timeline-text">До конца: <span class="highlight">01:17</span></div>
-		<div class="lesson-timeline"><div class="line"></div></div>
+		<hr>
+		<!-- <div class="lesson-timeline-text">До конца: <span class="highlight">01:17</span></div>
+		<div class="lesson-timeline"><div class="line"></div></div> -->
 		<div class="lesson-info-item">
 			<div class="lesson-info-item_name">Преподаватель:</div>
 			<div class="lesson-info-item_text" id="name_teacher">Смирнова Милана Дмитриевна</div>
@@ -180,3 +230,4 @@ elseif(isset($institution_id) && !empty($institution_id)):
 <?php 
 endif;
 ?>
+

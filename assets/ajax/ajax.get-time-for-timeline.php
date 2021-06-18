@@ -43,6 +43,12 @@ if (empty($id_head_timeline) || $id_head_timeline <= 0) {
 	exit;
 }
 
+$use_head_timeline = R::findOne("schedules", "id_group = ? AND id_day = ? AND even_numbered = ?", array($id_group, $id_day, $even_numbered))->timeline;
+if ($use_head_timeline) {
+	$use_head_timeline = R::findOne("timeline", "id = ?", array($use_head_timeline))->id_head_timeline;
+	$id_head_timeline = $use_head_timeline;
+}
+
 $head_timeline = R::find("head_timeline", "id = ? AND id_institution  = ?", array($id_head_timeline, Account::$INSTITUTION_ID));
 if (!$head_timeline) {
 	echo json_encode(["status"=> false, "message"=> 'Данный график не найден!']);
@@ -53,5 +59,9 @@ $times = R::getAll('SELECT * FROM timeline WHERE id_head_timeline = ? AND id NOT
 
 // SELECT timeline FROM `schedules` WHERE id_group = 1 AND even_numbered = 0 AND id_day = 2
 
+if ($use_head_timeline) {
+	echo json_encode(["status"=> true, "times"=> $times, "use_head_timeline"=> $use_head_timeline]);
+}else{
+	echo json_encode(["status"=> true, "times"=> $times]);
+}
 
-echo json_encode(["status"=> true, "times"=> $times]);

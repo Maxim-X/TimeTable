@@ -23,7 +23,27 @@ if (!isset($_GET['group'])) {
 	}
 }
 
+if (isset($_POST['replace_schedule_del'])) {
+	$id_replace_schedule_del = trim($_POST['id_replace_schedule_del']);
+	$error_del = array();
 
+	$replace_id_find = R::findOne('replacing', 'id = ?', array($id_replace_schedule_del));
+	if (!$replace_id_find) {
+		array_push($error_del, "Данный элемент расписания не найден!");
+	}
+
+
+	if (count($error_del) == 0) {
+		$delete = R::load('replacing', $id_replace_schedule_del);
+		
+		try {
+		    R::trash($delete);
+		    header("Refresh: 0");
+		} catch (Exception $e) {
+		    array_push($error_del, "Что-бы пошло не так!");
+		}
+	}
+}
 
 
 
@@ -34,6 +54,44 @@ $all_groups = R::find('groups_students', 'id_institution = ?', array(Institution
 
 <script>
 	window.onload = function(){
+
+		document.querySelector('select#inputLesson').onchange = function() {
+				var num_selected = document.querySelector('select#inputLesson').options.selectedIndex;
+				var selected_lesson = document.querySelector('select#inputLesson').options[num_selected];
+
+				var inputIdDay = document.querySelector('input#inputIdDay').value;
+				var inputEvenNumbered = document.querySelector('input#inputEvenNumbered').value;
+				var id_group = document.querySelector('input#inputIdGroup').value;
+
+				if (selected_lesson.value > 0) {
+					$.ajax({
+						url: '/assets/ajax/ajax.get-teachers-for-lesson.php',
+						type: 'POST',
+						dataType: 'json',
+						data: {id_lesson: selected_lesson.value},
+					})
+					.always(function(data) {
+						document.querySelector("select#inputTeacher").innerHTML='';
+						if (data['all_teachers'].length > 0) {
+							data['all_teachers'].forEach(function(item, i, arr) {
+							  $('#inputTeacher').prepend('<option value="'+item['id']+'">'+item['surname']+' '+item['name']+' '+item['middle_name']+'</option>');
+							});
+						}else{
+							document.querySelector("select#inputTeacher").innerHTML='';
+						}
+						get_true_office();
+						
+					});
+
+					
+					
+					document.querySelector('select#inputTeacher').disabled = false;
+				}else{
+					document.querySelector('select#inputTeacher').disabled = true;
+					document.querySelector("select#inputTeacher").innerHTML='';
+				}
+	    	};
+			
 
 
 		function get_groups_none_repl(){
@@ -100,6 +158,27 @@ $all_groups = R::find('groups_students', 'id_institution = ?', array(Institution
 
 		get_replacing_day('<?=$_GET['date'];?>');
 		// get_groups_none_repl();
+	}
+	function get_true_office(){
+		var num_selected = document.querySelector('select#inputLesson').options.selectedIndex;
+			var selected_lesson = document.querySelector('select#inputLesson').options[num_selected];
+			var id_group = document.querySelector('input#inputIdGroup').value;
+			$.ajax({
+				url: '/assets/ajax/ajax.check-use-office.php',
+				type: 'POST',
+				dataType: 'json',
+				data: {id_lesson: selected_lesson.value, id_group: id_group, selected_teacher: document.querySelector('select#inputTeacher').value},
+			})
+			.always(function(data) {
+				if (data['status']) {
+					document.querySelector('input#inputOffice').value = data['use_office']['']['office'];
+					document.querySelector('input#inputFloor').value = data['use_office']['']['floor'];
+					document.querySelector('input#inputBuilding').value = data['use_office']['']['building'];
+				}
+				console.log(data);
+				console.log(data['use_office']);
+				console.log(data['use_office']['']['office']);
+			});
 	}
 		function open_group(){
 			var select = $('#inputGroupSelect04').val();
@@ -170,6 +249,40 @@ $all_groups = R::find('groups_students', 'id_institution = ?', array(Institution
 			});
 	    }
 
+	    function add_new_replace_n(){
+	    	event.preventDefault()
+			// let id_schedule = document.querySelector('input#input_edit_Schedule').value;
+			let id_lesson = document.querySelector('select#inputLesson').value;
+			let id_group = document.querySelector('input#inputIdGroup').value;
+			let id_teacher = document.querySelector('select#inputTeacher').value;
+			let id_timeline = document.querySelector('select#inputTime').value;
+
+
+			let date = document.querySelector('input#inputIdDay').value;
+			let office = document.querySelector('input#inputOffice').value;
+			let floor = document.querySelector('input#inputFloor').value;
+			let building = document.querySelector('input#inputBuilding').value;
+
+
+			$.ajax({
+				url: '/assets/ajax/ajax.add-replacing.php',
+				type: 'POST',
+				dataType: 'json',
+				data: {type: 3,id_timeline: id_timeline,  id_lesson:id_lesson, id_group:id_group, id_teacher:id_teacher, date:date, office:office, floor:floor, building:building},
+			})
+			.done(function() {
+				console.log("success");
+			})
+			.fail(function() {
+				console.log("error");
+			})
+			.always(function(data) {
+				console.log("complete");
+				console.log(data);
+				window.location.reload();
+			});
+	    }
+
 		function add_new_replace(){
 			event.preventDefault()
 			let id_schedule = document.querySelector('input#input_edit_Schedule').value;
@@ -205,7 +318,7 @@ $all_groups = R::find('groups_students', 'id_institution = ?', array(Institution
 
 		function show_form_add_schedule(elem){
 			document.querySelector('input#inputIdDay').value = elem.getAttribute('day');
-			// get_true_timeline();
+			get_true_timeline();
 		}
 
 	    	function get_schedule_info(schedule_id){
@@ -246,12 +359,18 @@ $all_groups = R::find('groups_students', 'id_institution = ?', array(Institution
 					url: '/assets/ajax/ajax.get-time-for-timeline.replace.php',
 					type: 'POST',
 					dataType: 'json',
-					data: {id_head_timeline: selected_lesson.value, id_group: <?=$_GET['group'];?>, date_day: <?=$_GET['date'];?>,},
+					data: {id_head_timeline: selected_lesson.value, id_group: <?=$_GET['group'];?>, date_day: '<?=$_GET['date'];?>'},
 				})
 				.always(function(data) {
-					console.log(data['times']);
+					console.log(data);
 					document.querySelector("select#inputTime").innerHTML='';
 					console.log(data['times'].length);
+					if (typeof data['use_head_timeline'] != 'undefined') {
+						$('#inputHeadTimeline option[value='+data['use_head_timeline']+']').prop('selected', true);
+						document.querySelector('#inputHeadTimeline').disabled = true;
+					}else{
+						document.querySelector('#inputHeadTimeline').disabled = false;
+					}
 					if (data['times'].length > 0) {
 						data['times'].forEach(function(item, i, arr) {
 							if (i == 0) {var selected = 'selected';}else{selected = "";}

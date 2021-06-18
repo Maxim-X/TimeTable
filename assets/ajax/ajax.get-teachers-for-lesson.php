@@ -1,6 +1,7 @@
 <?php
 
 $id_lesson = trim($_POST['id_lesson']);
+$id_group = trim($_POST['id_group']);
 
 # Старт сессии
 session_start(); 
@@ -45,7 +46,11 @@ if (!$lesson) {
 	echo json_encode(["status"=> false, "message"=> 'Данный предмет не найден']);
 	exit;
 }
+if (isset($_POST['id_group'])) {
+	$all_teachers = R::getAll('SELECT accounts_generated.id, accounts_generated.name, accounts_generated.surname, accounts_generated.middle_name FROM `teachers_lessons`, `accounts_generated` WHERE teachers_lessons.id_lesson = ? AND teachers_lessons.id_group = ? AND teachers_lessons.id_teacher = accounts_generated.id GROUP BY id', array($id_lesson, $id_group));
+}else{
+	$all_teachers = R::getAll('SELECT accounts_generated.id, accounts_generated.name, accounts_generated.surname, accounts_generated.middle_name FROM `teachers_lessons`, `accounts_generated` WHERE teachers_lessons.id_lesson = ? AND teachers_lessons.id_teacher = accounts_generated.id GROUP BY id', array($id_lesson));
+}
 
-$all_teachers = R::getAll('SELECT accounts_generated.id, accounts_generated.name, accounts_generated.surname, accounts_generated.middle_name FROM `teachers_lessons`, `accounts_generated` WHERE teachers_lessons.id_lesson = ? AND teachers_lessons.id_teacher = accounts_generated.id', array($id_lesson));
 
 echo json_encode(["status"=> true, "all_teachers"=> $all_teachers]);

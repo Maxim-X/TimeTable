@@ -20,7 +20,7 @@
 									<thead>
 										<tr>
 											<th>Название группы</th>
-											<th>Количество учеников</th>
+											<th>Учебное заведение</th>
 											<th>Функции</th>
 										</tr>
 									</thead>
@@ -31,12 +31,12 @@
 										?>
 										<tr>
 											
-												<td><a href="/group/<?=$group->id;?>"><?=$group->name;?></a></td>
-												<td><a href="/group/<?=$group->id;?>"><?=$count_students;?></a></td>
+												<td><a href="/schedule/<?=$group->id;?>"><?=$group->name;?></a></td>
+												<td><a href="/schedule/<?=$group->id;?>"><?=Institution::$SHORT_NAME;?></a></td>
 												<td>
 													<div class="table_row_func">
 														<!-- <div class="button_func_tb button_func_tb_red"><img src="/resources/images/icon/bin.svg" alt="bin"></div> -->
-														<a href="/group/<?=$group->id;?>"><div class="button_func_tb button_func_tb_blue"><img src="/resources/images/icon/right-chevron.svg" alt="right chevron"></div></a>
+														<a href="/schedule/<?=$group->id;?>"><div class="button_func_tb button_func_tb_blue"><img src="/resources/images/icon/right-chevron.svg" alt="right chevron"></div></a>
 													</div>
 												</td>
 										</tr>

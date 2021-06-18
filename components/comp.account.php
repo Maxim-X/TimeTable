@@ -8,8 +8,29 @@ if (!Account::$AUTH || Account::$ACCOUNT_TYPE != 3) {
 Route::$TITLE = "Панель диспетчера";
 Route::$DESCRIPTION = "Панель диспетчера";
 
-$count_students = R::count("accounts_generated", "account_type = ? AND group_id IN (SELECT id FROM groups_students WHERE id_institution = ?)", array("1", Account::$INSTITUTION_ID));
 
+
+if (isset($_POST['but_code_invite'])) {
+	$permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $input_length = strlen($permitted_chars);
+    $random_string = '';
+    for($i = 0; $i < 6; $i++) {
+        $random_character = $permitted_chars[mt_rand(0, $input_length - 1)];
+        $random_string .= $random_character;
+    }
+
+	$team_invites = R::xdispense('team_invites');
+	$team_invites->key_invite = $random_string;
+	$team_invites->institution_id = Account::$INSTITUTION_ID;
+	$team_invites->status = 0;
+	R::store($team_invites);
+	}
+
+$count_students = R::count("accounts_generated", "account_type = ? AND group_id IN (SELECT id FROM groups_students WHERE id_institution = ?)", array("1", Account::$INSTITUTION_ID));
+$count_groups = R::count("groups_students", "id_institution = ?", array(Account::$INSTITUTION_ID));
+$all_group = R::find('groups_students', 'id_institution = ?', array(Account::$INSTITUTION_ID));
+
+$last_code = R::findOne('team_invites', 'institution_id = ? AND status = ? ORDER BY id DESC ', array(Account::$INSTITUTION_ID, 0));
 class Calendar 
 {
 	/**
@@ -139,4 +160,18 @@ $(document).ready(function() {
     document.location.href = $(this).data('href');
 })
 });
+
+function CopyToClipboard(containerid) {
+if (document.selection) { 
+    var range = document.body.createTextRange();
+    range.moveToElementText(document.getElementById(containerid));
+    range.select().createTextRange();
+    document.execCommand("Copy"); 
+
+} else if (window.getSelection) {
+    var range = document.createRange();
+     range.selectNode(document.getElementById(containerid));
+     window.getSelection().addRange(range);
+     document.execCommand("Copy");
+}}
 </script>

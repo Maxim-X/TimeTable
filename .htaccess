@@ -27,5 +27,7 @@ RewriteRule ^timeline(/?)+$ index.php?option=timeline [L,QSA]
 RewriteRule ^timetable(/?)+$ index.php?option=timetable [L,QSA] 
 RewriteRule ^replacing/([0-9,-]+)(/?)+$ index.php?option=replacinge&date=$1 [L,QSA] 
 RewriteRule ^replacing/edit/([0-9,-]+)(/?)+$ index.php?option=replacinge&date=$1 [L,QSA] 
+RewriteRule ^add-lesson-for-teacher/([0-9,-]+)(/?)+$ index.php?option=add-lesson-for-teacher&id=$1 [L,QSA] 
 
 RewriteRule ^timetable-open(/?)+$ index.php?option=timetable-open [L,QSA] 
+RewriteRule ^lessons(/?)+$ index.php?option=lessons [L,QSA]

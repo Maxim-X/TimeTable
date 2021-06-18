@@ -8,19 +8,18 @@ if (!Account::$AUTH || !(Account::$ACCOUNT_TYPE != 1 || Account::$ACCOUNT_TYPE !
 Route::$TITLE = "Расписание";
 Route::$DESCRIPTION = "Расписание";
 
-$group = R::findOne('groups_students', 'id = ?', array(Account::$GROUP_ID));
+// $group = R::findOne('groups_students', 'id = ?', array(Account::$GROUP_ID));
 
-if (!$group) {
-	die('Группа не найдена!'); 
-}
-
+// if (!$group) {
+// 	die('Группа не найдена!'); 
+// }
+$week = date('W');
 $day_of_the_week = R::find("day_of_the_week");
 
-if ($group->use_even == 1) {
-	$name_week = array('Нечетная', 'Четная');
-	$even_numbered = $week % 2 == 0 && $group->use_even == 1 ? 1:0;
-	$name_week = $name_week[$even_numbered];
-}
+$name_week = array('Нечетная', 'Четная');
+$even_numbered = $week % 2 == 0 ? 1:0;
+$name_week = $name_week[$even_numbered];
+
 
 ?>
 
@@ -29,15 +28,20 @@ if ($group->use_even == 1) {
 		function open_full_info_lesson(Element){
 			
 			var block = document.querySelector('#modal-full-info-lesson');
-			block.classList.add('active');
-			var schedule_id = Element.getAttribute('id_schedule');
+			
+			if (Element.hasAttribute('id_schedule')) {
+				var schedule_id = Element.getAttribute('id_schedule');
+			}
+			if (Element.hasAttribute('id_replace')) {
+				var replace_id = Element.getAttribute('id_replace');
+			}
 			var date = Element.getAttribute('date');
 			console.log(date);
 			$.ajax({
 				url: '/assets/ajax/ajax.get-shedule-info.php',
 				type: 'POST',
 				dataType: 'json',
-				data: {schedule_id: schedule_id, date: date},
+				data: {schedule_id: schedule_id, replace_id: replace_id, date: date},
 			})
 			.done(function() {
 				console.log("success");
@@ -46,13 +50,14 @@ if ($group->use_even == 1) {
 				console.log("error");
 			})
 			.always(function(data) {
+				document.querySelector('#modal-full-info-back').classList.add('active');
+				console.log(data);
 				//Заменяемый предмет
+				document.querySelector('#name_group').innerHTML = data['group_name'];
 				if (typeof data['replace'] !== "undefined") {
-					console.log(document.querySelector('.replace-info'));
+					// console.log(document.querySelector('.replace-info'));
 					document.querySelector('.lesson-name').innerHTML = data['lesson_replace']['name'];
 					document.querySelector('.lesson-time').innerHTML = data['timeline']['time_start'].slice(0, -3) + " - " + data['timeline']['time_end'].slice(0, -3);
-					document.querySelector('.lesson-name').innerHTML = data['lesson_replace']['name'];
-					document.querySelector('#name_teacher').innerHTML = data['teacher_replace']['surname'] + " " + data['teacher_replace']['name'] + " " + data['teacher_replace']['middle_name'];
 					var num_office = data['replace']['office']+" кабинет, ";
 					if (data['replace']['floor'] != null) {
 						num_office = num_office + data['replace']['floor']+" этаж, ";
@@ -61,10 +66,8 @@ if ($group->use_even == 1) {
 						num_office = num_office + data['replace']['building']+" корпус";
 					}
 					document.querySelector('#num_office').innerHTML = num_office;
-
-
 					document.querySelector('#name_lesson_replace').innerHTML = data['lesson']['name'];
-					document.querySelector('#name_teacher_replace').innerHTML = data['teacher']['surname'] + " " + data['teacher']['name'] + " " + data['teacher']['middle_name'];
+					//document.querySelector('#name_teacher_replace').innerHTML = data['teacher']['surname'] + " " + data['teacher']['name'] + " " + data['teacher']['middle_name'];
 					
 					var num_office = data['schedule']['office']+" кабинет, ";
 					if (data['schedule']['floor'] != null) {
@@ -79,8 +82,6 @@ if ($group->use_even == 1) {
 				}else{
 					document.querySelector('.lesson-name').innerHTML = data['lesson']['name'];
 					document.querySelector('.lesson-time').innerHTML = data['timeline']['time_start'].slice(0, -3) + " - " + data['timeline']['time_end'].slice(0, -3);
-					document.querySelector('.lesson-name').innerHTML = data['lesson']['name'];
-					document.querySelector('#name_teacher').innerHTML = data['teacher']['surname'] + " " + data['teacher']['name'] + " " + data['teacher']['middle_name'];
 					var num_office = data['schedule']['office']+" кабинет, ";
 					if (data['schedule']['floor'] != null) {
 						num_office = num_office + data['schedule']['floor']+" этаж, ";
@@ -90,9 +91,8 @@ if ($group->use_even == 1) {
 					}
 					document.querySelector('#num_office').innerHTML = num_office;
 					document.querySelector('.replace-info').style.display = "none";
-					console.log(document.querySelector('.replace-info'));
 				}
-				document.querySelector('#modal-full-info-back').classList.add('active');
+				block.classList.add('active');
 			});
 			
 		}

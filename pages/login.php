@@ -28,6 +28,7 @@
 					</form>
 					<div class="login_url">
 						<a href="/reminder">Забыли пароль?</a>
+						<a href="/reg/1">Регистрация</a>
 					</div>
 				</div>
 			</div>

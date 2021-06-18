@@ -1,6 +1,3 @@
-<script>
-
-</script>
 <?PHP
   
 if (!Account::$AUTH || Account::$ACCOUNT_TYPE != 3) {
@@ -57,6 +54,17 @@ if (isset($_POST['add_timeline'])) {
 		array_push($add_timeline_error, 'Идентификатор временного графика введен неверно!');
 	}
 
+	$chek_timeline = R::count("timeline", "id_head_timeline = ? AND ((time_start BETWEEN '".$time_start_hours.":".$time_start_minutes.":00' AND '".$time_end_hours.":".$time_end_minutes.":00') OR (time_end BETWEEN '".$time_start_hours.":".$time_start_minutes.":00' AND '".$time_end_hours.":".$time_end_minutes.":00'))", array($head_id));
+
+	$chek_timeline_2 = R::count("timeline", "id_head_timeline = ? AND (('".$time_start_hours.":".$time_start_minutes.":00' BETWEEN time_start AND time_end) AND ('".$time_end_hours.":".$time_end_minutes.":00' BETWEEN time_start AND time_end))", array($head_id));
+
+	// echo $chek_timeline;
+	// echo "<br>";
+	// echo $chek_timeline_2;
+	if ($chek_timeline != 0 || $chek_timeline_2 != 0) {
+		array_push($add_timeline_error, 'Временной диапазон введен неверно!');
+	}
+
 	if (count($add_timeline_error) == 0) {
 		$timeline = R::xdispense('timeline');
 		$timeline->name = $name_head_timeline;
@@ -64,6 +72,23 @@ if (isset($_POST['add_timeline'])) {
 		$timeline->time_end = $time_end_hours.":".$time_end_minutes.":00";
 		$timeline->id_head_timeline = $head_id;
 		R::store($timeline);
+	}
+}
+
+if (isset($_POST['timeline_del'])) {
+	$del_timeline_error = array();
+	$id_timeline_del = trim($_POST['id_timeline_del']);
+	$delete = R::load('timeline', $id_timeline_del);
+
+	if (empty($id_timeline_del)) {
+		array_push($error_del, "Идентификатор указан неверно!");
+	}
+	
+	try {
+	    R::trash($delete);
+	    header("Refresh: 0");
+	} catch (Exception $e) {
+	    array_push($del_timeline_error, "Что-бы удалить элемент временного расписания, вам необходимо удалить его из расписания и замен занятий!");
 	}
 }
 

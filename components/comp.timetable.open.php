@@ -6,6 +6,13 @@ $institution_id = trim($_GET['institution_id']);
 $group_id = trim($_GET['group_id']);
 
 
+if ((date('w') == 7) || (date('w') == 6 && $group->use_sunday == 0)) {
+	$date = strtotime('monday next week');
+	$week = date('W', $date);
+}else{
+	$date = strtotime('monday this week');
+	$week = date('W');
+}
 
 if (empty($group_id) && !empty($institution_id)) {
 	$all_groups = R::findAll('groups_students', 'id_institution = ? ORDER BY `name` DESC', array($institution_id));
@@ -19,6 +26,10 @@ if (empty($group_id) && !empty($institution_id)) {
 	Route::$TITLE = "Расписание группы ".$group->name;
 	Route::$DESCRIPTION = "Расписание группы ".$group->name;
 }
+
+$alt = isset($_GET['basic']) ? true : false;
+
+$alt_url = $alt ? "timetable-open?group_id=$group->id" : "timetable-open?group_id=$group->id&basic=";
 
 $day_of_the_week = R::find("day_of_the_week");
 
@@ -35,14 +46,21 @@ if ($group->use_even == 1) {
 			
 			var block = document.querySelector('#modal-full-info-lesson');
 			block.classList.add('active');
-			var schedule_id = Element.getAttribute('id_schedule');
+			if (Element.hasAttribute('id_schedule')) {
+				var schedule_id = Element.getAttribute('id_schedule');
+			}
+			if (Element.hasAttribute('id_replace')) {
+				var replace_id = Element.getAttribute('id_replace');
+			}
+			
+			
 			var date = Element.getAttribute('date');
 			console.log(date);
 			$.ajax({
 				url: '/assets/ajax/ajax.get-shedule-info.php',
 				type: 'POST',
 				dataType: 'json',
-				data: {schedule_id: schedule_id, date: date},
+				data: {schedule_id: schedule_id,replace_id: replace_id, date: date},
 			})
 			.done(function() {
 				console.log("success");
@@ -51,9 +69,10 @@ if ($group->use_even == 1) {
 				console.log("error");
 			})
 			.always(function(data) {
+					console.log(data);
+
 				//Заменяемый предмет
 				if (typeof data['replace'] !== "undefined") {
-					console.log(document.querySelector('.replace-info'));
 					document.querySelector('.lesson-name').innerHTML = data['lesson_replace']['name'];
 					document.querySelector('.lesson-time').innerHTML = data['timeline']['time_start'].slice(0, -3) + " - " + data['timeline']['time_end'].slice(0, -3);
 					document.querySelector('.lesson-name').innerHTML = data['lesson_replace']['name'];
@@ -125,4 +144,22 @@ if ($group->use_even == 1) {
 
 
 	}
+</script>
+<script src="/assets/modules/html2pdf/html2pdf.bundle.min.js"></script>
+<script>
+
+	function exp_pdf(){
+		var element = document.querySelector('.schedule_table');
+		var opt = {
+		  margin:       [0, 0],
+		  filename:     'myfile.pdf',
+		  image:        { type: 'jpeg', quality: 1 },
+		  html2canvas:  { scale: 5 },
+		  jsPDF:        { unit: 'in', format: 'letter', orientation: 'landscape' }
+		};
+		
+		// New Promise-based usage:
+		html2pdf().set(opt).from(element).save();
+	}
+	
 </script>

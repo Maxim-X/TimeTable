@@ -314,7 +314,7 @@ class Account
 		}
 
 		# Проверка приглашения в команду
-		$find_invite = R::findOne('team_invites', 'key_invite = ?', array($key_invite));
+		$find_invite = R::findOne('team_invites', 'key_invite = ? AND status = ?', array($key_invite, 0));
 		if (!$find_invite) {
 			return array("status" => false, "message" => "Приглашение недействительно!");
 		}
@@ -483,7 +483,7 @@ class Account
 		$mail = new PHPMailer;
 
 		$mail->From = "support@timetable.ru";
-		$mail->FromName = "Full Name";
+		$mail->FromName = "Восстановление пароля";
 
 		$mail->addAddress($user->email, $user->login);
 
@@ -496,6 +496,7 @@ class Account
 		$mail->Body = 	"<p>Здравствуйте, {$rem_user_name}</p>";
 		$mail->Body .= 	"<p>На ваш аккаунт был создан запрос&nbsp;изменения&nbsp;пароля.</p>";
 		$mail->Body .= 	"<p>IP адрес: {$_SERVER['REMOTE_ADDR']}</p>";
+		$mail->Body .= 	"<p>Нажмите на кнопку 'Сбросить пароль' или перейдите по ссылке - <a href=\"{$rem_url}\">{$rem_url}</a></p>";
 		$mail->Body .= 	"<a href=\"{$rem_url}\" class=\"es-button\" target=\"_blank\" style=\"mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:roboto, 'helvetica neue', helvetica, arial, sans-serif;font-size:18px;color:#FFFFFF;border-style:solid;border-color:#2980D9;border-width:10px 40px;display:inline-block;background:#2980D9;border-radius:5px;font-weight:normal;font-style:normal;line-height:22px;width:auto;text-align:center\">Сбросить пароль</a>";
 		$mail->AltBody = "";
 

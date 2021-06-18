@@ -1,6 +1,7 @@
 <?php 
 
 $schedule_id = trim($_POST['schedule_id']);
+$replace_id = trim($_POST['replace_id']);
 $date = trim($_POST['date']);
 # Старт сессии
 session_start(); 
@@ -29,20 +30,26 @@ if(!R::testConnection()){
 
 Account::init();
 
-if (!isset($schedule_id) || empty($schedule_id)) {
+if ((!isset($schedule_id) || empty($schedule_id)) && (!isset($replace_id) || empty($replace_id))) {
 	echo json_encode(["status"=> false, "message"=> 'ID указан неверно!']);
 	exit;
 }
+if (!empty($schedule_id)) {
+	$schedule = R::findOne('schedules', 'id = ?', array($schedule_id));
+}else{
+	$schedule = R::findOne('replacing', 'id = ?', array($replace_id));
+}
 
-$schedule = R::findOne('schedules', 'id = ?', array($schedule_id));
 $lesson = R::findOne('lessons', 'id = ?', array($schedule->id_lesson));
 $timeline = R::findOne('timeline', 'id = ?', array($schedule->timeline));
 
+$group_name = R::findOne('groups_students', 'id = ?', array($schedule->id_group))->name;
+
 $teacher = R::findOne('accounts_generated', 'id = ?', array($schedule->id_teacher));
-
-$replace = R::findOne('replacing', 'id_schedule = ? AND date = ?', array($schedule->id, $date));
-
-$return = ["status"=> true, "schedule"=> $schedule, "lesson" => $lesson, "timeline" => $timeline, "teacher" => $teacher];
+if (empty($replace_id)) {
+	$replace = R::findOne('replacing', 'id_schedule = ? AND date = ?', array($schedule->id, $date));
+}
+$return = ["status"=> true, "schedule"=> $schedule, "lesson" => $lesson, "timeline" => $timeline, "teacher" => $teacher, "group_name" => $group_name];
 
 if ($replace) {
 

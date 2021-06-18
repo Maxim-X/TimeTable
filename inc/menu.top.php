@@ -1,10 +1,18 @@
+<?php 
+$_monthsList = array(
+"1"=>"Январь","2"=>"Февраль","3"=>"Март",
+"4"=>"Апрель","5"=>"Май", "6"=>"Июнь",
+"7"=>"Июль","8"=>"Август","9"=>"Сентябрь",
+"10"=>"Октябрь","11"=>"Ноябрь","12"=>"Декабрь");
+?>
+
 <section id="menu_top">
   <div class="manu_top">
     <div class="content_sec_menu">
       <div class="data_time_web">
         <span class="img"><img src="/resources/images/icon/clock.svg" alt="clock"></span>
         <span class="time" id="time"><span id="hours"><?=date("H");?></span>:<span id="min"><?=date("i");?></span></span>
-        <span class="date" id="date">10 Ноября</span>
+        <span class="date" id="date"><?=date("d");?> <?=$_monthsList[date("n")];?></span>
       </div>
     </div>
     <div class="content_sec_menu">

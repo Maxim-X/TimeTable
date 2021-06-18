@@ -15,6 +15,11 @@
 					<div class="row all_content_mg">
 						<div class="col-xxl-10 col-xl-12 col-lg-12 col-md-12">
 							<div class="bar_table">
+								<div class="stat_info_for_bar" <?php if($training_hours > $training_hours_def){echo "style='background:rgb(255 72 72 / 40%)'";} ?>>Учебные часы: <span><?=$training_hours;?> / <?=$training_hours_def;?></span></div>
+								<?php if ($count_week == 1):?>
+									<div class="stat_info_for_bar" <?php if($training_hours_even > $training_hours_def){echo "style='background:rgb(255 72 72 / 40%)'";} ?>>Учебные часы: <span><?=$training_hours_even;?> / <?=$training_hours_def;?> (Четная)</span></div>
+								<?php endif; ?>
+
 								<form method="POST">
 									<div class="reating-arkows zatujgdsanuk">
 										<input id="edit_sunday" name="edit_sunday" onchange="document.querySelector('input#save_edit_sunday').click();" type="checkbox" <?=$check_use_sunday;?>>
@@ -77,6 +82,7 @@
 													<?php foreach ($all_schedules as $schedule): 
 														$lesson = R::findOne("lessons", "id = ?", array($schedule->id_lesson));
 														$time_lesson = R::findOne('timeline', 'id = ?', array($schedule->timeline));
+														$teacher = R::findOne('accounts_generated', 'id = ?', array($schedule->id_teacher));
 														?>
 														<div class="one_lesson" id="one_lesson">
 															<div class="time">
@@ -86,10 +92,22 @@
 															<div class="line_day_interf"></div>
 															<div class="short_info">
 																<div class="name_lesson"><?=$lesson->name;?></div>
-																<div class="cabinet_lesson">
-																	<?php if (!empty($schedule->office)) {echo $schedule->office." каб. ";} ?>
-																	<?php if (!empty($schedule->floor)) {echo $schedule->floor." этаж ";} ?>
-																	<?php if (!empty($schedule->building)) {echo $schedule->building." корпус";} ?></div>
+																<div class="footer-lesson">
+																		<div class="cabinet_lesson">
+																			<?php if (!empty($schedule->office)) {echo $schedule->office." каб. ";} ?>
+																			<?php if (!empty($schedule->floor)) {echo $schedule->floor." этаж ";} ?>
+																			<?php if (!empty($schedule->building)) {echo $schedule->building." корпус";} ?>
+																		</div>
+																		<div class="teacher_lesson"><?=$teacher->surname;?> <?=mb_substr($teacher->name,0,1);?>. <?=mb_substr($teacher->middle_name,0,1);?>.</div>
+																</div>
+															
+															</div>
+															<form method="POST" style="display: none;">
+																<input type="text" name="id_schedule_del" value="<?=$schedule->id;?>">
+																<input type="submit" name="schedule_del" id="schedule_del_<?=$schedule->id;?>">
+															</form>
+															<div class="one_lesson_delete">
+																<div class="button_func_tb button_func_tb_red" onclick="console.log($('#schedule_del_<?=$schedule->id;?>').click());"><img src="/resources/images/icon/bin.svg" alt="bin"></div>
 															</div>
 														</div>
 													<?php endforeach; ?>
@@ -100,10 +118,54 @@
 								</div>
 							<?php endfor ;?>
 							</div>
+								<section id="info_error">
+
+								<?php 
+
+									
+									$errors_found = array();
+									$schedules = R::find('schedules', 'id_group = ? AND even_numbered = ?', array($id_group, 0));
+
+									foreach ($schedules as $schedule) {
+										// Однинаковые кабинеты
+										$check_error = R::findOne('schedules', 'timeline = ? AND id_day = ? AND id_group != ? AND even_numbered = ? AND id != ? AND office = ?', array($schedule->timeline, $schedule->id_day, $id_group , $schedule->even_numbered, $schedule->id, $schedule->office));
+
+										if ($check_error) {
+											$week_num = array('понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота');
+											$group_name = R::findOne('groups_students', 'id = ?', array($check_error->id_group))->name;
+											$timeline = R::findOne('timeline', 'id = ?', array($schedule->timeline));
+											$error_generation = "Кабинет №".$schedule->office." используется несколько раз.<br><b>День недели:</b> ".$week_num[$schedule->id_day - 1]."; <b>Время:</b> ". date("H:i", strtotime($timeline->time_start)) ." - ". date("H:i", strtotime($timeline->time_end)) ."; <b>Совместная группа:</b> " . $group_name.";";
+											array_push($errors_found, $error_generation);
+										}
+										// Одинаковые преподаватели
+										$check_error = R::findOne('schedules', 'timeline = ? AND id_day = ? AND id_group != ? AND even_numbered = ? AND id != ? AND id_teacher = ?', array($schedule->timeline, $schedule->id_day, $id_group , $schedule->even_numbered, $schedule->id, $schedule->id_teacher));
+										if ($check_error) {
+											$week_num = array('понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота');
+											$group_name = R::findOne('groups_students', 'id = ?', array($check_error->id_group))->name;
+											$timeline = R::findOne('timeline', 'id = ?', array($schedule->timeline));
+											$teacher = R::findOne('accounts_generated', 'id = ?', array($schedule->id_teacher));
+											$error_generation = "Преподаватель <b>$teacher->surname $teacher->name $teacher->middle_name</b> ведет в одно время, в нескольких группах.<br><b>День недели:</b> ".$week_num[$schedule->id_day - 1]."; <b>Время:</b> ". date("H:i", strtotime($timeline->time_start)) ." - ". date("H:i", strtotime($timeline->time_end)) ."; <b>Совместная группа:</b> " . $group_name.";";
+											array_push($errors_found, $error_generation);
+										}
+									}
+
+									
+									
+									if (count($errors_found) != 0) {
+										echo "<h1 class='main_header'>Ошибки при заполнении расписания:</h1><br>";
+										sort($errors_found);
+									}
+									foreach ($errors_found as $error) {
+										echo "<div class=\"alert alert-primary\" role=\"alert\">".$error."</div>";
+									}
+								?>
+							</section>
 						</div>
 					</div>
 				</div>
 			</section>
+
+
 		</div>
 	</div>
 </div>
@@ -178,3 +240,20 @@
   </div>
 </div>
 
+<?php
+
+
+
+
+//Вывод ошибок
+
+if (count($error_del) != 0) {
+	$error_del_text = "";
+	foreach ($error_del as $value) {
+		$error_del_text .= $value;
+	}
+	echo "<script>
+	window.onload = function(){alert('".$error_del_text."');}
+</script>";
+}
+?>

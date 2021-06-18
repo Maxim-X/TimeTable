@@ -7,7 +7,7 @@ if ($_GET['step'] == "1") {
 			<div class="col-xxl-4 col-xl-5 col-lg-8 col-md-8 col-sm-12 col-12 mx-auto">
 				<div class="main_user_login">
 					<h3>Регистрация</h3>
-					<p class="title_head">Зарегистрируйтесь чтобы добавить ваше учебное заведение или вступить в команду!</p>
+					<p class="title_head">Зарегистрируйтесь, чтобы добавить ваше учебное заведение или вступить в команду!</p>
 					<form method="POST" name="signup">
 						<?php
 						if (isset($error_reg)) {
